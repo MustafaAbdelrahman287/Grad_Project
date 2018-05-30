@@ -1,0 +1,16 @@
+{
+  "db": {
+    "name": "db",
+    "connector": "memory"
+  },
+  "geomarketingdb": {
+    "host": "geomarketingdb-shard-00-00-owfgv.mongodb.net",
+    "port": 27017,
+    "url": "mongodb://Mostafa:Tefaisdaman287@geomarketingdb-shard-00-00-owfgv.mongodb.net:27017,geomarketingdb-shard-00-01-owfgv.mongodb.net:27017,geomarketingdb-shard-00-02-owfgv.mongodb.net:27017/test?ssl=true&replicaSet=geomarketingdb-shard-0&authSource=admin&retryWrites=true",
+    "database": "geomarketingdb",
+    "password": "Tefaisdaman287",
+    "name": "geomarketingdb",
+    "user": "Mostafa",
+    "connector": "mongodb"
+  }
+}
