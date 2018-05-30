@@ -74,9 +74,6 @@
   "demographic_profile": {
     "dataSource": "geomarketingdb",
     "public": true
-  },
-  "aksjd": {
-    "dataSource": "db",
-    "public": true
   }
+
 }
