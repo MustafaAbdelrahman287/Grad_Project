@@ -1,0 +1,22 @@
+{
+  "name": "competitor",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "competitor_name": {
+      "type": "string"
+    },
+    "competitor_location": {
+      "type": [
+        "geopoint"
+      ]
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

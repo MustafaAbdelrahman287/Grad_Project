@@ -1,0 +1,60 @@
+{
+  "name": "customer",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "customer_id": {
+      "type": "number"
+    },
+    "name": {
+      "type": "string"
+    },
+    "mobile_number": {
+      "type": "number"
+    },
+    "cst_orders": {
+      "type": [
+        "object"
+      ]
+    },
+    "email": {
+      "type": "string"
+    },
+    "interset_list": {
+      "type": [
+        "string"
+      ]
+    },
+    "survey_points": {
+      "type": "number"
+    },
+    "cst_location": {
+      "type": "geopoint"
+    },
+    "isloyal": {
+      "type": "boolean"
+    },
+    "date_of_birth": {
+      "type": "date"
+    },
+    "gender": {
+      "type": "string"
+    },
+    "age": {
+      "type": "number"
+    },
+    "income_level": {
+      "type": "string"
+    },
+    "educational_level": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

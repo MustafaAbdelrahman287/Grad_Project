@@ -1,0 +1,27 @@
+{
+  "name": "surveys",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "num_of_answers": {
+      "type": "number"
+    },
+    "cst_answered": {
+      "type": [
+        "object"
+      ]
+    },
+    "questions": {
+      "type": [
+        "object"
+      ]
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

@@ -1,0 +1,57 @@
+{
+  "name": "branch",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "branch_code": {
+      "type": "number"
+    },
+    "name": {
+      "type": "string"
+    },
+    "province": {
+      "type": "string",
+      "default": "Cairo"
+    },
+    "city": {
+      "type": "string"
+    },
+    "items": {
+      "type": [
+        "object"
+      ]
+    },
+    "branch_area": {
+      "type": "number"
+    },
+    "branch_manager": {
+      "type": "string"
+    },
+    "branch_phone_numbers": {
+      "type": [
+        "number"
+      ]
+    },
+    "orders": {
+      "type": [
+        "object"
+      ]
+    },
+    "branch_power": {
+      "type": "number"
+    },
+    "branch_location": {
+      "type": "geopoint"
+    },
+    "rating": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

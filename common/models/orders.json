@@ -1,0 +1,31 @@
+{
+  "name": "orders",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "date": {
+      "type": "date"
+    },
+    "customer_id_fk": {
+      "type": "number"
+    },
+    "order_items": {
+      "type": [
+        "object"
+      ]
+    },
+    "total_price": {
+      "type": "number"
+    },
+    "branch_code": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

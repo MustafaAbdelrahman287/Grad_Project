@@ -1,0 +1,51 @@
+{
+  "name": "items",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "item_code": {
+      "type": "number"
+    },
+    "name": {
+      "type": "string"
+    },
+    "price": {
+      "type": "number"
+    },
+    "size": {
+      "type": "string"
+    },
+    "color": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "picture": {
+      "type": "img"
+    },
+    "sub_category": {
+      "type": "string"
+    },
+    "discount": {
+      "type": {
+        "number": "string"
+      }
+    },
+    "availabe_in_branches": {
+      "type": [
+        "number"
+      ]
+    },
+    "rating": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}
