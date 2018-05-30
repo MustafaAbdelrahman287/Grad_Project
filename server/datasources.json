@@ -1,16 +1,16 @@
 {
-  "db": {
-    "name": "db",
-    "connector": "memory"
-  },
-  "geomarketingdb": {
-    "host": "localhost",
-    "port": 27017,
-    "url": "",
-    "database": "geomarketingdb",
-    "password": "",
-    "name": "Geomarketingdb",
-    "user": "",
-    "connector": "mongodb"
-  }
+    "db": {
+        "name": "db",
+        "connector": "memory"
+    },
+    "geomarketingdb": {
+        "host": "localhost",
+        "port": 27017,
+        "url": "",
+        "database": "geomarketingdb",
+        "password": "",
+        "name": "geomarketingdb",
+        "user": "",
+        "connector": "mongodb"
+    }
 }
