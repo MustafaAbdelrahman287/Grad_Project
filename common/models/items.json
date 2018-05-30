@@ -7,13 +7,16 @@
   },
   "properties": {
     "item_code": {
-      "type": "number"
+      "type": "number",
+      "required": true,
+      "unique": true
     },
     "name": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "price": {
-      "type": "number"
+      "type": "string"
     },
     "size": {
       "type": "string"
@@ -22,18 +25,17 @@
       "type": "string"
     },
     "category": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "picture": {
-      "type": "img"
+      "type": "string"
     },
     "sub_category": {
       "type": "string"
     },
     "discount": {
-      "type": {
-        "number": "string"
-      }
+      "type": "number"
     },
     "availabe_in_branches": {
       "type": [

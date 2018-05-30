@@ -6,23 +6,68 @@
     "validateUpsert": true
   },
   "properties": {
+    
     "branch_code": {
-      "type": "number"
-    },
+      "type": "number",
+      "required": true,
+      "unique": true
+    },"branch_acc_username":{"type":"string"},
+    "branch_acc_password":{"type":"string"},
+    "user_type":{"type":"string","default":"manager"},
     "name": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "province": {
       "type": "string",
       "default": "Cairo"
     },
     "city": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "items": {
-      "type": [
-        "object"
-      ]
+      "type": [{
+        "item_code": {
+          "type": "number",
+          "required": true,
+          "unique": true
+        },
+        "name": {
+          "type": "string",
+          "required": true
+        },
+        "price": {
+          "type": "string"
+        },
+        "size": {
+          "type": "string"
+        },
+        "color": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string",
+          "required": true
+        },
+        "picture": {
+          "type": "string"
+        },
+        "sub_category": {
+          "type": "string"
+        },
+        "discount": {
+          "type": "number"
+        },
+        "availabe_in_branches": {
+          "type": [
+            "number"
+          ]
+        },
+        "rating": {
+          "type": "number"
+        }
+      }]
     },
     "branch_area": {
       "type": "number"
@@ -36,9 +81,27 @@
       ]
     },
     "orders": {
+      "type": [{
+        "order_code":{"type":"number","required":true},
+    "date": {
+      "type": "date"
+    },
+    "customer_id_fk": {
+      "type": "number"
+    },
+    "order_items": {
       "type": [
         "object"
       ]
+    },
+    "total_price": {
+      "type": "number"
+    },
+    "branch_code": {
+      "type": "number"
+    }
+
+      }]
     },
     "branch_power": {
       "type": "number"
