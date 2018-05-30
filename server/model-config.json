@@ -70,5 +70,9 @@
   "adverts": {
     "dataSource": "geomarketingdb",
     "public": true
+  },
+  "demographic_profile": {
+    "dataSource": "geomarketingdb",
+    "public": true
   }
 }
