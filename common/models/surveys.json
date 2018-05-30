@@ -6,18 +6,32 @@
     "validateUpsert": true
   },
   "properties": {
+    "survey_name": {
+      "type": "string"
+    },
+    "date": {
+      "type": "date"
+    },
     "num_of_answers": {
       "type": "number"
     },
-    "cst_answered": {
+    "answered_cust_phones": {
       "type": [
-        "object"
+        "number"
       ]
     },
-    "questions": {
-      "type": [
-        "object"
-      ]
+    "survey_points": {
+      "type": "number"
+    },
+    "questions_and_answers": {
+      "type": [{
+        "question": {
+          "type": "string"
+        },
+        "answer": {
+          "type": "string"
+        }
+      }]
     }
   },
   "validations": [],

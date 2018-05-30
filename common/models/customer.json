@@ -6,18 +6,34 @@
     "validateUpsert": true
   },
   "properties": {
-    "customer_id": {
-      "type": "number"
-    },
+    
     "name": {
-      "type": "string"
+      "type": "string",
+      "required":true
     },
     "mobile_number": {
       "type": "number"
     },
     "cst_orders": {
       "type": [
-        "object"
+        {"order_code":{"type":"number","required":true},
+        "date": {
+          "type": "date"
+        },
+        "customer_id_fk": {
+          "type": "number"
+        },
+        "order_items": {
+          "type": [
+            "object"
+          ]
+        },
+        "total_price": {
+          "type": "number"
+        },
+        "branch_code": {
+          "type": "number"
+        }}
       ]
     },
     "email": {
@@ -34,8 +50,8 @@
     "cst_location": {
       "type": "geopoint"
     },
-    "isloyal": {
-      "type": "boolean"
+    "loyalty_points": {
+      "type": "number"
     },
     "date_of_birth": {
       "type": "date"
