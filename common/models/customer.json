@@ -67,7 +67,9 @@
     },
     "educational_level": {
       "type": "string"
-    }
+    },"username":{"type":"string"},
+    "password":{"type":"string"},
+    "user_type":{"type":"string","default":"customer"}
   },
   "validations": [],
   "relations": {},
