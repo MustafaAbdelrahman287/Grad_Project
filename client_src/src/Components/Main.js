@@ -3,7 +3,7 @@ import {Switch, Route } from 'react-router-dom';
 import Login from './Login';
 import Home from './Home';
 
-const main=()=>(
+const Main=()=>(
     <main>
         <Switch>
             <Route exact path='/' component={Login}/>
