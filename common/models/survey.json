@@ -1,5 +1,5 @@
 {
-  "name": "surveys",
+  "name": "survey",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {

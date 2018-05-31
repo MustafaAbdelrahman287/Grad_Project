@@ -1,5 +1,5 @@
 {
-  "name": "adverts",
+  "name": "advert",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {

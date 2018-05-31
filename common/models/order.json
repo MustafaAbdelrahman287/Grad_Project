@@ -1,41 +1,51 @@
 {
-    "name": "orders",
-    "base": "PersistedModel",
-    "idInjection": true,
-    "options": {
-        "validateUpsert": true
+  "name": "order",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "order_code": {
+      "type": "number",
+      "required": true
     },
-    "properties": {
-        "order_code": {
-            "type": "number",
-            "required": true
-        },
-        "date": {
-            "type": "date"
-        },
-        "customer_id_fk": {
-            "type": "string"
-        },
-        "order_items": {
-            "type": [
-                "object"
-            ]
-        },
-        "total_price": {
-            "type": "number"
-        },
-        "branch_code": {
-            "type": "number"
-        }
+    "date": {
+      "type": "date"
     },
-    "validations": [],
-    "relations": {
-        "customer": {
-            "type": "belongsTo",
-            "model": "customer",
-            "foreignKey": "customer_id_fk"
-        }
+    "customer_id_fk": {
+      "type": "string"
     },
-    "acls": [],
-    "methods": {}
+    "order_items_code": {
+      "type": [
+        "number"
+      ]
+    },
+    "total_price": {
+      "type": "number"
+    },
+    "branch_id_fk": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "customer": {
+      "type": "belongsTo",
+      "model": "customer",
+      "foreignKey": "customer_id_fk"
+    },
+    "branch": {
+      "type": "belongsTo",
+      "model": "branch",
+      "foreignKey": "branch_id_fk"
+    },
+    "items": {
+      "type": "hasMany",
+      "model": "item",
+      "foreignKey": "order_id_fk"
+    }
+  },
+  "acls": [],
+  "methods": {}
 }

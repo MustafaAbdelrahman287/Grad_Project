@@ -1,5 +1,5 @@
 {
-  "name": "items",
+  "name": "item",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
@@ -37,6 +37,16 @@
     "discount": {
       "type": "number"
     },
+    "order_id_fk": {
+      "type": [
+        "string"
+      ]
+    },
+    "branch_id_fk": {
+      "type": [
+        "string"
+      ]
+    },
     "availabe_in_branches": {
       "type": [
         "number"
@@ -47,7 +57,18 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "branch": {
+      "type": "belongsTo",
+      "model": "branch",
+      "foreignKey": "branch_id_fk"
+    },
+    "orders": {
+      "type": "hasAndBelongsToMany",
+      "model": "order",
+      "foreignKey": "order_id_fk"
+    }
+  },
   "acls": [],
   "methods": {}
 }
