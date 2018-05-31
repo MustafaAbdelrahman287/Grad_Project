@@ -13,31 +13,6 @@
          "mobile_number": {
              "type": "number"
          },
-         "cst_orders": {
-             "type": [{
-                 "order_code": {
-                     "type": "number",
-                     "required": true
-                 },
-                 "date": {
-                     "type": "date"
-                 },
-                 "customer_id_fk": {
-                     "type": "string"
-                 },
-                 "order_items": {
-                     "type": [
-                         "object"
-                     ]
-                 },
-                 "total_price": {
-                     "type": "number"
-                 },
-                 "branch_code": {
-                     "type": "number"
-                 }
-             }]
-         },
          "email": {
              "type": "string"
          },

@@ -1,78 +1,78 @@
 {
-  "_meta": {
-    "sources": [
-      "loopback/common/models",
-      "loopback/server/models",
-      "../common/models",
-      "./models"
-    ],
-    "mixins": [
-      "loopback/common/mixins",
-      "loopback/server/mixins",
-      "../common/mixins",
-      "./mixins"
-    ]
-  },
-  "User": {
-    "dataSource": "geomarketingdb"
-  },
-  "AccessToken": {
-    "dataSource": "geomarketingdb",
-    "public": false
-  },
-  "ACL": {
-    "dataSource": "geomarketingdb",
-    "public": false
-  },
-  "RoleMapping": {
-    "dataSource": "geomarketingdb",
-    "public": false,
-    "options": {
-      "strictObjectIDCoercion": true
+    "_meta": {
+        "sources": [
+            "loopback/common/models",
+            "loopback/server/models",
+            "../common/models",
+            "./models"
+        ],
+        "mixins": [
+            "loopback/common/mixins",
+            "loopback/server/mixins",
+            "../common/mixins",
+            "./mixins"
+        ]
+    },
+    "User": {
+        "dataSource": "geomarketingdb"
+    },
+    "AccessToken": {
+        "dataSource": "geomarketingdb",
+        "public": false
+    },
+    "ACL": {
+        "dataSource": "geomarketingdb",
+        "public": false
+    },
+    "RoleMapping": {
+        "dataSource": "geomarketingdb",
+        "public": false,
+        "options": {
+            "strictObjectIDCoercion": true
+        }
+    },
+    "Role": {
+        "dataSource": "geomarketingdb",
+        "public": false
+    },
+    "customer": {
+        "dataSource": "geomarketingdb",
+        "public": true
+    },
+    "competitor": {
+        "dataSource": "geomarketingdb",
+        "public": true
+    },
+    "branch": {
+        "dataSource": "geomarketingdb",
+        "public": true
+    },
+    "item": {
+        "dataSource": "geomarketingdb",
+        "public": true
+    },
+    "order": {
+        "dataSource": "geomarketingdb",
+        "public": true
+    },
+    "factory": {
+        "dataSource": "geomarketingdb",
+        "public": true
+    },
+    "warehouse": {
+        "dataSource": "geomarketingdb",
+        "public": true
+    },
+    "survey": {
+        "dataSource": "geomarketingdb",
+        "public": true
+    },
+    "advert": {
+        "dataSource": "geomarketingdb",
+        "public": true
+    },
+    "demographic_profile": {
+        "dataSource": "geomarketingdb",
+        "public": true
     }
-  },
-  "Role": {
-    "dataSource": "geomarketingdb",
-    "public": false
-  },
-  "customer": {
-    "dataSource": "geomarketingdb",
-    "public": true
-  },
-  "competitor": {
-    "dataSource": "geomarketingdb",
-    "public": true
-  },
-  "branch": {
-    "dataSource": "geomarketingdb",
-    "public": true
-  },
-  "items": {
-    "dataSource": "geomarketingdb",
-    "public": true
-  },
-  "orders": {
-    "dataSource": "geomarketingdb",
-    "public": true
-  },
-  "factory": {
-    "dataSource": "geomarketingdb",
-    "public": true
-  },
-  "warehouse": {
-    "dataSource": "geomarketingdb",
-    "public": true
-  },
-  "surveys": {
-    "dataSource": "geomarketingdb",
-    "public": true
-  },
-  "adverts": {
-    "dataSource": "geomarketingdb",
-    "public": true
-  },
-  "demographic_profile": {
-    "dataSource": "geomarketingdb",
-    "public": true
-  }
 }

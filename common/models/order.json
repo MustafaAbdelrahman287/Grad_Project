@@ -1,41 +1,41 @@
 {
-  "name": "orders",
-  "base": "PersistedModel",
-  "idInjection": true,
-  "options": {
-    "validateUpsert": true
-  },
-  "properties": {
-    "order_code": {
-      "type": "number",
-      "required": true
+    "name": "orders",
+    "base": "PersistedModel",
+    "idInjection": true,
+    "options": {
+        "validateUpsert": true
     },
-    "date": {
-      "type": "date"
+    "properties": {
+        "order_code": {
+            "type": "number",
+            "required": true
+        },
+        "date": {
+            "type": "date"
+        },
+        "customer_id_fk": {
+            "type": "string"
+        },
+        "order_items": {
+            "type": [
+                "object"
+            ]
+        },
+        "total_price": {
+            "type": "number"
+        },
+        "branch_code": {
+            "type": "number"
+        }
     },
-    "customer_id_fk": {
-      "type": "number"
+    "validations": [],
+    "relations": {
+        "customer": {
+            "type": "belongsTo",
+            "model": "customer",
+            "foreignKey": "customer_id_fk"
+        }
     },
-    "order_items": {
-      "type": [
-        "object"
-      ]
-    },
-    "total_price": {
-      "type": "number"
-    },
-    "branch_code": {
-      "type": "number"
-    }
-  },
-  "validations": [],
-  "relations": {
-    "customer": {
-      "type": "belongsTo",
-      "model": "customer",
-      "foreignKey": "customer_id_fk"
-    }
-  },
-  "acls": [],
-  "methods": {}
+    "acls": [],
+    "methods": {}
 }
