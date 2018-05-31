@@ -1,74 +1,74 @@
 {
-  "name": "customer",
-  "base": "PersistedModel",
-  "idInjection": true,
-  "options": {
-    "validateUpsert": true
-  },
-  "properties": {
-    "name": {
-      "type": "string",
-      "required": true
+    "name": "customer",
+    "base": "PersistedModel",
+    "idInjection": true,
+    "options": {
+        "validateUpsert": true
     },
-    "mobile_number": {
-      "type": "number"
+    "properties": {
+        "name": {
+            "type": "string",
+            "required": true
+        },
+        "mobile_number": {
+            "type": "number"
+        },
+        "email": {
+            "type": "string"
+        },
+        "interset_list": {
+            "type": [
+                "string"
+            ]
+        },
+        "survey_points": {
+            "type": "number"
+        },
+        "cst_location": {
+            "type": "geopoint"
+        },
+        "loyalty_points": {
+            "type": "number"
+        },
+        "date_of_birth": {
+            "type": "date"
+        },
+        "gender": {
+            "type": "string"
+        },
+        "age": {
+            "type": "number"
+        },
+        "income_level": {
+            "type": "string"
+        },
+        "educational_level": {
+            "type": "string"
+        },
+        "username": {
+            "type": "string"
+        },
+        "password": {
+            "type": "string"
+        },
+        "orders_code": {
+            "type": [
+                "string"
+            ]
+        },
+        "user_type": {
+            "type": "string",
+            "default": "customer"
+        }
     },
-    "email": {
-      "type": "string"
+    "validations": [],
+    "relations": {
+        "orders": {
+            "type": "hasMany",
+            "model": "order",
+            "foreignKey": "customer_id_fk"
+        }
     },
-    "interset_list": {
-      "type": [
-        "string"
-      ]
-    },
-    "survey_points": {
-      "type": "number"
-    },
-    "cst_location": {
-      "type": "geopoint"
-    },
-    "loyalty_points": {
-      "type": "number"
-    },
-    "date_of_birth": {
-      "type": "date"
-    },
-    "gender": {
-      "type": "string"
-    },
-    "age": {
-      "type": "number"
-    },
-    "income_level": {
-      "type": "string"
-    },
-    "educational_level": {
-      "type": "string"
-    },
-    "username": {
-      "type": "string"
-    },
-    "password": {
-      "type": "string"
-    },
-    "orders_code": {
-      "type": [
-        "number"
-      ]
-    },
-    "user_type": {
-      "type": "string",
-      "default": "customer"
-    }
-  },
-  "validations": [],
-  "relations": {
-    "orders": {
-      "type": "hasMany",
-      "model": "order",
-      "foreignKey": "customer_id_fk"
-    }
-  },
-  "acls": [],
-  "methods": {}
+    "acls": [],
+    "methods": {}
 }

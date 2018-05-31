@@ -1,74 +1,74 @@
 {
-  "name": "item",
-  "base": "PersistedModel",
-  "idInjection": true,
-  "options": {
-    "validateUpsert": true
-  },
-  "properties": {
-    "item_code": {
-      "type": "number",
-      "required": true,
-      "unique": true
+    "name": "item",
+    "base": "PersistedModel",
+    "idInjection": true,
+    "options": {
+        "validateUpsert": true
     },
-    "name": {
-      "type": "string",
-      "required": true
+    "properties": {
+        "item_code": {
+            "type": "string",
+            "required": true,
+            "unique": true
+        },
+        "name": {
+            "type": "string",
+            "required": true
+        },
+        "price": {
+            "type": "string"
+        },
+        "size": {
+            "type": "string"
+        },
+        "color": {
+            "type": "string"
+        },
+        "category": {
+            "type": "string",
+            "required": true
+        },
+        "picture": {
+            "type": "string"
+        },
+        "sub_category": {
+            "type": "string"
+        },
+        "discount": {
+            "type": "number"
+        },
+        "order_id_fk": {
+            "type": [
+                "string"
+            ]
+        },
+        "branch_id_fk": {
+            "type": [
+                "string"
+            ]
+        },
+        "availabe_in_branches": {
+            "type": [
+                "number"
+            ]
+        },
+        "rating": {
+            "type": "number"
+        }
     },
-    "price": {
-      "type": "string"
+    "validations": [],
+    "relations": {
+        "branch": {
+            "type": "belongsTo",
+            "model": "branch",
+            "foreignKey": "branch_id_fk"
+        },
+        "orders": {
+            "type": "hasAndBelongsToMany",
+            "model": "order",
+            "foreignKey": "order_id_fk"
+        }
     },
-    "size": {
-      "type": "string"
-    },
-    "color": {
-      "type": "string"
-    },
-    "category": {
-      "type": "string",
-      "required": true
-    },
-    "picture": {
-      "type": "string"
-    },
-    "sub_category": {
-      "type": "string"
-    },
-    "discount": {
-      "type": "number"
-    },
-    "order_id_fk": {
-      "type": [
-        "string"
-      ]
-    },
-    "branch_id_fk": {
-      "type": [
-        "string"
-      ]
-    },
-    "availabe_in_branches": {
-      "type": [
-        "number"
-      ]
-    },
-    "rating": {
-      "type": "number"
-    }
-  },
-  "validations": [],
-  "relations": {
-    "branch": {
-      "type": "belongsTo",
-      "model": "branch",
-      "foreignKey": "branch_id_fk"
-    },
-    "orders": {
-      "type": "hasAndBelongsToMany",
-      "model": "order",
-      "foreignKey": "order_id_fk"
-    }
-  },
-  "acls": [],
-  "methods": {}
+    "acls": [],
+    "methods": {}
 }

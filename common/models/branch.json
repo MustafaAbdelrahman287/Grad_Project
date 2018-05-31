@@ -1,82 +1,82 @@
 {
-  "name": "branch",
-  "base": "PersistedModel",
-  "idInjection": true,
-  "options": {
-    "validateUpsert": true
-  },
-  "properties": {
-    "branch_code": {
-      "type": "number",
-      "required": true,
-      "unique": true
+    "name": "branch",
+    "base": "PersistedModel",
+    "idInjection": true,
+    "options": {
+        "validateUpsert": true
     },
-    "branch_acc_username": {
-      "type": "string"
+    "properties": {
+        "branch_code": {
+            "type": "number",
+            "required": true,
+            "unique": true
+        },
+        "branch_acc_username": {
+            "type": "string"
+        },
+        "branch_acc_password": {
+            "type": "string"
+        },
+        "user_type": {
+            "type": "string",
+            "default": "manager"
+        },
+        "name": {
+            "type": "string",
+            "required": true
+        },
+        "province": {
+            "type": "string",
+            "default": "Cairo"
+        },
+        "city": {
+            "type": "string",
+            "required": true
+        },
+        "branch_area": {
+            "type": "number"
+        },
+        "branch_manager": {
+            "type": "string"
+        },
+        "branch_phone_numbers": {
+            "type": [
+                "number"
+            ]
+        },
+        "branch_power": {
+            "type": "number"
+        },
+        "branch_location": {
+            "type": "geopoint"
+        },
+        "orders_code": {
+            "type": [
+                "string"
+            ]
+        },
+        "items_code": {
+            "type": [
+                "string"
+            ]
+        },
+        "rating": {
+            "type": "number"
+        }
     },
-    "branch_acc_password": {
-      "type": "string"
+    "validations": [],
+    "relations": {
+        "orders": {
+            "type": "hasMany",
+            "model": "order",
+            "foreignKey": "branch_id_fk"
+        },
+        "items": {
+            "type": "hasMany",
+            "model": "item",
+            "foreignKey": "branch_id_fk"
+        }
     },
-    "user_type": {
-      "type": "string",
-      "default": "manager"
-    },
-    "name": {
-      "type": "string",
-      "required": true
-    },
-    "province": {
-      "type": "string",
-      "default": "Cairo"
-    },
-    "city": {
-      "type": "string",
-      "required": true
-    },
-    "branch_area": {
-      "type": "number"
-    },
-    "branch_manager": {
-      "type": "string"
-    },
-    "branch_phone_numbers": {
-      "type": [
-        "number"
-      ]
-    },
-    "branch_power": {
-      "type": "number"
-    },
-    "branch_location": {
-      "type": "geopoint"
-    },
-    "orders_code": {
-      "type": [
-        "number"
-      ]
-    },
-    "items_code": {
-      "type": [
-        "number"
-      ]
-    },
-    "rating": {
-      "type": "number"
-    }
-  },
-  "validations": [],
-  "relations": {
-    "orders": {
-      "type": "hasMany",
-      "model": "order",
-      "foreignKey": "branch_id_fk"
-    },
-    "items": {
-      "type": "hasMany",
-      "model": "item",
-      "foreignKey": "branch_id_fk"
-    }
-  },
-  "acls": [],
-  "methods": {}
+    "acls": [],
+    "methods": {}
 }
