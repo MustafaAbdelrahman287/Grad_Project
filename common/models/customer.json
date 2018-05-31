@@ -1,78 +1,94 @@
-{
-  "name": "customer",
-  "base": "PersistedModel",
-  "idInjection": true,
-  "options": {
-    "validateUpsert": true
-  },
-  "properties": {
-    
-    "name": {
-      "type": "string",
-      "required":true
-    },
-    "mobile_number": {
-      "type": "number"
-    },
-    "cst_orders": {
-      "type": [
-        {"order_code":{"type":"number","required":true},
-        "date": {
-          "type": "date"
-        },
-        "customer_id_fk": {
-          "type": "number"
-        },
-        "order_items": {
-          "type": [
-            "object"
-          ]
-        },
-        "total_price": {
-          "type": "number"
-        },
-        "branch_code": {
-          "type": "number"
-        }}
-      ]
-    },
-    "email": {
-      "type": "string"
-    },
-    "interset_list": {
-      "type": [
-        "string"
-      ]
-    },
-    "survey_points": {
-      "type": "number"
-    },
-    "cst_location": {
-      "type": "geopoint"
-    },
-    "loyalty_points": {
-      "type": "number"
-    },
-    "date_of_birth": {
-      "type": "date"
-    },
-    "gender": {
-      "type": "string"
-    },
-    "age": {
-      "type": "number"
-    },
-    "income_level": {
-      "type": "string"
-    },
-    "educational_level": {
-      "type": "string"
-    },"username":{"type":"string"},
-    "password":{"type":"string"},
-    "user_type":{"type":"string","default":"customer"}
-  },
-  "validations": [],
-  "relations": {},
-  "acls": [],
-  "methods": {}
-}
+ {
+     "name": "customer",
+     "base": "PersistedModel",
+     "idInjection": true,
+     "options": {
+         "validateUpsert": true
+     },
+     "properties": {
+         "name": {
+             "type": "string",
+             "required": true
+         },
+         "mobile_number": {
+             "type": "number"
+         },
+         "cst_orders": {
+             "type": [{
+                 "order_code": {
+                     "type": "number",
+                     "required": true
+                 },
+                 "date": {
+                     "type": "date"
+                 },
+                 "customer_id_fk": {
+                     "type": "string"
+                 },
+                 "order_items": {
+                     "type": [
+                         "object"
+                     ]
+                 },
+                 "total_price": {
+                     "type": "number"
+                 },
+                 "branch_code": {
+                     "type": "number"
+                 }
+             }]
+         },
+         "email": {
+             "type": "string"
+         },
+         "interset_list": {
+             "type": [
+                 "string"
+             ]
+         },
+         "survey_points": {
+             "type": "number"
+         },
+         "cst_location": {
+             "type": "geopoint"
+         },
+         "loyalty_points": {
+             "type": "number"
+         },
+         "date_of_birth": {
+             "type": "date"
+         },
+         "gender": {
+             "type": "string"
+         },
+         "age": {
+             "type": "number"
+         },
+         "income_level": {
+             "type": "string"
+         },
+         "educational_level": {
+             "type": "string"
+         },
+         "username": {
+             "type": "string"
+         },
+         "password": {
+             "type": "string"
+         },
+         "user_type": {
+             "type": "string",
+             "default": "customer"
+         }
+     },
+     "validations": [],
+     "relations": {
+         "orders": {
+             "type": "hasMany",
+             "model": "orders",
+             "foreignKey": "customer_id_fk"
+         }
+     },
+     "acls": [],
+     "methods": {}
+ }

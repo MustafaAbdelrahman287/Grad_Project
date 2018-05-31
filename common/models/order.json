@@ -5,7 +5,11 @@
   "options": {
     "validateUpsert": true
   },
-  "properties": {"order_code":{"type":"number","required":true},
+  "properties": {
+    "order_code": {
+      "type": "number",
+      "required": true
+    },
     "date": {
       "type": "date"
     },
@@ -25,7 +29,13 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "customer": {
+      "type": "belongsTo",
+      "model": "customer",
+      "foreignKey": "customer_id_fk"
+    }
+  },
   "acls": [],
   "methods": {}
 }
