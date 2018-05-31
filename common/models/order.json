@@ -1,0 +1,41 @@
+{
+    "name": "orders",
+    "base": "PersistedModel",
+    "idInjection": true,
+    "options": {
+        "validateUpsert": true
+    },
+    "properties": {
+        "order_code": {
+            "type": "number",
+            "required": true
+        },
+        "date": {
+            "type": "date"
+        },
+        "customer_id_fk": {
+            "type": "string"
+        },
+        "order_items": {
+            "type": [
+                "object"
+            ]
+        },
+        "total_price": {
+            "type": "number"
+        },
+        "branch_code": {
+            "type": "number"
+        }
+    },
+    "validations": [],
+    "relations": {
+        "customer": {
+            "type": "belongsTo",
+            "model": "customer",
+            "foreignKey": "customer_id_fk"
+        }
+    },
+    "acls": [],
+    "methods": {}
+}

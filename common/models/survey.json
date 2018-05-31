@@ -24,14 +24,16 @@
       "type": "number"
     },
     "questions_and_answers": {
-      "type": [{
-        "question": {
-          "type": "string"
-        },
-        "answer": {
-          "type": "string"
+      "type": [
+        {
+          "question": {
+            "type": "string"
+          },
+          "answer": {
+            "type": "string"
+          }
         }
-      }]
+      ]
     }
   },
   "validations": [],
