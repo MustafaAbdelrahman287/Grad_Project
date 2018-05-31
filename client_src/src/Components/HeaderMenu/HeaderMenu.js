@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Header, Icon, Image } from 'semantic-ui-react';
-import './Home.css';
+import { Header, Icon } from 'semantic-ui-react';
+import './HeaderMenu.css';
 
-class Home extends Component {
+class HeaderMenu extends Component {
     render() {
         return (
             <ul className='header-items'>
@@ -43,4 +43,4 @@ class Home extends Component {
     }
 }
 
-export default Home;
+export default HeaderMenu;
