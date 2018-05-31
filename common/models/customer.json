@@ -6,6 +6,9 @@
         "validateUpsert": true
     },
     "properties": {
+        "customer_Code": {
+            "type": "number"
+        },
         "name": {
             "type": "string",
             "required": true
