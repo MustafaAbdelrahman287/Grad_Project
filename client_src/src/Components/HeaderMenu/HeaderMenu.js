@@ -8,7 +8,7 @@ class HeaderMenu extends Component {
             <ul className='header-items'>
                 <li className='header-item'>
                     <Header color='grey' as='h6' icon textAlign='center'>
-                        <Icon name='users' color='teal' />
+                        <Icon link = {true} name='users' color='teal' />
                         <Header.Content >
                             Customers
                         </Header.Content>
@@ -16,7 +16,7 @@ class HeaderMenu extends Component {
                 </li>
                 <li className='header-item'>
                     <Header color='grey' as='h6' icon textAlign='center'>
-                        <Icon name='users' color='teal' />
+                        <Icon link = {true} name='point' color='teal' />
                         <Header.Content>
                             Branches
                         </Header.Content>
@@ -24,7 +24,7 @@ class HeaderMenu extends Component {
                 </li>
                 <li className='header-item'>
                     <Header color='grey' as='h6' icon textAlign='center'>
-                        <Icon name='users' color='teal' />
+                        <Icon link = {true} name='expand' color='teal' />
                         <Header.Content>
                             Expansion
                         </Header.Content>
@@ -32,7 +32,7 @@ class HeaderMenu extends Component {
                 </li>
                 <li className='header-item'>
                     <Header color='grey' as='h6' icon textAlign='center'>
-                        <Icon color='teal' name='users' />
+                        <Icon link = {true} color='teal' name='announcement' />
                         <Header.Content>
                             Advertisments
                         </Header.Content>

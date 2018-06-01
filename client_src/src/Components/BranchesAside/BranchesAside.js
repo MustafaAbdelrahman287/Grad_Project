@@ -18,7 +18,7 @@ class BranchesAside extends Component {
 
         return (
             <div>
-                <Form ClassName='Branches'>
+                <Form className='Branches'>
 
                     <Form.Checkbox label='Adidas' />
                     <Form.Button>Show ServiceArea</Form.Button>
@@ -39,9 +39,7 @@ class BranchesAside extends Component {
                         <div>
                             <Icon name='users' size="small" />
                             Target segment
-
-
-                             <Label as='a' image>
+                            <Label as='a' image>
                                 <img src='/assets/images/avatar/small/elliot.jpg' />
                                 Rating
                             </Label>

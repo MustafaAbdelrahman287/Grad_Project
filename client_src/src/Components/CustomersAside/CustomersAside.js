@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Accordion, Menu, Form, Button, Checkbox, Dimmer } from 'semantic-ui-react';
+import LoyalCustomers from './LoyalCustomers'
+import { Accordion, Menu, Icon, Form, Button } from 'semantic-ui-react';
 
 class CustomersAside extends Component {
-  state = { activeIndex: 0, active1:false, active2:false }
+  state = { activeIndex: 0 }
 
   handleClick = (e, titleProps) => {
     const { index } = titleProps
@@ -11,11 +12,9 @@ class CustomersAside extends Component {
 
     this.setState({ activeIndex: newIndex })
   }
-  handleCheck1 = (e) => this.setState({active1:!this.state.active1})
-  handleCheck2 = (e) => this.setState({active2:!this.state.active2})
 
   render() {
-    const { activeIndex } = this.state;
+    const { activeIndex } = this.state
 
     const CurrentCustomersPanels = [
       { title: 'Level 1A', content: 'Level 1A Contents' },
@@ -24,7 +23,6 @@ class CustomersAside extends Component {
 
     const CurrentCustomersContent = (
       <div>
-        CurrentCustomers
         <Accordion.Accordion panels={CurrentCustomersPanels} />
       </div>
     )
@@ -41,11 +39,9 @@ class CustomersAside extends Component {
     )
     const Gender = (
       <Form>
-        <Form.Group grouped>
-          <Form.Checkbox label='Red' name='color' value='red' />
-          <Form.Checkbox label='Orange' name='color' value='orange' />
-          <Form.Checkbox label='Green' name='color' value='green' />
-          <Form.Checkbox label='Blue' name='color' value='blue' />
+        <Form.Group>
+          <Button  circular icon='male' />
+          <Button  circular icon='female' />
         </Form.Group>
       </Form>
     )
@@ -106,44 +102,19 @@ class CustomersAside extends Component {
 
     const PotentialCustomersContent = (
       <div>
-        PotentialCustomers
         <Accordion.Accordion panels={PotentialCustomersPanels} />
       </div>
     )
 
     const LoyalCustomersContent = (
-      <div>
-        <Form>
-          <Form.Field>
-            <label>Duration</label>
-            <Dimmer.Dimmable as={Form.Input} dimmed={this.state.active1}>
-              <Dimmer active={this.state.active1} />
-              <input placeholder='Specify number of years' />
-            </Dimmer.Dimmable>
-          </Form.Field>
-          <Form.Field>
-            <Checkbox onChange={this.handleCheck1} label='All' />
-          </Form.Field>
-          <Form.Field>
-            <label>Number of Orders</label>
-            <Dimmer.Dimmable as={Form.Input} dimmed={this.state.active2}>
-              <Dimmer active={this.state.active2} />
-              <input placeholder='Specify number of orders' />
-            </Dimmer.Dimmable>
-          </Form.Field>
-          <Form.Field>
-          <Checkbox onChange={this.handleCheck2} label='All' />
-          </Form.Field>
-          <Button type='submit'>Show</Button>
-        </Form>
-      </div>
+      <LoyalCustomers/>
     )
 
     const rootPanels = [
-      { title: 'CurrentCustomers', content: { content: CurrentCustomersContent, key: 'content-1' } },
-      { title: 'TargetSegment', content: { content: TargetSegmentContent, key: 'content-2' } },
-      { title: 'PotentialCustomers', content: { content: PotentialCustomersContent, key: 'content-3' } },
-      { title: 'LoyalCustomers', content: { content: LoyalCustomersContent, key: 'content-4' } },
+      { title: 'Current Customers', content: { content: CurrentCustomersContent, key: 'content-1' } },
+      { title: 'Target Segment', content: { content: TargetSegmentContent, key: 'content-2' } },
+      { title: 'Potential Customers', content: { content: PotentialCustomersContent, key: 'content-3' } },
+      { title: 'Loyal Customers', content: { content: LoyalCustomersContent, key: 'content-4' } },
     ]
     return (
       <Accordion defaultActiveIndex={0} panels={rootPanels} styled />
