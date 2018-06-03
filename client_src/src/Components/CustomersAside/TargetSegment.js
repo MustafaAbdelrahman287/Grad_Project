@@ -27,7 +27,7 @@ class TargetSegment extends Component {
                 <Form>
                     <Form.Group>
                         <Button tabIndex={0} basic color='teal' circular icon='male' toggle active={active} onClick={this.handleClick} />
-                        <Button tabIndex={0} basic color='teal' circular icon='female' toggle active={active} onClick={this.handleClick} />
+                        <Button tabIndex={1} basic color='teal' circular icon='female' toggle active={active} onClick={this.handleClick} />
                     </Form.Group>
                 </Form>
             </Menu.Item>
