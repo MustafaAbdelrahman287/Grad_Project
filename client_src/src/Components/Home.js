@@ -3,6 +3,7 @@ import { Tab } from 'semantic-ui-react'
 import CustomersAside from './CustomersAside/CustomersAside';
 import BranchesAside from './BranchesAside/BranchesAside';
 import ExpansionAside from './ExpansionAside/ExpansionAside';
+import AdvertismentAside from './AdvertismentAside/AdvertismentAside';
 
 class Home extends Component {
 
@@ -22,7 +23,7 @@ class Home extends Component {
             },
             {
                 menuItem: { key: 'advertisments', icon: 'announcement', content: 'Advertisments' },
-                render: () => <Tab.Pane>Advertisement</Tab.Pane>,
+                render: () => <Tab.Pane><AdvertismentAside/></Tab.Pane>,
             },
         ]
         return (

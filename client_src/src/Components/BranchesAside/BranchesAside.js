@@ -25,11 +25,14 @@ class BranchesAside extends Component {
 
                     <Form.Checkbox label='Competitor' />
                     <Form.Button>Show ServiceArea</Form.Button>
+                    <br/>
                     <label>OverLap Areas</label>
                     <Form.Checkbox label='Adidas' />
                     <Form.Checkbox label='Competitor' />
 
                 </Form>
+                <br/>
+                <br/>
                 <Accordion styled>
                     <Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>
                         <Icon name='dropdown' />
@@ -37,22 +40,26 @@ class BranchesAside extends Component {
                   </Accordion.Title>
                     <Accordion.Content active={activeIndex === 0}>
                         <div>
-                            <Icon name='users' size="small" />
+                        <Label circlar  size='large'as='a' >
+                            <Icon name='users'/>
                             Target segment
-                            <Label as='a' image>
-                                <img src='/assets/images/avatar/small/elliot.jpg' />
+                            </Label>
+                            <Label circlar  size='large'as='a' >
+                            <Icon name='star'/>
                                 Rating
                             </Label>
-                            <Label as='a' image>
-                                <img src='/assets/images/avatar/small/stevie.jpg' />
+                            <Label circular size='large' as='a' >
+                            <Icon name='window restore'/> 
                                 Overlap with my branches
                             </Label>
-                            <Label as='a' image>
-                                <img src='/assets/images/avatar/small/stevie.jpg' />
+                            <br/>
+                            <br/>
+                            <Label circular  size='large'as='a' >
+                            <Icon name='window restore'/>  
                                 Overlap with my competitor
                             </Label>
-                            <Label as='a' image>
-                                <img src='/assets/images/avatar/small/stevie.jpg' />
+                            <Label circular size='large' as='a' >
+                            <Icon name='shopping bag'/>
                                 Complemntray service
                              </Label>
                         </div>
