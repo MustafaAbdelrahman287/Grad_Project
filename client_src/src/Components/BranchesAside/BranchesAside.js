@@ -40,11 +40,11 @@ class BranchesAside extends Component {
                   </Accordion.Title>
                     <Accordion.Content active={activeIndex === 0}>
                         <div>
-                        <Label circlar  size='large'as='a' >
+                        <Label circular  size='large'as='a' >
                             <Icon name='users'/>
                             Target segment
                             </Label>
-                            <Label circlar  size='large'as='a' >
+                            <Label circular  size='large'as='a' >
                             <Icon name='star'/>
                                 Rating
                             </Label>

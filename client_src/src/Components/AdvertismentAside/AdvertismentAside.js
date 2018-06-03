@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Checkbox, Radio, Form, Menu } from 'semantic-ui-react';
+import { Button, Checkbox, Form, Menu } from 'semantic-ui-react';
 class AdvertismentAside extends Component {
     state = {  active: false }
     
@@ -21,12 +21,11 @@ class AdvertismentAside extends Component {
                 </Form.Group>
                 <Form.Group widths='equal' as={Menu} vertical>
                 <Menu.Item>
-                        <label>Pin Point</label>
+                        <label>Pinpoint Available Locations</label>
                         <br />
                     </Menu.Item>
                     <Menu.Item>
-                        <Form.Field role='checkbox' tabIndex={0} basic color='teal' control={Button} circular icon='point' active={active} onClick={this.handleClick} value='factory' />
-                       
+                        <Form.Field tabIndex={0} basic color='teal' control={Button} circular icon='point' active={active} onClick={this.handleClick} value='factory' />
                     </Menu.Item>
                 </Form.Group>
                 <Form.Field control={Button}>Submit</Form.Field>
