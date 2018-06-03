@@ -1,20 +1,15 @@
 import React, { Component } from 'react';
 import { Button, Checkbox, Radio, Form, Menu } from 'semantic-ui-react';
 class AdvertismentAside extends Component {
-    state = {  selectionMethod: [false] }
+    state = {  active: false }
     
         
         handleClick = (e, clickProps) => {
-            e.preventDefault();
-            const { tabIndex } = clickProps;
-            const selectionMethod = this.state.selectionMethod.slice();
-            selectionMethod[tabIndex] = !selectionMethod[tabIndex];
-            this.setState({ selectionMethod: selectionMethod });
-            console.log(this.state.selectionMethod);
+            this.setState({active:!this.state.active})
         }
     render() {
 
-        const { selectionMethod } = this.state;
+        const { active } = this.state;
         return (
             <Form>
                 <Form.Group as={Menu} vertical>
@@ -30,7 +25,7 @@ class AdvertismentAside extends Component {
                         <br />
                     </Menu.Item>
                     <Menu.Item>
-                        <Form.Field role='checkbox' tabIndex={0} basic color='teal' control={Button} circular icon='point' active={selectionMethod[0]} onClick={this.handleClick} value='factory' />
+                        <Form.Field role='checkbox' tabIndex={0} basic color='teal' control={Button} circular icon='point' active={active} onClick={this.handleClick} value='factory' />
                        
                     </Menu.Item>
                 </Form.Group>
