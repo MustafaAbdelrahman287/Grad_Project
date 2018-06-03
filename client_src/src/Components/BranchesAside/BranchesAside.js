@@ -20,7 +20,7 @@ class BranchesAside extends Component {
             <div>
                 <Form className='Branches'>
 
-                    <Form.Checkbox label='Adidas' />
+                    <Form.Checkbox label='Adidas' size='big' />
                     <Form.Button>Show ServiceArea</Form.Button>
 
                     <Form.Checkbox label='Competitor' />
@@ -30,6 +30,8 @@ class BranchesAside extends Component {
                     <Form.Checkbox label='Competitor' />
 
                 </Form>
+                <br/>
+                <br/>
                 <Accordion styled>
                     <Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>
                         <Icon name='dropdown' />
@@ -37,30 +39,28 @@ class BranchesAside extends Component {
                   </Accordion.Title>
                     <Accordion.Content active={activeIndex === 0}>
                         <div>
-                        <Label as='a'>
+                        <Label  circular size='large'as='a'>
                             <Icon name='users'/> 
                             Target segment
                             </Label>
-                            <Label circular color='yellow' size='big' as='a'>
+                            <Label circular  size='large' as='a'>
                             <Icon name='star'/>
                                Rating
                             </Label>
-                            <Label  circular size='big' as='a'>
+                            <Label  circular size='large' as='a'>
                             <Icon name='window restore'/>
                             Overlap With My Branchs
-                               
-                                
                             </Label>
-                            <Label circular size='big' as='a'>
+                            <br/>
+                            <br/>
+                            <Label circular size='large' as='a'>
                             <Icon name='window restore'/>
-                            
-                                
-                                Overlap with my competitor
+                            Overlap with my competitor
                             </Label>
-                            <Label circular size='big'n as='a' >
+                            <Label circular size='large'n as='a' >
                             <Icon name='shopping bag'/>
-                                Complemntray service
-                             </Label>
+                             Complemntray service
+                            </Label>
                         </div>
                     </Accordion.Content>
                     </Accordion>
