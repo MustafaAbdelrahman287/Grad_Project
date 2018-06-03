@@ -13,6 +13,7 @@ class LoyalCustomers extends Component {
             disabled[tabIndex] = -1;
         }
         this.setState({tabIndex:disabled, checked:checked});
+        console.log({tabIndex, checked})
     }
     render() {
         return (

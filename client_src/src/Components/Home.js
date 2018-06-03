@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Tab } from 'semantic-ui-react'
-import HeaderMenu from './HeaderMenu/HeaderMenu';
 import CustomersAside from './CustomersAside/CustomersAside';
 import BranchesAside from './BranchesAside/BranchesAside';
 import ExpansionAside from './ExpansionAside/ExpansionAside';

@@ -1,35 +1,38 @@
 import React, { Component } from 'react';
-import { Accordion } from 'semantic-ui-react';
+import { Accordion, Button, Label, Icon } from 'semantic-ui-react';
 import LoyalCustomers from './LoyalCustomers'
 import TargetSegment from './TargetSegment';
 
 class CustomersAside extends Component {
   render() {
-    const CurrentCustomersPanels = [
-      { title: 'Level 1A', content: 'Level 1A Contents' },
-      { title: 'Level 1B', content: 'Level 1B Contents' },
-    ]
 
     const CurrentCustomersContent = (
-      <div>
-        <Accordion.Accordion panels={CurrentCustomersPanels} />
-      </div>
-    )
+      <Button as='div' labelPosition='right'>
+        <Button basic color='teal'>
+          <Icon name='users' />
+          Show
+        </Button>
+        <Label as='a' basic color='teal' pointing='left'>
+          2,048
+        </Label>
+      </Button>
+      )
 
     const TargetSegmentContent = (
       <TargetSegment/>
     )
 
-    const PotentialCustomersPanels = [
-      { title: 'Level 3A', content: 'Level 3A Contents' },
-      { title: 'Level 3B', content: 'Level 3B Contents' },
-    ]
-
     const PotentialCustomersContent = (
-      <div>
-        <Accordion.Accordion panels={PotentialCustomersPanels} />
-      </div>
-    )
+      <Button as='div' labelPosition='right'>
+        <Button basic color='teal'>
+          <Icon name='users' />
+          Show
+        </Button>
+        <Label as='a' basic color='teal' pointing='left'>
+          2,048
+        </Label>
+      </Button>
+      )
 
     const LoyalCustomersContent = (
       <LoyalCustomers/>
