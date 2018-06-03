@@ -37,22 +37,28 @@ class BranchesAside extends Component {
                   </Accordion.Title>
                     <Accordion.Content active={activeIndex === 0}>
                         <div>
-                            <Icon name='users' size="small" />
+                        <Label as='a'>
+                            <Icon name='users'/> 
                             Target segment
-                            <Label as='a' image>
-                                <img src='/assets/images/avatar/small/elliot.jpg' />
-                                Rating
                             </Label>
-                            <Label as='a' image>
-                                <img src='/assets/images/avatar/small/stevie.jpg' />
-                                Overlap with my branches
+                            <Label circular color='yellow' size='big' as='a'>
+                            <Icon name='star'/>
+                               Rating
                             </Label>
-                            <Label as='a' image>
-                                <img src='/assets/images/avatar/small/stevie.jpg' />
+                            <Label  circular size='big' as='a'>
+                            <Icon name='window restore'/>
+                            Overlap With My Branchs
+                               
+                                
+                            </Label>
+                            <Label circular size='big' as='a'>
+                            <Icon name='window restore'/>
+                            
+                                
                                 Overlap with my competitor
                             </Label>
-                            <Label as='a' image>
-                                <img src='/assets/images/avatar/small/stevie.jpg' />
+                            <Label circular size='big'n as='a' >
+                            <Icon name='shopping bag'/>
                                 Complemntray service
                              </Label>
                         </div>
