@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
+<<<<<<< HEAD
 import { RouterModule, Routes } from '@angular/router';
 
 const appRoutes: Routes = [
@@ -12,11 +13,15 @@ const appRoutes: Routes = [
     pathMatch: 'full'
   }
 ];
+=======
+import { NavbarComponent } from './components/navbar/navbar.component';
+>>>>>>> cbff090282d64dee2f2c318242f52bbda51964ac
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
