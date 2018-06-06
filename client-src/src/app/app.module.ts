@@ -5,9 +5,11 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { RouterModule, Routes } from '@angular/router';
 import { MainComponent } from './components/main/main.component';
-import { BranchesComponent } from './components/main/branches/branches.component';
+import { NavbarComponent } from './components/main/navbar/navbar.component';
+import { CustomerComponent } from './components/main/customer/customer.component';
 import { ExpansionComponent } from './components/main/expansion/expansion.component';
-import { CustomerComponent } from './components/main/customer/customer.component'
+import { BranchesComponent } from './components/main/branches/branches.component';
+import { AdvertismentComponent } from './components/main/advertisment/advertisment.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -16,10 +18,10 @@ const appRoutes: Routes = [
     pathMatch: 'full'
   },
   { path: 'main', component: MainComponent },
-  { path: 'main', component: CustomerComponent },
-  { path: 'main', component: BranchesComponent },
-  { path: 'main', component: MainComponent },
-  { path: 'main', component: MainComponent },
+  { path: 'main/customer', component: CustomerComponent },
+  { path: 'main/expansion', component: ExpansionComponent },
+  { path: 'main/branches', component: BranchesComponent },
+  { path: 'main/ads', component: AdvertismentComponent },
 ];
 
 @NgModule({
@@ -27,9 +29,11 @@ const appRoutes: Routes = [
     AppComponent,
     LoginComponent,
     MainComponent,
-    ExpansionComponent,
+    NavbarComponent,
     CustomerComponent,
-    BranchesComponent
+    ExpansionComponent,
+    BranchesComponent,
+    AdvertismentComponent
   ],
   imports: [
     BrowserModule,
