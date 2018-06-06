@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-advertisment',
   templateUrl: './advertisment.component.html',
-  styleUrls: ['./advertisment.component.css']
+  styleUrls: ['./advertisment.component.css', '../main.component.css']
 })
 export class AdvertismentComponent implements OnInit {
 
