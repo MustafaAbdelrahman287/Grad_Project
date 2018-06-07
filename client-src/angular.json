@@ -24,13 +24,13 @@
             ],
             "styles": [
               "src/styles.css",
-              "./node_modules/bootstrap/dist/css/bootstrap.css"
+              "./node_modules/bootstrap/dist/css/bootstrap.css",
+              "./node_modules/font-awesome/css/font-awesome.css"
             ],
             "scripts": [
               "./node_modules/jquery/dist/jquery.js",
               "./node_modules/tether/dist/js/tether.js",
-              "./node_modules/bootstrap/dist/js/bootstrap.js",
-              "./node_modules/feather-icons/dist/feather.js"
+              "./node_modules/bootstrap/dist/js/bootstrap.js"
             ]
           },
           "configurations": {
