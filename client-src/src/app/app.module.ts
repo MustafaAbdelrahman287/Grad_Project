@@ -13,10 +13,7 @@ import { AdvertismentComponent } from './components/main/advertisment/advertisme
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: '',
-    redirectTo: '/login',
-    pathMatch: 'full'
-  },
+  { path: '', redirectTo: '/login', pathMatch: 'full'},
   { path: 'main', component: MainComponent },
   { path: 'main/customer', component: CustomerComponent },
   { path: 'main/expansion', component: ExpansionComponent },
