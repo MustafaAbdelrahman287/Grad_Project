@@ -17,71 +17,8 @@
             </a>
           </li>
           <div id="accordion">
-            <li class="nav-item">
-              <a class="nav-link" data-toggle="collapse" data-target="#target" aria-expanded="true" aria-controls="collapseOne">
-                <i class="fa fa-bullseye" aria-hidden="true"></i>
-                Target Segment
-              </a>
-            </li>
-            <div id="target" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-              <div class="card-body">
-                <form>
-                  <div class="form-group">
-                    <label for="age">Age</label>
-                    <input type="text" class="form-control" id="age" placeholder="19:30">
-                  </div>
-                  <div class="form-group">
-                    <label for="gender">Gender</label>
-                    <div id="gender" class="btn-group-toggle" data-toggle="buttons">
-                      <label class="btn btn-secondary btn-outline-primary active">
-                        <input type="checkbox" checked autocomplete="off">
-                        <i class="fa fa-male" aria-hidden="true"></i>
-                      </label>
-                      <label class="btn btn-secondary btn-outline-primary active">
-                        <input type="checkbox" checked autocomplete="off">
-                        <i class="fa fa-female" aria-hidden="true"></i>
-                      </label>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="educationLevel">Education Level</label>
-                    <select id="educationLevel" class="custom-select" multiple>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label for="incomeLevel">Income Level</label>
-                    <select id="incomeLevel" class="custom-select" multiple>
-                      <option value="1">A</option>
-                      <option value="2">B</option>
-                      <option value="3">C</option>
-                    </select>
-                  </div>
-                </form>
-              </div>
-            </div>
-            <li class="nav-item">
-              <a class="nav-link" data-toggle="collapse" data-target="#loyal" aria-expanded="true" aria-controls="collapseOne">
-                <i class="fa fa-heart" aria-hidden="true"></i>
-                Loyal Customers
-              </a>
-            </li>
-            <div id="loyal" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-              <div class="card-body">
-                <form>
-                  <div class="form-group">
-                    <label for="#duration">Duration</label>
-                    <input id="duration" type="text" class="form-control" placeholder="Specify minimum number of years">
-                  </div>
-                  <div class="form-group">
-                      <label for="#orders">Orders</label>
-                      <input id="orders" type="text" class="form-control" placeholder="Specify minimum number of years">
-                    </div>
-                </form>
-              </div>
-            </div>
+            <app-target-segment></app-target-segment>
+            <app-loyal-customers></app-loyal-customers>
           </div>
           <li class="nav-item">
             <a class="nav-link active" href="#">

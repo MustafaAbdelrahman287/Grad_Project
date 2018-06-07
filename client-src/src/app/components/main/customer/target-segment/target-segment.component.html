@@ -1,0 +1,48 @@
+<li class="nav-item">
+  <a class="nav-link" data-toggle="collapse" data-target="#target" aria-expanded="true" aria-controls="collapseOne">
+    <i class="fa fa-bullseye" aria-hidden="true"></i>
+    Target Segment
+  </a>
+</li>
+<div id="target" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+  <div class="card-body">
+    <form>
+      <div class="form-group">
+        <label for="age">Age</label>
+        <input type="text" class="form-control" id="age" placeholder="19:30">
+      </div>
+      <div class="form-group">
+        <label for="gender">Gender</label>
+        <div id="gender" class="btn-group-toggle" data-toggle="buttons">
+          <label class="btn btn-secondary btn-outline-primary active">
+            <input type="checkbox" checked autocomplete="off">
+            <i class="fa fa-male" aria-hidden="true"></i>
+          </label>
+          <label class="btn btn-secondary btn-outline-primary active">
+            <input type="checkbox" checked autocomplete="off">
+            <i class="fa fa-female" aria-hidden="true"></i>
+          </label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="educationLevel">Education Level</label>
+        <select id="educationLevel" class="custom-select">
+          <option selected value=""></option>
+          <option [value]='eduLevel.id' *ngFor="let eduLevel of eduLevels">
+            {{ eduLevel.name }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="incomeLevel">Income Level</label>
+        <select id="incomeLevel" class="custom-select" multiple>
+          <option selected value=""></option>
+          <option [value]='incomeLevel.id' *ngFor="let incomeLevel of incomeLevels">
+            {{ incomeLevel.name }}
+          </option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>

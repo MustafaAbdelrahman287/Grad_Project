@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class ExpansionComponent implements OnInit {
 
   constructor() { }
-
+  expansionTypes = [{id:'1', name:'Branch'}, {id:'2', name:'Factory'}, {id:'3', name:'Warehouse'}];
   ngOnInit() {
   }
 

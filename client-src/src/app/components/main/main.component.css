@@ -1,11 +1,13 @@
 body {
     font-size: .875rem;
   }
+  /*
+   * Font Awesome
+  */
   
-  .feather {
-    width: 16px;
-    height: 16px;
-    vertical-align: text-bottom;
+  label.btn-secondary {
+      border-radius: 50%;
+      margin: 10px;
   }
   
   /*
