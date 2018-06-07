@@ -5,12 +5,17 @@
         <div class="sidebar-sticky">
           <ul class="nav flex-column">
             <li class="nav-item">
-              <a class="nav-link active" href="#">
-                <span data-feather="home"></span>
+              <a class="nav-link" href="#">
+                  <i class="fa fa-font" aria-hidden="true"></i>
                 Adidas
-                <span class="sr-only">(current)</span>
+                
               </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <button class="btn"><i class="fa fa-plus-square-o" aria-hidden="true"> </i> Add</button>
+           </a>
+                </li>
             <li class="nav-item">
               <a class="nav-link" href="#">
                 <span data-feather="file"></span>
@@ -28,21 +33,44 @@
                   
                   <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                     <div class="card-body">
-                      <label>
-                        <input type="checkbox"  data-feather="star">Rating
-                      </label>
-                      <label>
-                        <input type="checkbox"  data-feather="layers">Overlap with Branches
-                      </label>
-                      <label>
-                        <input type="checkbox"  data-feather="layers">Overlap with Branches
-                      </label>
-                      <label>
-                        <input type="checkbox"  data-feather="target">Target Segment
-                      </label>
-                      <label>
-                        <input type="checkbox"  data-feather="shopping-bag">Complemntray Product
-                      </label>
+                        <div class="btn-group-toggle" data-toggle="buttons">
+                        
+                          
+                          <label class="btn btn-secondary btn-outline-dark active">
+                              <input type="checkbox" checked autocomplete="off">
+                              <i class="fa fa-object-ungroup" aria-hidden="true"></i>
+                              Overlap with branches
+                            </label>
+                            <br/>
+                            
+                            <label class="btn btn-secondary btn-outline-dark active">
+                                <input type="checkbox" checked autocomplete="off">
+                                <i class="fa fa-object-ungroup" aria-hidden="true"></i>
+                                Overlap with competitor
+                              </label>
+                              <br/>
+                              
+                             
+                                
+                                <label class="btn btn-secondary btn-outline-dark active">
+                                    <input type="checkbox" checked autocomplete="off">
+                                    <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                                     Complemntrary Product
+                                  </label>
+                                  <br/>
+                                  <label class="btn btn-secondary btn-outline-dark active">
+                                      
+                                      <input type="checkbox" checked autocomplete="off">
+                                       <i class="fa fa-users" aria-hidden="true"></i>
+                                       Target Segment
+                                      </label>
+                                      <br/>
+                                  <label class="btn btn-secondary btn-outline-dark active">
+                                      <input type="checkbox" checked autocomplete="off">
+                                      <i class="fa fa-star-o" aria-hidden="true"></i>
+                                      Rating
+                                    </label>
+                                  </div>
                         
 
           
@@ -52,7 +80,7 @@
                 </div>
             <li class="nav-item">
               <a class="nav-link" href="#">
-                <span data-feather="users"></span>
+                  <i class="fa fa-bar-chart" aria-hidden="true"></i>
                 Dashboard
               </a>
             </li>
