@@ -11,12 +11,17 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
-              <button class="btn">
-                  <i class="fa fa-plus fa-lg" aria-hidden="true"></i> </button>
-                <button class="btn">
+            <a class="nav-link" href="/main/branches/add">
+              <button class="btn" (click)='onSubmit(f)' routerLink = '/main/branches/add.component'>
+               
+                
+                <i class="fa fa-plus fa-lg" aria-hidden="true"></i> </button>
+              </a>
+                <a class="nav-link" href="/main/branches/remove">
+                <button class="btn" (click)='onSubmit(f)' routerLink = '/main/branches/remove/remove'>
                     <i class="fa fa-trash-o fa-lg" aria-hidden="true"></i> </button>
-            </a>
+                  </a>
+                  
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">

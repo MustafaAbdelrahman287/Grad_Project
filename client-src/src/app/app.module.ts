@@ -13,6 +13,8 @@ import { AdvertismentComponent } from './components/main/advertisment/advertisme
 import { TargetSegmentComponent } from './components/main/customer/target-segment/target-segment.component';
 import { LoyalCustomersComponent } from './components/main/customer/loyal-customers/loyal-customers.component';
 import { MapComponent } from './components/main/map/map.component';
+import { AddComponent } from 'src/app/components/main/branches/add/add.component';
+import { RemoveComponent } from './components/main/branches/remove/remove.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -22,6 +24,8 @@ const appRoutes: Routes = [
   { path: 'main/expansion', component: ExpansionComponent },
   { path: 'main/branches', component: BranchesComponent },
   { path: 'main/ads', component: AdvertismentComponent },
+  { path: 'main/branches/add', component: AddComponent },
+  { path: 'main/branches/remove', component: RemoveComponent },
 ];
 
 @NgModule({
@@ -37,6 +41,8 @@ const appRoutes: Routes = [
     TargetSegmentComponent,
     LoyalCustomersComponent,
     MapComponent,
+    AddComponent,
+    RemoveComponent
     
   ],
   imports: [
