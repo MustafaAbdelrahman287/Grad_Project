@@ -37,6 +37,7 @@ const appRoutes: Routes = [
     TargetSegmentComponent,
     LoyalCustomersComponent,
     MapComponent,
+    
   ],
   imports: [
     BrowserModule,

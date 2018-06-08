@@ -1,98 +1,117 @@
 <app-navbar></app-navbar>
 <div class="container-fluid">
-    <div class="row">
-      <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-        <div class="sidebar-sticky">
-          <ul class="nav flex-column">
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                  <i class="fa fa-font" aria-hidden="true"></i>
-                Adidas
-                
-              </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <button class="btn"><i class="fa fa-plus-square-o" aria-hidden="true"> </i> Add</button>
-           </a>
-                </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                  <i class="fa fa-user-secret" aria-hidden="true"></i>
-                Competitor Branches
-              </a>
-            </li>
-            
-              <div class="accordion" id="accordionExample">
-                  <li class="nav-item">
-                      <a class="nav-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-                          Weak Point Analysis
-                        </a>
-                      </li>
-                  
-                  <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                    <div class="card-body">
-                        <div class="btn-group-toggle" data-toggle="buttons">
-                        
-                          
-                          <label class="btn btn-secondary btn-outline-primary active">
-                              <input type="checkbox" checked autocomplete="off">
-                              <i class="fa fa-object-ungroup" aria-hidden="true"></i>
-                             
-                            </label>
-                            <br/>
-                            
-                            <label class="btn btn-secondary btn-outline-primary active">
-                                <input type="checkbox" checked autocomplete="off">
-                                <i class="fa fa-object-ungroup" aria-hidden="true"></i>
-                                
-                              </label>
-                              <br/>
-                              
-                             
-                                
-                                <label class="btn btn-secondary btn-outline-primary active">
-                                    <input type="checkbox" checked autocomplete="off">
-                                    <i class="fa fa-shopping-bag" aria-hidden="true"></i>
-                                    
-                                  </label>
-                                  <br/>
-                                  <label class="btn btn-secondary btn-outline-primary active">
-                                      
-                                      <input type="checkbox" checked autocomplete="off">
-                                       <i class="fa fa-users" aria-hidden="true"></i>
-                                       
-                                      </label>
-                                      <br/>
-                                  <label class="btn btn-secondary btn-outline-primary active">
-                                      <input type="checkbox" checked autocomplete="off">
-                                      <i class="fa fa-star-o" aria-hidden="true"></i>
-                                     
-                                    </label>
-                                  </div>
-                        
+  <div class="row">
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+      <div class="sidebar-sticky">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <img id="adidasicon" src="../../../assets/adidas-icon.png"> Adidas
 
-          
-                    
-                    </div>
-                  </div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <button class="btn">
+                  <i class="fa fa-plus fa-lg" aria-hidden="true"></i> </button>
+                <button class="btn">
+                    <i class="fa fa-trash-o fa-lg" aria-hidden="true"></i> </button>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="fa fa-user-secret" aria-hidden="true"></i>
+              Competitor Branches
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" data-target="#target" aria-expanded="true" aria-controls="collapseOne">
+              <i class="fa fa-bullseye" aria-hidden="true"></i>
+              Overlap Areas
+            </a>
+          </li>
+          <div id="target" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="card-body">
+             
+              <div class="form-group">
+                
+                <label>
+                <input type="checkbox" ><img id="adidasicon" src="../../../assets/adidas-icon.png"> Adidas
+              </label>
+              <label>
+                  
+                <input type="checkbox" >
+                <i class="fa fa-user-secret" aria-hidden="true"></i>Competitor Branches
+              </label>
                 </div>
+              </div>
+            </div>
+
+
+          <div class="accordion" id="accordionExample">
             <li class="nav-item">
-              <a class="nav-link" href="#">
-                  <i class="fa fa-bar-chart" aria-hidden="true"></i>
-                Dashboard
+              <a class="nav-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                Weak Point Analysis
               </a>
             </li>
-            
-          
-          </ul>
-  
-         
-        </div>
-      </nav>
-  
-      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-      </main>
-    </div>
+
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+              <div class="card-body">
+                <div class="btn-group-toggle" data-toggle="buttons">
+
+
+                  <label class="btn btn-secondary btn-outline-primary">
+                    <input type="checkbox" checked autocomplete="off">
+                    <i class="fa fa-object-group" aria-hidden="true"></i>
+
+                  </label>
+
+
+                  <label class="btn btn-secondary btn-outline-primary">
+                    <input type="checkbox" checked autocomplete="off">
+                    <i class="fa fa-object-ungroup" aria-hidden="true"></i>
+
+                  </label>
+
+
+                  <label class="btn btn-secondary btn-outline-primary ">
+                    <input type="checkbox" checked autocomplete="off">
+                    <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+
+                  </label>
+
+                  <label class="btn btn-secondary btn-outline-primary">
+
+                    <input type="checkbox" checked autocomplete="off">
+                    <i class="fa fa-users" aria-hidden="true"></i>
+
+                  </label>
+
+                  <label class="btn btn-secondary btn-outline-primary">
+                    <input type="checkbox" checked autocomplete="off">
+                    <i class="fa fa-star-o" aria-hidden="true"></i>
+
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="fa fa-bar-chart" aria-hidden="true"></i>
+              Dashboard
+            </a>
+          </li>
+
+
+        </ul>
+
+
+      </div>
+    </nav>
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+    </main>
   </div>
+</div>

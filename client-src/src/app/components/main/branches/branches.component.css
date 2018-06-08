@@ -5,10 +5,18 @@
     padding: 12px 16px; 
     font-size: 16px; 
     cursor: pointer; 
+    border-radius: 50%;
+    margin:10px;
 }
 .btn:hover {
     background-color: RoyalBlue;
+    content: 'Add'
 }
 label.btn-secondary {
     border-radius: 50%;
+    margin:10px;
+}
+#adidasicon{
+    width: 25px;
+    height: auto;
 }
