@@ -12,6 +12,7 @@ import { BranchesComponent } from './components/main/branches/branches.component
 import { AdvertismentComponent } from './components/main/advertisment/advertisment.component';
 import { TargetSegmentComponent } from './components/main/customer/target-segment/target-segment.component';
 import { LoyalCustomersComponent } from './components/main/customer/loyal-customers/loyal-customers.component';
+import { MapComponent } from './components/main/map/map.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -34,7 +35,8 @@ const appRoutes: Routes = [
     BranchesComponent,
     AdvertismentComponent,
     TargetSegmentComponent,
-    LoyalCustomersComponent
+    LoyalCustomersComponent,
+    MapComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,9 +45,11 @@ const appRoutes: Routes = [
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
-    )
+    ),
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+}

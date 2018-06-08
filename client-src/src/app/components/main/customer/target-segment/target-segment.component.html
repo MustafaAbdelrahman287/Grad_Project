@@ -14,11 +14,11 @@
       <div class="form-group">
         <label for="gender">Gender</label>
         <div id="gender" class="btn-group-toggle" data-toggle="buttons">
-          <label class="btn btn-secondary btn-outline-primary active">
+          <label class="circle btn btn-secondary btn-outline-primary active">
             <input type="checkbox" checked autocomplete="off">
             <i class="fa fa-male" aria-hidden="true"></i>
           </label>
-          <label class="btn btn-secondary btn-outline-primary active">
+          <label class="circle btn btn-secondary btn-outline-primary active">
             <input type="checkbox" checked autocomplete="off">
             <i class="fa fa-female" aria-hidden="true"></i>
           </label>
@@ -26,21 +26,25 @@
       </div>
       <div class="form-group">
         <label for="educationLevel">Education Level</label>
-        <select id="educationLevel" class="custom-select">
-          <option selected value=""></option>
-          <option [value]='eduLevel.id' *ngFor="let eduLevel of eduLevels">
-            {{ eduLevel.name }}
-          </option>
-        </select>
+        <div id="educationLevel" class="form-check">
+          <div *ngFor="let eduLevel of eduLevels">
+              <label class="form-check-label">
+                  <input class="form-check-input" [value]="eduLevel.id" type="checkbox" autocomplete="off">
+                  {{ eduLevel.name }}
+                </label>
+          </div>
+        </div>
       </div>
       <div class="form-group">
         <label for="incomeLevel">Income Level</label>
-        <select id="incomeLevel" class="custom-select" multiple>
-          <option selected value=""></option>
-          <option [value]='incomeLevel.id' *ngFor="let incomeLevel of incomeLevels">
-            {{ incomeLevel.name }}
-          </option>
-        </select>
+        <div id="incomeLevel" class="form-check">
+          <div *ngFor="let incomeLevel of incomeLevels">
+              <label class="form-check-label">
+                  <input class="form-check-input" [value]="incomeLevel.id" type="checkbox" autocomplete="off">
+                  {{ incomeLevel.name }}
+                </label>
+          </div>
+        </div>
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
