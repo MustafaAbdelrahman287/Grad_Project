@@ -4,18 +4,22 @@
     <nav class="col-md-2 d-none d-md-block bg-light sidebar">
       <div class="sidebar-sticky">
         <ul class="nav flex-column">
-
           <li class="nav-item">
             <a class="nav-link" href="#">
               <i class="fa fa-map-marker" aria-hidden="true"></i>
               Best Location for:-
             </a>
-            <div *ngFor='let expansionType of expansionTypes' class="radio">
-              <label for="expansionType">
-                <input [value]="expansionType.id" type="radio" name="expansionType"> {{expansionType.name}}
-              </label>
-            </div>
           </li>
+          <form>
+            <div class="form-group">
+              <div class="btn-group-toggle" data-toggle="buttons">
+                <label title="{{expansionType.name}}" *ngFor='let expansionType of expansionTypes' class="circle btn btn-secondary btn-outline-primary">
+                  <input [value]="expansionType.id" type="radio" autocomplete="off">
+                  <i class="fa fa-{{expansionType.class}}" aria-hidden="true"></i>
+                </label>
+              </div>
+            </div>
+          </form>
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" data-target="#selectMethod" aria-expanded="true" aria-controls="collapseOne">
               <i class="fa fa-bullseye" aria-hidden="true"></i>
@@ -25,24 +29,15 @@
           <form>
             <div class="form-group">
               <div class="btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-secondary btn-outline-primary active">
-                  <input type="radio" autocomplete="off">
-                  <i class="fa fa-square-o" aria-hidden="true"></i>
-                </label>
-                <label class="btn btn-secondary btn-outline-primary active">
-                  <input type="radio" autocomplete="off">
-                  <i class="fa fa-bookmark-o fa-rotate-180" aria-hidden="true"></i>
-                </label>
-                <label class="btn btn-secondary btn-outline-primary active">
-                  <input type="radio" autocomplete="off">
-                  <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <label title="{{selectionType.name}}" *ngFor='let selectionType of selectionTypes' class="circle btn btn-secondary btn-outline-primary">
+                  <input [value]="selectionType.id" type="radio" autocomplete="off">
+                  <i class="fa fa-{{selectionType.class}}" aria-hidden="true"></i>
                 </label>
               </div>
             </div>
           </form>
-
           <li class="nav-item">
-            <a class="nav-link active" href="#">
+            <a class="nav-link" href="#">
               <i class="fa fa-bar-chart" aria-hidden="true"></i>
               Dashboard
               <span class="sr-only">(current)</span>

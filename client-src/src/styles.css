@@ -1,3 +1,8 @@
 body {
     font-size: .875rem;
+    text-align: center;
+}
+
+a {
+    cursor: pointer;
 }

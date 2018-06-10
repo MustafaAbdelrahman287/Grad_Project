@@ -10,12 +10,16 @@ import * as L from 'leaflet';
 export class MapComponent implements OnInit {
   
   constructor() { }
-
+  onMapClick($event) {
+    let l = $event.latlng;
+    console.log(l.lat, l.lng);
+  }
   ngOnInit() {
-    var mymap = L.map('mapid').setView([51.505, -0.09], 13);
+    const mymap = L.map('mapid').setView([51.505, -0.09], 13);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?', {
     maxZoom: 18,
   }).addTo(mymap);
+  mymap.on('click', this.onMapClick);
   }
-
+  
 }
