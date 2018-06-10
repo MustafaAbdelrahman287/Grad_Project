@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -15,11 +16,10 @@ import { LoyalCustomersComponent } from './components/main/customer/loyal-custom
 import { MapComponent } from './components/main/map/map.component';
 import { AddComponent } from 'src/app/components/main/branches/add/add.component';
 import { RemoveComponent } from './components/main/branches/remove/remove.component';
-import { AuthService } from './auth.service';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
- // { path: '', redirectTo: '/login', pathMatch: 'full'},
+  // { path: '', redirectTo: '/login', pathMatch: 'full'},
   { path: 'main', component: MainComponent },
   { path: 'main/customer', component: CustomerComponent },
   { path: 'main/expansion', component: ExpansionComponent },
@@ -44,11 +44,11 @@ const appRoutes: Routes = [
     MapComponent,
     AddComponent,
     RemoveComponent
-    
+
   ],
   imports: [
     BrowserModule,
-    
+    HttpModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(
