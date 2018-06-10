@@ -15,10 +15,11 @@ import { LoyalCustomersComponent } from './components/main/customer/loyal-custom
 import { MapComponent } from './components/main/map/map.component';
 import { AddComponent } from 'src/app/components/main/branches/add/add.component';
 import { RemoveComponent } from './components/main/branches/remove/remove.component';
+import { AuthService } from './auth.service';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: '', redirectTo: '/login', pathMatch: 'full'},
+ // { path: '', redirectTo: '/login', pathMatch: 'full'},
   { path: 'main', component: MainComponent },
   { path: 'main/customer', component: CustomerComponent },
   { path: 'main/expansion', component: ExpansionComponent },
@@ -47,6 +48,7 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+    
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(
