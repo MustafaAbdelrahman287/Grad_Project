@@ -8,11 +8,11 @@ import * as L from 'leaflet';
   styleUrls: ['./map.component.css']
 })
 export class MapComponent implements OnInit {
-  
+  event:Event;
   constructor() { }
-  onMapClick($event) {
-    let l = $event.latlng;
-    console.log(l.lat, l.lng);
+  onMapClick(event) {
+    let l = event;
+    console.log(l.latlng);
   }
   ngOnInit() {
     const mymap = L.map('mapid').setView([51.505, -0.09], 13);
