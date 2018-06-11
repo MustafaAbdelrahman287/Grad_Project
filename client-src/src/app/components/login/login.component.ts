@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
-import { AuthService } from 'src/app/auth.service';
 import { Http } from '@angular/http';
 
 @Component({
@@ -11,10 +9,7 @@ import { Http } from '@angular/http';
 export class LoginComponent implements OnInit {
   private url = 'http://localhost:5000/api/Users/login'
   
-user ={
-  email:'',
-  Password:''
-}
+  constructor(private http:Http) { }
 onSubmit({value,valid}){
   let login = value;
   if(valid){
@@ -27,18 +22,6 @@ onSubmit({value,valid}){
 
 }
 
-  constructor(private http:Http) {
 
-  }
-
-  ngOnInit() {
-  }
-/* loginUser(event){
-  event.preventDefault()
-  const target = event.target
-  const usermail= target.querySelector("#inputEmail").value
-  const password = target.querySelector("#inputPassword").value
-  this.Auth.getUserDetails(usermail,password )
-  console.log(usermail,password)
-} */
+  ngOnInit() { }
 }

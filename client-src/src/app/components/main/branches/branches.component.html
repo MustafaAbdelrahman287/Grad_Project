@@ -12,13 +12,13 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/main/branches/add">
-              <button class="btn" (click)='onSubmit(f)' routerLink = '/main/branches/add.component'>
+              <button class="circle btn btn-secondary btn-outline-primary" (click)='onSubmit(f)' routerLink = '/main/branches/add.component'>
                
                 
                 <i class="fa fa-plus fa-lg" aria-hidden="true"></i> </button>
               </a>
                 <a class="nav-link" href="/main/branches/remove">
-                <button class="btn" (click)='onSubmit(f)' routerLink = '/main/branches/remove/remove'>
+                <button class="circle btn btn-secondary btn-outline-primary" (click)='onSubmit(f)' routerLink = '/main/branches/remove/remove'>
                     <i class="fa fa-trash-o fa-lg" aria-hidden="true"></i> </button>
                   </a>
                   
@@ -30,27 +30,33 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" data-target="#target" aria-expanded="true" aria-controls="collapseOne">
+            <a class="nav-link" data-toggle="collapse" data-target="#target" aria-expanded="false" aria-controls="collapseOne">
               <i class="fa fa-bullseye" aria-hidden="true"></i>
               Overlap Areas
             </a>
           </li>
-          <div id="target" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+          <div id="target" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
             <div class="card-body">
              
               <div class="form-group">
+                  <label for="overlapAreas">Overlap Areas</label>
+                  <div id="overlapareas" class="form-check">
+                      <div *ngFor="let overlaparea of overlapareas">
                 
-                <label>
-                <input type="checkbox" ><img id="adidasicon" src="../../../assets/adidas-icon.png"> Adidas
-              </label>
-              <label>
+                <label class="form-check-label">
+                 <input  class="form-check-input"   [value]="overlaparea.id" type="checkbox" ><img id="adidasicon" src="../../../assets/adidas-icon.png"> 
+                 {{ overlaparea.name }}
+                </label>
+            <!--   <label class="form-check-label">
                   
-                <input type="checkbox" >
+                <input class="form-check-input"  type="checkbox" >
                 <i class="fa fa-user-secret" aria-hidden="true"></i>Competitor Branches
-              </label>
+              </label> -->
                 </div>
               </div>
             </div>
+          </div>
+        </div>
 
 
           <div class="accordion" id="accordionExample">
@@ -61,39 +67,39 @@
               </a>
             </li>
 
-            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
               <div class="card-body">
                 <div class="btn-group-toggle" data-toggle="buttons">
 
 
-                  <label class="btn btn-secondary btn-outline-primary">
+                  <label class="circle btn btn-secondary btn-outline-primary">
                     <input type="checkbox" checked autocomplete="off">
                     <i class="fa fa-object-group" aria-hidden="true"></i>
 
                   </label>
 
 
-                  <label class="btn btn-secondary btn-outline-primary">
+                  <label class="circle btn btn-secondary btn-outline-primary">
                     <input type="checkbox" checked autocomplete="off">
                     <i class="fa fa-object-ungroup" aria-hidden="true"></i>
 
                   </label>
 
 
-                  <label class="btn btn-secondary btn-outline-primary ">
+                  <label class="circle btn btn-secondary btn-outline-primary">
                     <input type="checkbox" checked autocomplete="off">
                     <i class="fa fa-shopping-bag" aria-hidden="true"></i>
 
                   </label>
 
-                  <label class="btn btn-secondary btn-outline-primary">
+                  <label class="circle btn btn-secondary btn-outline-primary">
 
                     <input type="checkbox" checked autocomplete="off">
                     <i class="fa fa-users" aria-hidden="true"></i>
 
                   </label>
 
-                  <label class="btn btn-secondary btn-outline-primary">
+                  <label class="circle btn btn-secondary btn-outline-primary">
                     <input type="checkbox" checked autocomplete="off">
                     <i class="fa fa-star-o" aria-hidden="true"></i>
 

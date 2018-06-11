@@ -29,4 +29,5 @@ export class MapComponent implements OnInit {
     L.geoJSON(this.geojsonLayer).addTo(mymap);
     mymap.on('click', this.onMapClick);
   }
+
 }
