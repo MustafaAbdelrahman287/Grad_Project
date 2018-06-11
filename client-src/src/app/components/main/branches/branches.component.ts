@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class BranchesComponent implements OnInit {
 
   constructor() { }
-
+overlapareas= [{id:'1', name:'Adidas'}, {id:'2', name:'Competitor Branches'}];
   ngOnInit() {
   }
 

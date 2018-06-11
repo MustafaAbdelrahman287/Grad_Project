@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { AuthService } from 'src/app/auth.service';
+
 
 @Component({
   selector: 'app-login',
@@ -9,20 +11,25 @@ import { AuthService } from 'src/app/auth.service';
 })
 export class LoginComponent implements OnInit {
   
-user ={
+
+  
+ user ={
   email:'',
   Password:''
-}
-onSubmit({value,valid}){
+} 
+ onSubmit({value,valid}){
   if(valid){
 console.log(value)
   }else{
     console.log('failuer:)')
 
   }
+ 
+} 
+  constructor(  
+   ) { }
 
-}
-  constructor(/* private Auth:AuthService */) { }
+   
 
   ngOnInit() {
   }
