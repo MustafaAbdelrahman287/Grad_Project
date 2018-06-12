@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
+import { AuthService } from '../../services/auth/auth.service';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -7,20 +8,24 @@ import { Http } from '@angular/http';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  private url = 'http://localhost:5000/api/Users/login'
-  
-  constructor(private http:Http) { }
-onSubmit({value,valid}){
-  let login = value;
-  if(valid){
-    this.http.post(this.url, login).subscribe(response => {
-      console.log(response.json());
-    });
-  }else{
-    console.log('failuer:)')
+  invalidLogin:boolean;
+  constructor(private router: Router, private authService: AuthService) { }
+  onSubmit({ value, valid }) {
+    console.log(value, valid);
+    if (valid) {
+      let result = this.authService.login(value);
+      console.log(result)
+      result.subscribe(result => { 
+        if (result)
+          this.router.navigate(['/main']);
+        else  
+          this.invalidLogin = true; 
+      }, (err:Response) => {console.log(err)});
+    } else {
+      this.invalidLogin = true;
+      console.log(this.invalidLogin);
+    }
   }
-
-}
 
 
   ngOnInit() { }

@@ -1,38 +1,29 @@
 <div class="bg">
-<form    #f="ngForm" (ngSubmit)="onSubmit(f)" class="form-signin">
-  <div class="text-center mb-4">
-    <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-    <h1 class="h3 mb-3 font-weight-normal">Geo-Marketing</h1>
-    <p>An easy interface that helps you to  market for your brand more efficiently</p>
-  </div>
-
-  <div class="form-label-group">
-    <input  type="text" id="inputEmail"
-     class="form-control" placeholder="Email address"
-     name="email"  [ngModel]="user?.email"  #userEmail="ngModel"
-      required pattern="^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$">
-  <div class="aler alert-danger" *ngIf="userEmail.errors?.required && userEmail.touched">Email Is Required</div>
-  <div class="aler alert-danger" *ngIf="userEmail.errors?.pattern && userEmail.touched">Email Is Invalid</div>
-   
-     <label for="inputEmail">Email address</label>
-  </div>
-
-  <div class="form-label-group">
-    <input type="password" id="inputPassword" 
-    name="password"
-    [ngModel]="user?.password"  #userPassword="ngModel"
-
-
-    class="form-control" placeholder="Password" required>
-    <span class="aler alert-danger" *ngIf="userPassword.errors?.required && userPassword.touched">Password Is Required</span>
-    <label for="inputPassword">Password</label>
-  </div>
-
-  <div class="checkbox mb-3">
-    <label>
-      <input type="checkbox" value="remember-me"> Remember me
-    </label>
-  </div>
-  <button  class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-</form>
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)" class="form-signin">
+    <div class="text-center mb-4">
+      <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+      <h1 class="h3 mb-3 font-weight-normal">Geo-Marketing</h1>
+      <p>An easy interface that helps you to market for your brand more efficiently</p>
+    </div>
+    <div *ngIf="invalidLogin" class="aler alert-danger">Invalid Email and/or Password.</div>
+    <div class="form-label-group">
+      <input type="text" id="inputEmail" class="form-control" placeholder="Email address" name="email" [ngModel]="user?.email"
+        #userEmail="ngModel" required pattern="^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$">
+      <div class="aler alert-danger" *ngIf="userEmail.errors?.required && userEmail.touched">Email Is Required</div>
+      <div class="aler alert-danger" *ngIf="userEmail.errors?.pattern && userEmail.touched">Email Is Invalid</div>
+      <label for="inputEmail">Email address</label>
+    </div>
+    <div class="form-label-group">
+      <input type="password" id="inputPassword" name="password" [ngModel]="user?.password" #userPassword="ngModel" class="form-control"
+        placeholder="Password" required>
+      <span class="aler alert-danger" *ngIf="userPassword.errors?.required && userPassword.touched">Password Is Required</span>
+      <label for="inputPassword">Password</label>
+    </div>
+    <div class="checkbox mb-3">
+      <label>
+        <input type="checkbox" value="remember-me"> Remember me
+      </label>
+    </div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+  </form>
 </div>

@@ -16,6 +16,7 @@ import { LoyalCustomersComponent } from './components/main/customer/loyal-custom
 import { MapComponent } from './components/main/map/map.component';
 import { AddComponent } from 'src/app/components/main/branches/add/add.component';
 import { RemoveComponent } from './components/main/branches/remove/remove.component';
+import { AuthService } from './services/auth/auth.service';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -56,7 +57,9 @@ const appRoutes: Routes = [
       { enableTracing: true } // <-- debugging purposes only
     ),
   ],
-  providers: [],
+  providers: [
+    AuthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
