@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -17,6 +17,7 @@ import { MapComponent } from './components/main/map/map.component';
 import { AddComponent } from 'src/app/components/main/branches/add/add.component';
 import { RemoveComponent } from './components/main/branches/remove/remove.component';
 import { AuthService } from './services/auth/auth.service';
+import {HttpClientModule} from '@angular/common/http';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -49,7 +50,7 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
-    HttpModule,
+    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(
