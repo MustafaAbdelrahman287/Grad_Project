@@ -18,6 +18,7 @@ import { AddComponent } from 'src/app/components/main/branches/add/add.component
 import { RemoveComponent } from './components/main/branches/remove/remove.component';
 import { AuthService } from './services/auth/auth.service';
 import {HttpClientModule} from '@angular/common/http';
+import{HttpModule} from '@angular/http';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -51,6 +52,7 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     HttpClientModule,
+    HttpModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(
