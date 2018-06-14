@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { IBranch } from '../../interfaces/branch';
+import { ICompetitor } from '../../interfaces/competitor';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class BranchService {
-  private _url: string = 'http://localhost:5000/api/branches/';
+export class CompetitorService {
+  private _url: string = 'http://localhost:5000/api/competitors/';
   constructor(private http: HttpClient) { }
 
-  getBranches(): Observable<IBranch[]> {
-    return this.http.get<IBranch[]>(this._url).pipe(catchError(error => this.errorHandler(error)));
+  getCompetitors(): Observable<ICompetitor[]> {
+    return this.http.get<ICompetitor[]>(this._url).pipe(catchError(error => this.errorHandler(error)));
   }
-  postBranches() {
+  postCompetitors() {
 
   }
 
