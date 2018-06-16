@@ -4,7 +4,7 @@ import { BranchService } from '../../../services/branch/branch.service';
 import { AdvertismentService } from '../../../services/advertisement/advertisment.service';
 import { CompetitorService } from '../../../services/competitor/competitor.service';
 import { CustomerService } from '../../../services/customers/customers.service';
-
+import * as turf from '@turf/turf';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -39,21 +39,20 @@ export class MapComponent implements OnInit {
       data => {this.branches = data;
         for (let i = 0; i < data.length; i++) {
           
-        
-        L.marker([data[i].branch_location.lat,data[i].branch_location.lng], { icon: myIcon }).addTo(this.mymap);
-      
+         L.marker([this.branches[i].branch_location.lat,this.branches[i].branch_location.lng], { icon: myIcon }).addTo(this.mymap).bindPopup(`Name : ${this.branches[i].name}`);
+
       } },
       err => console.log(err)
       
     )
     this._customerService.getCustomers().subscribe(
       data => {this.customers = data;
-        for (let i = 0; i < data.length; i++) {
-          
         
-        L.marker([this.customers[i].cst_location.lat, this.customers[i].cst_location.lng], { icon: customerIcon }).addTo(this.mymap);
-      
-      } },
+        for (let i = 0; i < data.length; i++) {
+        L.marker([this.customers[i].cst_location.lat, this.customers[i].cst_location.lng], { icon: customerIcon }).addTo(this.mymap).bindPopup(`Name : ${this.customers[i].name}`);
+      }
+
+    },
       err => console.log(err)
       
     )

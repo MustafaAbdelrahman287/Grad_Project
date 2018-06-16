@@ -10,6 +10,7 @@ export class LoyalCustomersComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+   
   }
 
 }
