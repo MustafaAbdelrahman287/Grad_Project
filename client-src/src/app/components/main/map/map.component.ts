@@ -30,11 +30,7 @@ export class MapComponent implements OnInit {
     iconRetinaUrl: '../../assets/adidas_PNG22.png',
     iconSize: [50, 50],
     iconAnchor: [13, 41],
-    popupAnchor: [-3, -76],
-    /* shadowUrl: '../../assets/adidas_PNG22.png',
-    shadowRetinaUrl: '../../assets/adidas_PNG22.png', */
-    /*       shadowSize: [12, 12],
-          shadowAnchor: [22, 94] */
+    popupAnchor: [-3, -76]
   });
   onMapClick(event) {
     let l = event.latlng;

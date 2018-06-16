@@ -1,23 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ICompetitor } from '../../interfaces/competitor';
 import { Observable, throwError } from 'rxjs';
+import { IFactory } from '../../interfaces/factory';
 import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CompetitorService {
-  private _url: string = 'http://localhost:5000/api/competitors/';
+export class FactoryService {
+  private _url = 'http://localhost:5000/api/factories/';
   constructor(private http: HttpClient) { }
-
-  getCompetitors(): Observable<ICompetitor[]> {
-    return this.http.get<ICompetitor[]>(this._url).pipe(catchError(error => this.errorHandler(error)));
+  getFactories(): Observable<IFactory[]> {
+    return this.http.get<IFactory[]>(this._url).pipe(catchError(error => this.errorHandler(error)));
   }
-  postCompetitors() {
-
-  }
-
   errorHandler(error: any) {
     console.log(error.message);
     return throwError(error.message);
