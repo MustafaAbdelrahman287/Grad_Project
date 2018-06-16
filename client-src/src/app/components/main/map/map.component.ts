@@ -44,16 +44,23 @@ export class MapComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.mymap = L.map('mapid').setView([51.505, -0.09], 13);
+    this.mymap = L.map('mapid').setView([30.09219, 31.32297], 12);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?', {
       maxZoom: 18,
     }).addTo(this.mymap);
 
     this._branchService.getBranches().subscribe(
       data => {this.branches = data;
-        L.marker([data[0].branch_location.lat,data[0].branch_location.lng], { icon: myIcon }).addTo(this.mymap);},
+        for (let i = 0; i < data.length; i++) {
+          
+        
+        L.marker([data[i].branch_location.lat,data[i].branch_location.lng], { icon: myIcon }).addTo(this.mymap);
+      
+      } },
       err => console.log(err)
+      
     )
+    
 
     this._advertismentService.getAdvertisment().subscribe(
       data => {this.advertisment = data;
