@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
+import * as turf from '@turf/turf';
 import { BranchService } from '../../../services/branch/branch.service';
 import { AdvertismentService } from '../../../services/advertisement/advertisment.service';
 import { CompetitorService } from '../../../services/competitor/competitor.service';
 import { CustomerService } from '../../../services/customers/customers.service';
-import * as turf from '@turf/turf';
 import { FactoryService } from '../../../services/factory/factory.service';
 
 @Component({
