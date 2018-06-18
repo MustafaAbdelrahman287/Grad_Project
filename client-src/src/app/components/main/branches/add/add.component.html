@@ -1,10 +1,18 @@
 <div>
-    <form action="/action_page.php">
+    <form #f="ngForm" (ngSubmit)="onAddSubmit(f)">
       <label for="bname">Branch Name</label>
-      <input type="text" id="fname" name="bname" placeholder="Your Branch name..">
-  <br/>
+      <input ng-model="name" type="text" id="fname" name="name" [ngModel]="br?.name" #brName="ngModel" placeholder="Your Branch name..">
+      <br/>
+      <label for="lname">Branch Code</label>
+      <input type="text" id="code" name="branch_code" [ngModel]="br?.code" #code="ngModel" placeholder="Your Branch Code..">
+      <br/>
+      <label for="lname">City</label>
+      <input type="text" id="city" name="city" [ngModel]="br?.city" #city="ngModel" placeholder="Your Branch City..">
+      <br/>
       <label for="lname">Branch Location</label>
-      <input type="text" id="lname" name="lname" placeholder="Your Branch Location..">
-       <input class="btn btn-primary" type="submit" value="Add">
+      <input type="text" id="lname" name="branch_location" [ngModel]="br?.location" #brLocation="ngModel" placeholder="Your Branch Location..">
+      
+      
+      <input class="btn btn-primary" type="submit" value="Add">
     </form>
   </div>

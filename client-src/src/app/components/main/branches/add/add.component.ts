@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { BranchService } from '../../../../services/branch/branch.service';
+import { IBranch } from '../../../../interfaces/branch';
 
 @Component({
   selector: 'app-add',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _branchService:BranchService) { }
 
   ngOnInit() {
+  }
+
+  onAddSubmit ({value, valid}) {
+    console.log(value, valid);
+    console.log(value.branch_location);
+    let branch:IBranch = value;
+    console.log(branch);
+    this._branchService.createBranch(branch);
   }
 
 }

@@ -7,12 +7,12 @@ export interface IBranch {
     province: string,
     city: string,
     branch_area: number,
-    branch_manager: string,
+    branch_manager?: string,
     branch_phone_numbers: number[],
     branch_power: number,
     branch_location: {lat: number, lng: number},
-    orders_code: string[],
-    items_code: string[],
-    rating: number,
-    id: string
+    orders_code?: string[],
+    items_code?: string[],
+    rating?: number,
+    id?: string
 }
