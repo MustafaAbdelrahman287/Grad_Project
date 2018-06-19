@@ -3,12 +3,18 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IBranch } from '../../interfaces/branch';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { jsonpCallbackContext } from '@angular/common/http/src/module';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BranchService {
-  private _url: string = 'http://localhost:5000/api/branches/';
+  private _url: string = 'http://localhost:5000/api/branches';
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json',
+    })
+  };
   private headers = new HttpHeaders({
     "Content-Type": "application/json"
   })
@@ -23,7 +29,7 @@ export class BranchService {
   }
 
   createBranch(branch: IBranch): Observable<any> {
-    return this.http.post<IBranch>(this._url, branch)
+    return this.http.post<IBranch>(this._url, branch, this.httpOptions);
   }
 
   updateBranch(branch: IBranch): Observable<any> {

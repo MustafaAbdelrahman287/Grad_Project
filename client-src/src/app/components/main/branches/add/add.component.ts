@@ -9,16 +9,21 @@ import { IBranch } from '../../../../interfaces/branch';
 })
 export class AddComponent implements OnInit {
 
-  constructor(private _branchService:BranchService) { }
+  constructor(private _branchService: BranchService) { }
 
   ngOnInit() {
   }
 
-  onAddSubmit ({value, valid}) {
-    console.log(value, valid);
-    console.log(value.branch_location);
-    let branch:IBranch = value;
-    console.log(branch);
+  onAddSubmit({value}) {
+    // console.log(value);
+    value.branch_location = JSON.parse(value.branch_location);
+    let branch: IBranch = {
+      branch_code: value.branch_code,
+      branch_location: value.branch_location,
+      city: value.city,
+      name: value.name
+    };
+    // console.log(branch);
     this._branchService.createBranch(branch);
   }
 
