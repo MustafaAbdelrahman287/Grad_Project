@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HttpHeaders} from '@angular/common/http';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import {IWarehouse} from '../../interfaces/warehouse'
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { HttpHeaders } from '@angular/common/http/src/headers';
 
 
 const httpOptions={

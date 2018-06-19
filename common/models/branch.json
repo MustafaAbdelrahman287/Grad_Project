@@ -11,16 +11,6 @@
             "required": true,
             "unique": true
         },
-        "branch_acc_username": {
-            "type": "string"
-        },
-        "branch_acc_password": {
-            "type": "string"
-        },
-        "user_type": {
-            "type": "string",
-            "default": "manager"
-        },
         "name": {
             "type": "string",
             "required": true
