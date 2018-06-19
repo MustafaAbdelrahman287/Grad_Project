@@ -8,6 +8,8 @@ import { CustomerService } from '../../../services/customers/customers.service';
 import { WarehouseService } from '../../../services/warehouse/warehouse.service';
 import { ItemService } from '../../../services/item/item.service';
 import { SurveyService } from '../../../services/survey/survey.service';
+import { FactoryService } from '../../../services/factory/factory.service';
+import { Http } from '@angular/http';
 
 @Component({
   selector: 'app-map',
@@ -26,9 +28,11 @@ export class MapComponent implements OnInit {
   public warehouse=[];
   public survey=[];
   public item=[];
-  constructor(private _customerService: CustomerService, private _branchService: BranchService,
+  constructor(private http:Http,private _customerService: CustomerService, private _branchService: BranchService,
     private _advertismentService: AdvertismentService, private _competitorService: CompetitorService,
   private _warehouseService:WarehouseService,private _itemService:ItemService,private _surveyService:SurveyService) {
+
+   
     /* http.get('../../../../assets/map.geojson').subscribe(response => {
       this.geojsonLayer = response.json();
       this.geojson = {"type":"FeatureCollection","features":[{"type":"Feature","properties":{},
@@ -39,6 +43,44 @@ export class MapComponent implements OnInit {
       [34.8486328125,29.420460341013133]]]}}]}
       L.geoJSON(this.geojson).addTo(this.mymap);
     }); */
+    //#region GeoJson Marker Icon
+    function createCustomIcon(latlng) {
+      let myIcon = L.icon({
+        iconUrl: '../../assets/adidas_PNG22.png',
+        iconSize: [50, 50],
+        iconAnchor: [24, 24],
+        popupAnchor: [0, 0]
+      })
+      return L.marker(latlng, { icon: myIcon, draggable: true })
+    }
+
+    let myLayerOptions = {
+      pointToLayer: createCustomIcon
+    }
+    //#endregion
+    this.http.get('../../../../assets/FIRE_STATION.geojson').subscribe(response => {
+      this.geojsonLayer = response.json();
+      console.log(this.geojsonLayer)
+      L.geoJSON(this.geojsonLayer, myLayerOptions).addTo(this.mymap);
+    });
+  }
+
+  myIcon = L.icon({
+    iconUrl: '../../assets/adidas_PNG22.png',
+    iconRetinaUrl: '../../assets/adidas_PNG22.png',
+    iconSize: [50, 50],
+    iconAnchor: [24, 24],
+    popupAnchor: [0, 0]
+  });
+  onMapClick(event) {
+    let l = event.latlng;
+    console.log(l);
+    L.marker(l, { icon: this.myIcon, draggable: true }).addTo(this.mymap);
+    return l;
+  }
+
+  onClick(event) {
+    console.log(event);
   }
 
   ngOnInit() {
@@ -50,22 +92,29 @@ export class MapComponent implements OnInit {
     this._branchService.getBranches().subscribe(
       data => {
         this.branches = data;
+        console.log(data);
         for (let i = 0; i < data.length; i++) {
-
-
-          L.marker([data[i].branch_location.lat, data[i].branch_location.lng], { icon: myIcon }).addTo(this.mymap);
-
+          L.marker([this.branches[i].branch_location.lat, this.branches[i].branch_location.lng], { icon: this.myIcon, draggable: true }).addTo(this.mymap).bindPopup(`Name : ${this.branches[i].name}`).addEventListener('click', this.onClick);
         }
       },
-      err => console.log(err)
-
-    );
+        err => console.log(err)
+      )
     this._customerService.getCustomers().subscribe(
       data => {
         this.customers = data;
         for (let i = 0; i < data.length; i++) {
+          L.marker([this.customers[i].cst_location.lat, this.customers[i].cst_location.lng], { icon: customerIcon, draggable: true }).addTo(this.mymap).bindPopup(`Name : ${this.customers[i].name}`);
+        }
+      },
+      err => console.log(err)
+    )
 
-
+   
+ 
+    this._customerService.getCustomers().subscribe(
+      data => {
+        this.customers = data;
+        for (let i = 0; i < data.length; i++) {
           L.marker([this.customers[i].cst_location.lat, this.customers[i].cst_location.lng], { icon: customerIcon }).addTo(this.mymap);
 
         }
