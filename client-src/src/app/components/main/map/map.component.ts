@@ -5,6 +5,9 @@ import { BranchService } from '../../../services/branch/branch.service';
 import { AdvertismentService } from '../../../services/advertisement/advertisment.service';
 import { CompetitorService } from '../../../services/competitor/competitor.service';
 import { CustomerService } from '../../../services/customers/customers.service';
+import { WarehouseService } from '../../../services/warehouse/warehouse.service';
+import { ItemService } from '../../../services/item/item.service';
+import { SurveyService } from '../../../services/survey/survey.service';
 
 @Component({
   selector: 'app-map',
@@ -20,8 +23,12 @@ export class MapComponent implements OnInit {
   public advertisment = [];
   public competitor = [];
   public customers = [];
+  public warehouse=[];
+  public survey=[];
+  public item=[];
   constructor(private _customerService: CustomerService, private _branchService: BranchService,
-    private _advertismentService: AdvertismentService, private _competitorService: CompetitorService) {
+    private _advertismentService: AdvertismentService, private _competitorService: CompetitorService,
+  private _warehouseService:WarehouseService,private _itemService:ItemService,private _surveyService:SurveyService) {
     /* http.get('../../../../assets/map.geojson').subscribe(response => {
       this.geojsonLayer = response.json();
       this.geojson = {"type":"FeatureCollection","features":[{"type":"Feature","properties":{},
@@ -62,6 +69,35 @@ export class MapComponent implements OnInit {
           L.marker([this.customers[i].cst_location.lat, this.customers[i].cst_location.lng], { icon: customerIcon }).addTo(this.mymap);
 
         }
+      },
+      err => console.log(err)
+
+    );
+    this._warehouseService.getWarehouse().subscribe(
+      data => {
+        this.warehouse = data;
+        for (let i = 0; i < data.length; i++) {
+
+
+          L.marker([data[i].warehouse_location.lat, data[i].warehouse_location.lng], { icon: myIcon }).addTo(this.mymap);
+
+        }
+      },
+      err => console.log(err)
+
+    );
+    this._itemService.getItem().subscribe(
+      data => {
+        this.item = data;
+      
+      },
+      err => console.log(err)
+
+    );
+    this._surveyService.getSurvey().subscribe(
+      data => {
+        this.survey = data;
+      
       },
       err => console.log(err)
 
