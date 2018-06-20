@@ -11,7 +11,7 @@ import { ISurvey } from 'src/app/interfaces/survey';
   providedIn: 'root'
 })
 export class SurveyService {
-  private _url: string = 'http://localhost:3000/api/surveys';
+  private _url: string = 'http://localhost:5000/api/surveys';
 
   constructor(private http: HttpClient) { }
   getSurvey():Observable<ISurvey[]>{

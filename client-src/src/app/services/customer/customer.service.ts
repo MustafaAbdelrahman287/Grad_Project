@@ -11,7 +11,7 @@ import { ICustomer } from 'src/app/interfaces/customer';
   providedIn: 'root'
 })
 export class CustomerService {
-  private _url="http://localhost:3000/api/customers";
+  private _url="http://localhost:5000/api/customers";
   
 
   constructor(private http:HttpClient) { }

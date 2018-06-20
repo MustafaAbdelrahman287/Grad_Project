@@ -9,7 +9,7 @@ import { catchError, map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ItemService {
-  private _url="http://localhost:3000/api/items";
+  private _url="http://localhost:5000/api/items";
 
   constructor( private http:HttpClient) { }
   getItem():Observable<IItem[]>{

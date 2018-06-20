@@ -58,6 +58,7 @@ export class MapComponent implements OnInit {
       pointToLayer: createCustomIcon
     }
     //#endregion
+    L.Marker.prototype.options.icon = this.myIcon;
     this.http.get('../../../../assets/FIRE_STATION.geojson').subscribe(response => {
       this.geojsonLayer = response.json();
       console.log(this.geojsonLayer)
@@ -128,7 +129,7 @@ export class MapComponent implements OnInit {
         for (let i = 0; i < data.length; i++) {
 
 
-          L.marker([data[i].warehouse_location.lat, data[i].warehouse_location.lng], { icon: myIcon }).addTo(this.mymap);
+          L.marker([data[i].warehouse_location.lat, data[i].warehouse_location.lng]).addTo(this.mymap);
 
         }
       },
@@ -159,17 +160,8 @@ export class MapComponent implements OnInit {
       iconAnchor: [13, 41],
       popupAnchor: [-3, -76],
     });
-    const myIcon = L.icon({
-      iconUrl: '../../assets/adidas_PNG22.png',
-      iconRetinaUrl: '../../assets/adidas_PNG22.png',
-      iconSize: [50, 50],
-      iconAnchor: [13, 41],
-      popupAnchor: [-3, -76],
-      /* shadowUrl: '../../assets/adidas_PNG22.png',
-      shadowRetinaUrl: '../../assets/adidas_PNG22.png', */
-      /*       shadowSize: [12, 12],
-            shadowAnchor: [22, 94] */
-    });
+   
+     
     /************************************ turf intersect ************************************/
     // create a first green polygon from an array of LatLng points
     const poly1 = turf.polygon([[
@@ -199,6 +191,25 @@ export class MapComponent implements OnInit {
     // create a red polygon from the intersection of the two polygons
     const intersection = turf.intersect(poly1, poly2);
     const intersectionCoords = turf.getCoords(intersection);
-    const polygonOfIntersection = L.polygon(intersectionCoords, { color: 'red' }).addTo(this.mymap);
+   const polygonOfIntersection = L.polygon(intersectionCoords, { color: 'red' }).addTo(this.mymap);
+  /************************************ turf nearst point ************************************/
+  const targetPoint = turf.point([28.965797, 41.010086], {"marker-color": "#0F0"});
+  const  points = turf.featureCollection([
+      turf.point([28.973865, 41.011122]),
+      turf.point([28.948459, 41.024204]),
+      turf.point([28.938674, 41.013324])
+  ]);
+  
+  const nearest = turf.nearestPoint(targetPoint, points);
+  console.log(nearest);
+
+ // const nearstt=turf.getCoords(nearest);
+ const nearstp= L.geoJSON(nearest).addTo(this.mymap);
+  
+ 
+ 
+ 
+ 
+ 
   }
 }
