@@ -1,11 +1,11 @@
 <app-navbar></app-navbar>
 <router-outlet></router-outlet>
-<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-    <app-brmap></app-brmap>
+<main role="main" class="col-md-9 ml-sm-auto col-lg-9 px-4">
+  <app-brmap></app-brmap>
 </main>
 <div class="container-fluid">
   <div class="row">
-    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+    <nav class="col-md-3 d-none d-md-block bg-light sidebar">
       <div class="sidebar-sticky">
         <ul class="nav flex-column">
           <li class="nav-item">
@@ -16,16 +16,18 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/main/branches/add">
-              <button class="circle btn btn-secondary btn-outline-primary" (click)='onSubmit(f)' routerLink = '/main/branches/add.component'>
-               
-                
-                <i class="fa fa-plus fa-lg" aria-hidden="true"></i> </button>
-              </a>
-                <a class="nav-link" href="/main/branches/remove">
-                <button class="circle btn btn-secondary btn-outline-primary" (click)='onSubmit(f)' routerLink = '/main/branches/remove/remove'>
-                    <i class="fa fa-trash-o fa-lg" aria-hidden="true"></i> </button>
-                  </a>
-                  
+              <button class="circle btn btn-secondary btn-outline-primary" (click)='onSubmit(f)' routerLink='/main/branches/add.component'>
+
+
+                <i class="fa fa-plus fa-lg" aria-hidden="true"></i>
+              </button>
+            </a>
+            <a class="nav-link" href="/main/branches/remove">
+              <button class="circle btn btn-secondary btn-outline-primary" (click)='onSubmit(f)' routerLink='/main/branches/remove/remove'>
+                <i class="fa fa-trash-o fa-lg" aria-hidden="true"></i>
+              </button>
+            </a>
+
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">
@@ -41,26 +43,26 @@
           </li>
           <div id="target" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
             <div class="card-body">
-             
+
               <div class="form-group">
-                  <label for="overlapAreas">Overlap Areas</label>
-                  <div id="overlapareas" class="form-check">
-                      <div *ngFor="let overlaparea of overlapareas">
-                
-                <label class="form-check-label">
-                 <input  class="form-check-input"   [value]="overlaparea.id" type="checkbox" ><img id="adidasicon" src="../../../assets/adidas-icon.png"> 
-                 {{ overlaparea.name }}
-                </label>
-            <!--   <label class="form-check-label">
+                <label for="overlapAreas">Overlap Areas</label>
+                <div id="overlapareas" class="form-check">
+                  <div *ngFor="let overlaparea of overlapareas">
+
+                    <label class="form-check-label">
+                      <input class="form-check-input" [value]="overlaparea.id" type="checkbox">
+                      <img id="adidasicon" src="../../../assets/adidas-icon.png"> {{ overlaparea.name }}
+                    </label>
+                    <!--   <label class="form-check-label">
                   
                 <input class="form-check-input"  type="checkbox" >
                 <i class="fa fa-user-secret" aria-hidden="true"></i>Competitor Branches
               </label> -->
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
 
           <div class="accordion" id="accordionExample">

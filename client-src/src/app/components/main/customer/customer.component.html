@@ -1,27 +1,30 @@
-<app-main></app-main>
+<app-navbar></app-navbar>
+<main role="main" class="col-md-9 ml-sm-auto col-lg-9 px-4">
+  <div class="my-4 w-100" id="mapid" width="900" height="380"></div>
+</main>
 <div class="container-fluid">
   <div class="row">
-    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+    <nav class="col-md-3 d-none d-md-block bg-light sidebar">
       <div class="sidebar-sticky">
         <ul class="nav flex-column">
-          <li class="nav-item">
+          <li class="list-group-item">
             <a class="nav-link" href="#">
               <i class="fa fa-users" aria-hidden="true"></i>
               Current Customers
             </a>
           </li>
-          <li class="nav-item">
+          <li class="list-group-item">
             <a class="nav-link" href="#">
               <i class="fa fa-user-plus" aria-hidden="true"></i>
               Potential Customers
             </a>
           </li>
           <div id="accordion">
-            <app-target-segment></app-target-segment>
-            <app-loyal-customers></app-loyal-customers>
+            <app-target-segment class="list-group-item"></app-target-segment>
+            <app-loyal-customers class="list-group-item"></app-loyal-customers>
           </div>
           <div id="accordion">
-          <li class="nav-item">
+            <li class="list-group-item">
               <a class="nav-link" data-toggle="collapse" data-target="#add" aria-expanded="false" aria-controls="collapseOne">
                 <i class="fa fa-bullseye" aria-hidden="true"></i>
                 Add customer:
@@ -30,21 +33,21 @@
             <div id="add" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
               <div class="card-body">
                 <form>
-                    <a class="nav-link" href="/main/customer/addcustomer">
-                      <button class="circle btn btn-secondary btn-outline-primary" (click)='onSubmit(f)' routerLink = '/main/customer/addcustomer'>
-                       
-                        
-                        <i class="fa fa-plus fa-lg" aria-hidden="true"></i> </button>
-                      </a>
-                        <a class="nav-link" href="/main/customer/remove">
-                        <button class="circle btn btn-secondary btn-outline-primary" (click)='onSubmit(f)' routerLink = '/main/branches/remove/remove'>
-                            <i class="fa fa-trash-o fa-lg" aria-hidden="true"></i> </button>
-                          </a>
+                  <a class="nav-link" href="/main/customer/addcustomer">
+                    <button class="circle btn btn-secondary btn-outline-primary" (click)='onSubmit(f)' routerLink='/main/customer/addcustomer'>
+                      <i class="fa fa-plus fa-lg" aria-hidden="true"></i>
+                    </button>
+                  </a>
+                  <a class="nav-link" href="/main/customer/remove">
+                    <button class="circle btn btn-secondary btn-outline-primary" (click)='onSubmit(f)' routerLink='/main/branches/remove/remove'>
+                      <i class="fa fa-trash-o fa-lg" aria-hidden="true"></i>
+                    </button>
+                  </a>
                 </form>
               </div>
-              </div>
             </div>
-          <li class="nav-item">
+          </div>
+          <li class="list-group-item">
             <a class="nav-link" href="#">
               <i class="fa fa-bar-chart" aria-hidden="true"></i>
               Dashboard
@@ -54,7 +57,5 @@
         </ul>
       </div>
     </nav>
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-    </main>
   </div>
 </div>
