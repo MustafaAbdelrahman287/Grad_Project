@@ -14,7 +14,7 @@ export interface ICustomer{
     educational_level:string,
     username:string,
     password:string,
-    orders_code:string[],
+    order_code:string[],
     user_type:string
 
 
