@@ -19,6 +19,12 @@ import { RemoveComponent } from './components/main/branches/remove/remove.compon
 import { AuthService } from './services/auth/auth.service';
 import {HttpClientModule} from '@angular/common/http';
 import{HttpModule} from '@angular/http';
+import { BrmapComponent } from './components/main/branches/brmap/brmap.component';
+import { RegisterComponent } from './components/register/register.component';
+import { AddcustomerComponent } from './components/main/customer/addcustomer/addcustomer.component';
+import { RemovecustomerComponent } from './components/main/customer/removecustomer/removecustomer.component';
+
+
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -30,6 +36,9 @@ const appRoutes: Routes = [
   { path: 'main/ads', component: AdvertismentComponent },
   { path: 'main/branches/add', component: AddComponent },
   { path: 'main/branches/remove', component: RemoveComponent },
+  { path: 'main/customer/addcustomer', component: AddcustomerComponent },
+  { path: 'main/customer/removecustomer', component: RemovecustomerComponent },
+ 
 ];
 
 @NgModule({
@@ -46,7 +55,12 @@ const appRoutes: Routes = [
     LoyalCustomersComponent,
     MapComponent,
     AddComponent,
-    RemoveComponent
+    RemoveComponent,
+    BrmapComponent,
+    RegisterComponent,
+    AddcustomerComponent,
+    RemovecustomerComponent,
+    
 
   ],
   imports: [

@@ -38,6 +38,25 @@
           </form>
           <li class="nav-item">
             <a class="nav-link" href="#">
+              <i class="fa fa-map-marker" aria-hidden="true"></i>
+              Add:
+            </a>
+          </li>
+          <form>
+            <div class="form-group">
+              <div>
+                <input type="text" id="Fname" name="name" [ngModel]="br?.name" #brName="ngModel" placeholder="Enter the name:">
+                </div>
+                <div class="btn-group-toggle" data-toggle="buttons">
+                  <label title="{{addexpansion.name}}" *ngFor='let addexpansion of addexpansions' class="circle btn btn-secondary btn-outline-primary">
+                    <input [value]="addexpansion.id" type="radio" autocomplete="off">
+                    <i class="fa fa-{{addexpansion.class}}" aria-hidden="true"></i>
+                  </label>
+                </div>
+            </div>
+          </form>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
               <i class="fa fa-bar-chart" aria-hidden="true"></i>
               Dashboard
               <span class="sr-only">(current)</span>

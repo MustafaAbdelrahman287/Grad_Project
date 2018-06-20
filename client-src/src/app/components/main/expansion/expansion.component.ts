@@ -18,6 +18,11 @@ export class ExpansionComponent implements OnInit {
     { id: '2', class: 'bookmark-o fa-rotate-180', name: 'Polygon' },
     { id: '3', class: 'map-marker', name: 'Pinpoint' }
   ];
+  addexpansions = [
+   
+    { id: '1', class: 'industry', name: 'Factory' },
+    { id: '2', class: 'home', name: 'Warehouse' }
+  ];
   ngOnInit() {
   }
 
