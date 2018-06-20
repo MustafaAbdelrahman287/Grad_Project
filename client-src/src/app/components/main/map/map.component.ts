@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import * as turf from '@turf/turf';
 import { BranchService } from '../../../services/branch/branch.service';
-import { AdvertismentService } from '../../../services/advertisement/advertisment.service';
 import { CompetitorService } from '../../../services/competitor/competitor.service';
 import { CustomerService } from '../../../services/customers/customers.service';
 import { WarehouseService } from '../../../services/warehouse/warehouse.service';
@@ -22,14 +21,12 @@ export class MapComponent implements OnInit {
   geojsonLayer: any;
   geojson: any;
   public branches = [];
-  public advertisment = [];
   public competitor = [];
   public customers = [];
   public warehouse=[];
   public survey=[];
   public item=[];
-  constructor(private http:Http,private _customerService: CustomerService, private _branchService: BranchService,
-    private _advertismentService: AdvertismentService, private _competitorService: CompetitorService,
+  constructor(private http:Http,private _customerService: CustomerService, private _branchService: BranchService, private _competitorService: CompetitorService,
   private _warehouseService:WarehouseService,private _itemService:ItemService,private _surveyService:SurveyService) {
 
    
@@ -44,7 +41,7 @@ export class MapComponent implements OnInit {
       L.geoJSON(this.geojson).addTo(this.mymap);
     }); */
     //#region GeoJson Marker Icon
-    function createCustomIcon(latlng) {
+    function createCustomIcon(feature, latlng) {
       let myIcon = L.icon({
         iconUrl: '../../assets/adidas_PNG22.png',
         iconSize: [50, 50],
@@ -81,7 +78,7 @@ export class MapComponent implements OnInit {
   }
 
   onClick(event) {
-    console.log(event);
+    console.log(event, this);
   }
 
   ngOnInit() {
@@ -90,16 +87,28 @@ export class MapComponent implements OnInit {
       maxZoom: 18,
     }).addTo(this.mymap);
 
+
     this._branchService.getBranches().subscribe(
       data => {
         this.branches = data;
         console.log(data);
-        for (let i = 0; i < data.length; i++) {
+        this.branches.forEach((branch) => {
+          this.mymap.push(
+            L.marker([branch.branch_location.lat, branch.branch_location.lng], {
+              icon: this.myIcon
+            }).on('click', this.onClick.bind(this))
+          );
+        });
+        /* for (let i = 0; i < data.length; i++) {
           L.marker([this.branches[i].branch_location.lat, this.branches[i].branch_location.lng], { icon: this.myIcon, draggable: true }).addTo(this.mymap).bindPopup(`Name : ${this.branches[i].name}`).addEventListener('click', this.onClick);
-        }
+        } */
       },
         err => console.log(err)
       )
+
+      
+
+
     this._customerService.getCustomers().subscribe(
       data => {
         this.customers = data;
@@ -117,11 +126,9 @@ export class MapComponent implements OnInit {
         this.customers = data;
         for (let i = 0; i < data.length; i++) {
           L.marker([this.customers[i].cst_location.lat, this.customers[i].cst_location.lng], { icon: customerIcon }).addTo(this.mymap);
-
         }
       },
       err => console.log(err)
-
     );
     this._warehouseService.getWarehouse().subscribe(
       data => {
@@ -129,17 +136,18 @@ export class MapComponent implements OnInit {
         for (let i = 0; i < data.length; i++) {
 
 
+
+          L.marker([data[i].warehouse_location.lat, data[i].warehouse_location.lng]).addTo(this.mymap);
+
           L.marker([data[i].warehouse_location.lat, data[i].warehouse_location.lng]).addTo(this.mymap);
 
         }
       },
       err => console.log(err)
-
     );
     this._itemService.getItem().subscribe(
       data => {
         this.item = data;
-      
       },
       err => console.log(err)
 
@@ -147,7 +155,6 @@ export class MapComponent implements OnInit {
     this._surveyService.getSurvey().subscribe(
       data => {
         this.survey = data;
-      
       },
       err => console.log(err)
 
