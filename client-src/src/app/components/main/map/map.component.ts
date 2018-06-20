@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import * as turf from '@turf/turf';
 import { BranchService } from '../../../services/branch/branch.service';
+import { IsochronesService } from '../../../services/isochrones/isochrones.service';
 import { CompetitorService } from '../../../services/competitor/competitor.service';
 import { CustomerService } from '../../../services/customers/customers.service';
 import { ItemService } from '../../../services/item/item.service';
@@ -22,12 +23,13 @@ export class MapComponent implements OnInit {
   public branches = [];
   public competitor = [];
   public customers = [];
-  public survey=[];
-  public item=[];
+  public survey = [];
+  public item = [];
   public order = [];
-  constructor(private http:Http,private _customerService: CustomerService, private _branchService: BranchService, private _competitorService: CompetitorService,
-  private _itemService:ItemService,private _surveyService:SurveyService, private _orderService: OrderService) {
-  
+  public isochrones;
+  constructor(private http: Http, private _customerService: CustomerService, private _branchService: BranchService, private _competitorService: CompetitorService,
+    private _itemService: ItemService, private _surveyService: SurveyService, private _orderService: OrderService, private _isochronesService: IsochronesService) {
+
     /* http.get('../../../../assets/map.geojson').subscribe(response => {
       this.geojsonLayer = response.json();
       this.geojson = {"type":"FeatureCollection","features":[{"type":"Feature","properties":{},
@@ -92,21 +94,26 @@ export class MapComponent implements OnInit {
       maxZoom: 18,
     }).addTo(this.mymap);
 
+    let location=[];
 
     this._branchService.getBranches().subscribe(
       data => {
         this.branches = data;
         console.log(data);
-        this.branches.forEach((branch) => {
-          this.mymap.push(
-            L.marker([branch.branch_location.lat, branch.branch_location.lng], {
-              icon: this.myIcon
-            }).on('click', this.onClick.bind(this))
-          );
-        });
-        /* for (let i = 0; i < data.length; i++) {
-          L.marker([this.branches[i].branch_location.lat, this.branches[i].branch_location.lng], { icon: this.myIcon, draggable: true }).addTo(this.mymap).bindPopup(`Name : ${this.branches[i].name}`).addEventListener('click', this.onClick);
-        } */
+        for (let i = 0; i < data.length; i++) {
+          location[i] = data[i].branch_location.lat + '%' + data[i].branch_location.lng;
+          L.marker([this.branches[i].branch_location.lat, this.branches[i].branch_location.lng], { draggable: true }).addTo(this.mymap).bindPopup(`Name : ${this.branches[i].name}`).addEventListener('click', this.onClick);
+        }
+        console.log(location.join('|'));
+      },
+      err => console.log(err)
+    )
+
+    this._isochronesService.getIsochrones(location.toString(),'foot-walking').subscribe(
+      data => {
+        this.isochrones = data;
+        console.log(data);
+        L.geoJSON(data).addTo(this.mymap);
       },
       err => console.log(err)
     )
@@ -131,8 +138,8 @@ export class MapComponent implements OnInit {
      )
  */
 
-    
-    
+
+
     this._itemService.getItem().subscribe(
       data => {
         this.item = data;
@@ -193,13 +200,13 @@ export class MapComponent implements OnInit {
       turf.point([28.973865, 41.011122]),
       turf.point([28.948459, 41.024204]),
       turf.point([28.938674, 41.013324])
-  ]);
-  
-  const nearest = turf.nearestPoint(targetPoint, points);
-  console.log(nearest);
+    ]);
 
- // const nearstt=turf.getCoords(nearest);
- const nearstp= L.geoJSON(nearest).addTo(this.mymap);
+    const nearest = turf.nearestPoint(targetPoint, points);
+    console.log(nearest);
+
+    // const nearstt=turf.getCoords(nearest);
+    const nearstp = L.geoJSON(nearest).addTo(this.mymap);
 
     /************************************ Potential Customers Marker************************************/
     /*
