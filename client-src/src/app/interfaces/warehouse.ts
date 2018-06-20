@@ -1,10 +1,10 @@
 export interface IWarehouse{
-    name: string,
-    warehouse_location: {
+    "name": string,
+    "warehouse_location": {
       lat: number,
       lng: number
     },
-    id: string
+    "id"?: string
 
     
 }

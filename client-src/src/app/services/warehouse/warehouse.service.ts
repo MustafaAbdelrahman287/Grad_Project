@@ -6,6 +6,8 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 
+
+
 const httpOptions={
   headers:new HttpHeaders({'Content-Type':'application/json'})
 };
@@ -14,16 +16,16 @@ const httpOptions={
   providedIn: 'root'
 })
 export class WarehouseService {
-  private _url="http://localhost:3000/api/warehouses";
-  private _posturl="";
+  private _url="http://localhost:5000/api/warehouses";
+  
 
   constructor( private http:HttpClient) { }
   getWarehouse():Observable<IWarehouse[]>{
     return this.http.get<IWarehouse[]>(this._url).pipe(catchError(error => this.errorHandler(error)));
 
   }
-  postWarehouse(newWarehouse:IWarehouse):Observable<IWarehouse[]>{
-    return this.http.post<IWarehouse[]>(this._posturl,newWarehouse,httpOptions).pipe(catchError(error =>this.errorHandler(error)));
+  postWarehouse(newWarehouse:IWarehouse):Observable<IWarehouse>{
+    return this.http.post<IWarehouse>(this._url,newWarehouse,httpOptions).pipe(catchError(error =>this.errorHandler(error)));
 
   }
   getWarehouseById(){}

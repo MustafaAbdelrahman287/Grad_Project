@@ -20,6 +20,30 @@
             <app-target-segment></app-target-segment>
             <app-loyal-customers></app-loyal-customers>
           </div>
+          <div id="accordion">
+          <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" data-target="#add" aria-expanded="false" aria-controls="collapseOne">
+                <i class="fa fa-bullseye" aria-hidden="true"></i>
+                Add customer:
+              </a>
+            </li>
+            <div id="add" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+              <div class="card-body">
+                <form>
+                    <a class="nav-link" href="/main/customer/addcustomer">
+                      <button class="circle btn btn-secondary btn-outline-primary" (click)='onSubmit(f)' routerLink = '/main/customer/addcustomer'>
+                       
+                        
+                        <i class="fa fa-plus fa-lg" aria-hidden="true"></i> </button>
+                      </a>
+                        <a class="nav-link" href="/main/customer/remove">
+                        <button class="circle btn btn-secondary btn-outline-primary" (click)='onSubmit(f)' routerLink = '/main/branches/remove/remove'>
+                            <i class="fa fa-trash-o fa-lg" aria-hidden="true"></i> </button>
+                          </a>
+                </form>
+              </div>
+              </div>
+            </div>
           <li class="nav-item">
             <a class="nav-link" href="#">
               <i class="fa fa-bar-chart" aria-hidden="true"></i>
