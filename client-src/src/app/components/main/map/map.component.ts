@@ -4,10 +4,8 @@ import * as turf from '@turf/turf';
 import { BranchService } from '../../../services/branch/branch.service';
 import { CompetitorService } from '../../../services/competitor/competitor.service';
 import { CustomerService } from '../../../services/customers/customers.service';
-import { WarehouseService } from '../../../services/warehouse/warehouse.service';
 import { ItemService } from '../../../services/item/item.service';
 import { SurveyService } from '../../../services/survey/survey.service';
-import { FactoryService } from '../../../services/factory/factory.service';
 import { Http } from '@angular/http';
 
 @Component({
@@ -23,11 +21,10 @@ export class MapComponent implements OnInit {
   public branches = [];
   public competitor = [];
   public customers = [];
-  public warehouse=[];
   public survey=[];
   public item=[];
   constructor(private http:Http,private _customerService: CustomerService, private _branchService: BranchService, private _competitorService: CompetitorService,
-  private _warehouseService:WarehouseService,private _itemService:ItemService,private _surveyService:SurveyService) {
+  private _itemService:ItemService,private _surveyService:SurveyService) {
 
    
     /* http.get('../../../../assets/map.geojson').subscribe(response => {
@@ -130,21 +127,7 @@ export class MapComponent implements OnInit {
       },
       err => console.log(err)
     );
-    this._warehouseService.getWarehouse().subscribe(
-      data => {
-        this.warehouse = data;
-        for (let i = 0; i < data.length; i++) {
-
-
-
-          L.marker([data[i].warehouse_location.lat, data[i].warehouse_location.lng]).addTo(this.mymap);
-
-          L.marker([data[i].warehouse_location.lat, data[i].warehouse_location.lng]).addTo(this.mymap);
-
-        }
-      },
-      err => console.log(err)
-    );
+    
     this._itemService.getItem().subscribe(
       data => {
         this.item = data;
@@ -212,11 +195,6 @@ export class MapComponent implements OnInit {
 
  // const nearstt=turf.getCoords(nearest);
  const nearstp= L.geoJSON(nearest).addTo(this.mymap);
-  
- 
- 
- 
- 
  
   }
 }

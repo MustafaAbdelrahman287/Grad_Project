@@ -8,29 +8,31 @@
       <div class="sidebar-sticky">
         <ul class="nav flex-column">
           <li class="list-group-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link">
               <i class="fa fa-users" aria-hidden="true"></i>
               Current Customers
             </a>
           </li>
           <li class="list-group-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link">
               <i class="fa fa-user-plus" aria-hidden="true"></i>
               Potential Customers
             </a>
           </li>
-          <div id="accordion">
+          <li id="accordion">
             <app-target-segment class="list-group-item"></app-target-segment>
+          </li>
+          <li id="accordion2">
             <app-loyal-customers class="list-group-item"></app-loyal-customers>
-          </div>
-          <div id="accordion">
+          </li>
+          <div id="accordion3">
             <li class="list-group-item">
               <a class="nav-link" data-toggle="collapse" data-target="#add" aria-expanded="false" aria-controls="collapseOne">
                 <i class="fa fa-bullseye" aria-hidden="true"></i>
                 Add customer:
               </a>
             </li>
-            <div id="add" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+            <div id="add" class="collapse" aria-labelledby="headingOne" data-parent="#accordion3">
               <div class="card-body">
                 <form>
                   <a class="nav-link" href="/main/customer/addcustomer">
