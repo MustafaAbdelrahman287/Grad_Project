@@ -24,12 +24,10 @@ export class AdvertismentComponent implements OnInit {
   ngOnInit() {
     L.Marker.prototype.options.icon = this.myIcon;
     let location;
-    let marker;
     let mymap = L.map('mapid').setView([30.09219, 31.32297], 12);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?', {
       maxZoom: 18,
     }).addTo(mymap);
-    mymap.off('click');
     function onMapClick(e) {
       location = [e.latlng.lat, e.latlng.lng];
       console.log(location);

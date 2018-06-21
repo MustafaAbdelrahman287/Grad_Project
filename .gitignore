@@ -1,2 +1,3 @@
 
 server/datasources.json
+client-src/src/app/components/main/map/map.component.ts
