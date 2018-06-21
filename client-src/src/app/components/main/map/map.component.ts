@@ -33,12 +33,12 @@ export class MapComponent implements OnInit {
 
 
     /************************************ target segment districts ************************************/
-    this.http.get('../../../../assets/districts.geojson').subscribe(response => {
+    let districts = this.http.get('../../../../assets/districts.geojson').subscribe(response => {
       this.geojsonLayer = response.json();
       console.log(this.geojsonLayer)
       L.geoJSON(this.geojsonLayer, myLayerOptions).addTo(this.mymap);
     });
-
+    console.log(districts);
 /************************************************************************/
 
     //#region GeoJson Marker Icon
@@ -56,12 +56,12 @@ export class MapComponent implements OnInit {
       pointToLayer: createCustomIcon
     }
     //#endregion
-    L.Marker.prototype.options.icon = this.myIcon;
+   /* L.Marker.prototype.options.icon = this.myIcon;
     this.http.get('../../../../assets/FIRE_STATION.geojson').subscribe(response => {
       this.geojsonLayer = response.json();
       console.log(this.geojsonLayer)
       L.geoJSON(this.geojsonLayer, myLayerOptions).addTo(this.mymap);
-    });
+    });*/
   }
 
   myIcon = L.icon({
@@ -167,7 +167,7 @@ export class MapComponent implements OnInit {
     const intersection = turf.intersect(poly1, poly2);
     const intersectionCoords = turf.getCoords(intersection);
     //const polygonOfIntersection = L.polygon(intersectionCoords, { color: 'red' }).addTo(this.mymap);
-    /************************************ turf nearst point ************************************/
+    /************************************ turf nearst point ************************************
     const targetPoint = turf.point([28.965797, 41.010086], { "marker-color": "#0F0" });
     const points = turf.featureCollection([
       turf.point([28.973865, 41.011122]),
@@ -206,7 +206,7 @@ export class MapComponent implements OnInit {
     /************************************ Loyal Customers Marker************************************/
     let duration;
     let numberOfOrders;
-    /********************Orders********************/
+    /********************Orders********************
     if (numberOfOrders !== null && duration === undefined) {
       this._customerService.getCustomers().subscribe(
         data => {
@@ -221,7 +221,7 @@ export class MapComponent implements OnInit {
         err => console.log(err)
       );
     }
-    /********************Duration********************/
+    /********************Duration********************
     if (duration !== null && numberOfOrders === undefined) {
       let today = new Date();
       let yearOfOrder;
@@ -255,7 +255,7 @@ export class MapComponent implements OnInit {
         err => console.log(err)
       );
     }
-    /********************Orders and Duration********************/
+    /********************Orders and Duration********************
     if (duration !== null && numberOfOrders !== null) {
       let today = new Date();
       let yearOfOrder;
