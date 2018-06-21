@@ -89,7 +89,7 @@ export class MapComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.mymap = L.map('mapid').setView([30.09219, 31.32297], 12);
+    this.mymap = L.map('mapid').setView([30.091041, 31.19618], 12);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?', {
       maxZoom: 18,
     }).addTo(this.mymap);
@@ -101,15 +101,15 @@ export class MapComponent implements OnInit {
         this.branches = data;
         console.log(data);
         for (let i = 0; i < data.length; i++) {
-          location[i] = data[i].branch_location.lat + '%' + data[i].branch_location.lng;
+          location[i] = data[i].branch_location.lat + '%2C' + data[i].branch_location.lng;
           L.marker([this.branches[i].branch_location.lat, this.branches[i].branch_location.lng], { draggable: true }).addTo(this.mymap).bindPopup(`Name : ${this.branches[i].name}`).addEventListener('click', this.onClick);
         }
-        console.log(location.join('|'));
+        console.log(location.join('%7C').toString());
       },
       err => console.log(err)
     )
 
-    this._isochronesService.getIsochrones(location.toString(),'foot-walking').subscribe(
+    this._isochronesService.getIsochrones(location.join('%7C').toString(),'foot-walking').subscribe(
       data => {
         this.isochrones = data;
         console.log(data);
