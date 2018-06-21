@@ -19,7 +19,7 @@ import { RemoveComponent } from './components/main/branches/remove/remove.compon
 import { AuthService } from './services/auth/auth.service';
 import {HttpClientModule} from '@angular/common/http';
 import{HttpModule} from '@angular/http';
-import { BrmapComponent } from './components/main/branches/brmap/brmap.component';
+
 import { RegisterComponent } from './components/register/register.component';
 import { AddcustomerComponent } from './components/main/customer/addcustomer/addcustomer.component';
 import { RemovecustomerComponent } from './components/main/customer/removecustomer/removecustomer.component';
@@ -56,7 +56,7 @@ const appRoutes: Routes = [
     MapComponent,
     AddComponent,
     RemoveComponent,
-    BrmapComponent,
+    
     RegisterComponent,
     AddcustomerComponent,
     RemovecustomerComponent,

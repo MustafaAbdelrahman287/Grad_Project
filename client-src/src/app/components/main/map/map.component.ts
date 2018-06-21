@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import * as turf from '@turf/turf';
+
 import { BranchService } from '../../../services/branch/branch.service';
 import { CompetitorService } from '../../../services/competitor/competitor.service';
 import { CustomerService } from '../../../services/customers/customers.service';
@@ -9,6 +10,7 @@ import { ItemService } from '../../../services/item/item.service';
 import { SurveyService } from '../../../services/survey/survey.service';
 import { FactoryService } from '../../../services/factory/factory.service';
 import { Http } from '@angular/http';
+import { latLngBounds } from 'leaflet';
 
 @Component({
   selector: 'app-map',
@@ -82,6 +84,8 @@ export class MapComponent implements OnInit {
   }
 
   ngOnInit() {
+  
+
     this.mymap = L.map('mapid').setView([30.09219, 31.32297], 12);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?', {
       maxZoom: 18,
@@ -212,11 +216,6 @@ export class MapComponent implements OnInit {
 
  // const nearstt=turf.getCoords(nearest);
  const nearstp= L.geoJSON(nearest).addTo(this.mymap);
-  
- 
- 
- 
- 
- 
+ /************************************ Draw rectangular ************************************/
   }
 }
