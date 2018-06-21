@@ -122,21 +122,11 @@ export class MapComponent implements OnInit {
       data => {
         this.customers = data;
         for (let i = 0; i < data.length; i++) {
-          L.marker([this.customers[i].cst_location.lat, this.customers[i].cst_location.lng], { icon: this.customerIcon }).addTo(this.mymap);
+          L.marker([this.customers[i].cst_location.lat, this.customers[i].cst_location.lng], { icon: this.customerIcon, draggable: true }).addTo(this.mymap);
         }
-      }
+      },
+      err => console.log(err)
     );
-    /*
-       this._customerService.getCustomers().subscribe(
-       data => {
-         this.customers = data;
-         for (let i = 0; i < data.length; i++) {
-           L.marker([this.customers[i].cst_location.lat, this.customers[i].cst_location.lng], { icon: customerIcon, draggable: true }).addTo(this.mymap).bindPopup(`Name : ${this.customers[i].name}`);
-         }
-       },
-       err => console.log(err)
-     )
- */
 
 
 
@@ -224,8 +214,8 @@ export class MapComponent implements OnInit {
  */
 
     /************************************ Loyal Customers Marker************************************/
-    let duration = 9;
-    let numberOfOrders = 2;
+    let duration;
+    let numberOfOrders;
     /********************Orders********************/
     if (numberOfOrders !== null && duration === undefined) {
       this._customerService.getCustomers().subscribe(
