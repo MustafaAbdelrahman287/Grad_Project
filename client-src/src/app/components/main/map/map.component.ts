@@ -30,7 +30,7 @@ export class MapComponent implements OnInit {
   public order = [];
   public isochrones;
   constructor(private http: Http, private _customerService: CustomerService, private _branchService: BranchService, private _competitorService: CompetitorService,
-    private _itemService: ItemService, private _surveyService: SurveyService, private _orderService: OrderService, private _isochronesService: IsochronesService) {
+               private _itemService: ItemService, private _surveyService: SurveyService, private _orderService: OrderService, private _isochronesService: IsochronesService) {
 
     /************************************ target segment districts ************************************/
     this.http.get('../../../../assets/districts.geojson').subscribe(response => {
@@ -201,18 +201,13 @@ export class MapComponent implements OnInit {
   const nearest = turf.nearestPoint(targetPoint, points);
   console.log(nearest);
 
- // const nearstt=turf.getCoords(nearest);
+
  const nearstp= L.geoJSON(nearest).addTo(this.mymap);
  /************************************ Draw rectangular ************************************/
   }
 }
 
     
-
- 
-  
-
-    // const nearstt=turf.getCoords(nearest);
     
 
     /************************************ Potential Customers Marker************************************/
