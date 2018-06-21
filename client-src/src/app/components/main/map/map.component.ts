@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import * as turf from '@turf/turf';
+
 import { BranchService } from '../../../services/branch/branch.service';
 import { IsochronesService } from '../../../services/isochrones/isochrones.service';
 import { CompetitorService } from '../../../services/competitor/competitor.service';
@@ -8,6 +9,7 @@ import { CustomerService } from '../../../services/customers/customers.service';
 import { ItemService } from '../../../services/item/item.service';
 import { SurveyService } from '../../../services/survey/survey.service';
 import { Http } from '@angular/http';
+import { latLngBounds } from 'leaflet';
 import { OrderService } from '../../../services/order/order.service';
 
 @Component({
@@ -29,16 +31,15 @@ export class MapComponent implements OnInit {
   constructor(private http: Http, private _customerService: CustomerService, private _branchService: BranchService, private _competitorService: CompetitorService,
     private _itemService: ItemService, private _surveyService: SurveyService, private _orderService: OrderService) {
 
-    /* http.get('../../../../assets/map.geojson').subscribe(response => {
+    /************************************ target segment districts ************************************/
+    this.http.get('../../../../assets/districts.geojson').subscribe(response => {
       this.geojsonLayer = response.json();
-      this.geojson = {"type":"FeatureCollection","features":[{"type":"Feature","properties":{},
-      "geometry":{"type":"Polygon","coordinates":[[[34.8486328125,29.420460341013133],[34.892578125,29.726222319395504],
-      [34.2333984375,31.27855085894653],[32.2998046875,31.353636941500987],[30.9814453125,31.615965936476076],
-      [29.0478515625,30.826780904779774],[24.960937499999996,31.80289258670676],[24.960937499999996,21.983801417384697],
-      [36.650390625,21.90227796666864],[32.431640625,29.80251790576445],[34.365234375,27.916766641249065],
-      [34.8486328125,29.420460341013133]]]}}]}
-      L.geoJSON(this.geojson).addTo(this.mymap);
-    }); */
+      console.log(this.geojsonLayer)
+      L.geoJSON(this.geojsonLayer, myLayerOptions).addTo(this.mymap);
+    });
+
+/************************************************************************/
+
     //#region GeoJson Marker Icon
     function createCustomIcon(feature, latlng) {
       let myIcon = L.icon({
@@ -88,11 +89,17 @@ export class MapComponent implements OnInit {
   }
 
   ngOnInit() {
+  
+
+   
     this.mymap = L.map('mapid').setView([30.091041, 31.19618], 12);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?', {
       maxZoom: 18,
     }).addTo(this.mymap);
 
+
+
+    /*
     this._customerService.getCustomers().subscribe(
       data => {
         this.customers = data;
@@ -102,6 +109,8 @@ export class MapComponent implements OnInit {
       },
       err => console.log(err)
     );
+*/
+
 
     this._itemService.getItem().subscribe(
       data => {
@@ -137,7 +146,7 @@ export class MapComponent implements OnInit {
       [30.04971, 31.30199]
     ]]);
     const poly1Coords = turf.getCoords(poly1);
-    const polygon1 = L.polygon(poly1Coords, { color: 'green' }).addTo(this.mymap);
+    //const polygon1 = L.polygon(poly1Coords, { color: 'green' }).addTo(this.mymap);
 
     // create a second green polygon from an array of LatLng points
     const poly2 = turf.polygon([[
@@ -151,25 +160,37 @@ export class MapComponent implements OnInit {
       [30.09962, 31.31747]
     ]]);
     const poly2Coords = turf.getCoords(poly2);
-    const polygon2 = L.polygon(poly2Coords, { color: 'green' }).addTo(this.mymap);
+    //const polygon2 = L.polygon(poly2Coords, { color: 'green' }).addTo(this.mymap);
 
     // create a red polygon from the intersection of the two polygons
     const intersection = turf.intersect(poly1, poly2);
     const intersectionCoords = turf.getCoords(intersection);
-    const polygonOfIntersection = L.polygon(intersectionCoords, { color: 'red' }).addTo(this.mymap); */
+    //const polygonOfIntersection = L.polygon(intersectionCoords, { color: 'red' }).addTo(this.mymap);
     /************************************ turf nearst point ************************************/
     const targetPoint = turf.point([28.965797, 41.010086], { "marker-color": "#0F0" });
     const points = turf.featureCollection([
       turf.point([28.973865, 41.011122]),
       turf.point([28.948459, 41.024204]),
       turf.point([28.938674, 41.013324])
-    ]);
 
-    const nearest = turf.nearestPoint(targetPoint, points);
-    console.log(nearest);
+  ]);
+  
+  const nearest = turf.nearestPoint(targetPoint, points);
+  console.log(nearest);
+
+ // const nearstt=turf.getCoords(nearest);
+ const nearstp= L.geoJSON(nearest).addTo(this.mymap);
+ /************************************ Draw rectangular ************************************/
+  }
+}
+
+    
+
+ 
+  
 
     // const nearstt=turf.getCoords(nearest);
-    const nearstp = L.geoJSON(nearest).addTo(this.mymap);
+    
 
     /************************************ Potential Customers Marker************************************/
     /*
@@ -280,6 +301,5 @@ export class MapComponent implements OnInit {
 
 
 
-  }
 
-}
+

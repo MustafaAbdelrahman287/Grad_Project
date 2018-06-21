@@ -1,4 +1,11 @@
-<div>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" data-target="#add" aria-expanded="false" aria-controls="collapseOne">
+          <i class="fa fa-plus fa-lg" aria-hidden="true"></i>
+          Add Branch:
+        </a>
+      </li>
+      <div id="add" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+     <div class="card-body">
     <form #f="ngForm" (ngSubmit)="onAddSubmit(f)">
       <label for="bname">Branch Name</label>
       <input ng-model="name" type="text" id="fname" name="name" [ngModel]="name" #brName="ngModel" placeholder="Your Branch name..">
@@ -14,3 +21,5 @@
       <input class="btn btn-primary" type="submit" value="Add">
     </form>
   </div>
+</div>
+ 
