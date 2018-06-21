@@ -117,6 +117,7 @@ export class MapComponent implements OnInit {
       err => console.log(err)
     )
 
+    /*
     this._customerService.getCustomers().subscribe(
       data => {
         this.customers = data;
@@ -126,7 +127,7 @@ export class MapComponent implements OnInit {
       },
       err => console.log(err)
     );
-
+*/
 
 
     this._itemService.getItem().subscribe(
