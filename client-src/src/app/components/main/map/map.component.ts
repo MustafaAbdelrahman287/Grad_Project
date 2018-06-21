@@ -26,9 +26,8 @@ export class MapComponent implements OnInit {
   public survey = [];
   public item = [];
   public order = [];
-  public isochrones;
   constructor(private http: Http, private _customerService: CustomerService, private _branchService: BranchService, private _competitorService: CompetitorService,
-    private _itemService: ItemService, private _surveyService: SurveyService, private _orderService: OrderService, private _isochronesService: IsochronesService) {
+    private _itemService: ItemService, private _surveyService: SurveyService, private _orderService: OrderService) {
 
     /* http.get('../../../../assets/map.geojson').subscribe(response => {
       this.geojsonLayer = response.json();
@@ -94,30 +93,6 @@ export class MapComponent implements OnInit {
       maxZoom: 18,
     }).addTo(this.mymap);
 
-    let location=[];
-
-    this._branchService.getBranches().subscribe(
-      data => {
-        this.branches = data;
-        console.log(data);
-        for (let i = 0; i < data.length; i++) {
-          location[i] = data[i].branch_location.lat + '%2C' + data[i].branch_location.lng;
-          L.marker([this.branches[i].branch_location.lat, this.branches[i].branch_location.lng], { draggable: true }).addTo(this.mymap).bindPopup(`Name : ${this.branches[i].name}`).addEventListener('click', this.onClick);
-        }
-        console.log(location.join('%7C').toString());
-      },
-      err => console.log(err)
-    )
-
-    this._isochronesService.getIsochrones(location.join('%7C').toString(),'foot-walking').subscribe(
-      data => {
-        this.isochrones = data;
-        console.log(data);
-        L.geoJSON(data).addTo(this.mymap);
-      },
-      err => console.log(err)
-    )
-
     this._customerService.getCustomers().subscribe(
       data => {
         this.customers = data;
@@ -127,8 +102,6 @@ export class MapComponent implements OnInit {
       },
       err => console.log(err)
     );
-
-
 
     this._itemService.getItem().subscribe(
       data => {
@@ -156,7 +129,7 @@ export class MapComponent implements OnInit {
 
     /************************************ turf intersect ************************************/
     // create a first green polygon from an array of LatLng points
-    const poly1 = turf.polygon([[
+    /* const poly1 = turf.polygon([[
       [30.04971, 31.30199],
       [30.10138, 31.30500],
       [30.1047, 31.33571],
@@ -183,7 +156,7 @@ export class MapComponent implements OnInit {
     // create a red polygon from the intersection of the two polygons
     const intersection = turf.intersect(poly1, poly2);
     const intersectionCoords = turf.getCoords(intersection);
-    const polygonOfIntersection = L.polygon(intersectionCoords, { color: 'red' }).addTo(this.mymap);
+    const polygonOfIntersection = L.polygon(intersectionCoords, { color: 'red' }).addTo(this.mymap); */
     /************************************ turf nearst point ************************************/
     const targetPoint = turf.point([28.965797, 41.010086], { "marker-color": "#0F0" });
     const points = turf.featureCollection([
