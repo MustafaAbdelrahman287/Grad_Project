@@ -30,16 +30,15 @@ export class MapComponent implements OnInit {
   constructor(private http: Http, private _customerService: CustomerService, private _branchService: BranchService, private _competitorService: CompetitorService,
     private _itemService: ItemService, private _surveyService: SurveyService, private _orderService: OrderService, private _isochronesService: IsochronesService) {
 
-    /* http.get('../../../../assets/map.geojson').subscribe(response => {
+    /************************************ target segment districts ************************************/
+    this.http.get('../../../../assets/districts.geojson').subscribe(response => {
       this.geojsonLayer = response.json();
-      this.geojson = {"type":"FeatureCollection","features":[{"type":"Feature","properties":{},
-      "geometry":{"type":"Polygon","coordinates":[[[34.8486328125,29.420460341013133],[34.892578125,29.726222319395504],
-      [34.2333984375,31.27855085894653],[32.2998046875,31.353636941500987],[30.9814453125,31.615965936476076],
-      [29.0478515625,30.826780904779774],[24.960937499999996,31.80289258670676],[24.960937499999996,21.983801417384697],
-      [36.650390625,21.90227796666864],[32.431640625,29.80251790576445],[34.365234375,27.916766641249065],
-      [34.8486328125,29.420460341013133]]]}}]}
-      L.geoJSON(this.geojson).addTo(this.mymap);
-    }); */
+      console.log(this.geojsonLayer)
+      L.geoJSON(this.geojsonLayer, myLayerOptions).addTo(this.mymap);
+    });
+
+/************************************************************************/
+
     //#region GeoJson Marker Icon
     function createCustomIcon(feature, latlng) {
       let myIcon = L.icon({
@@ -164,7 +163,7 @@ export class MapComponent implements OnInit {
       [30.04971, 31.30199]
     ]]);
     const poly1Coords = turf.getCoords(poly1);
-    const polygon1 = L.polygon(poly1Coords, { color: 'green' }).addTo(this.mymap);
+    //const polygon1 = L.polygon(poly1Coords, { color: 'green' }).addTo(this.mymap);
 
     // create a second green polygon from an array of LatLng points
     const poly2 = turf.polygon([[
@@ -178,12 +177,12 @@ export class MapComponent implements OnInit {
       [30.09962, 31.31747]
     ]]);
     const poly2Coords = turf.getCoords(poly2);
-    const polygon2 = L.polygon(poly2Coords, { color: 'green' }).addTo(this.mymap);
+    //const polygon2 = L.polygon(poly2Coords, { color: 'green' }).addTo(this.mymap);
 
     // create a red polygon from the intersection of the two polygons
     const intersection = turf.intersect(poly1, poly2);
     const intersectionCoords = turf.getCoords(intersection);
-    const polygonOfIntersection = L.polygon(intersectionCoords, { color: 'red' }).addTo(this.mymap);
+    //const polygonOfIntersection = L.polygon(intersectionCoords, { color: 'red' }).addTo(this.mymap);
     /************************************ turf nearst point ************************************/
     const targetPoint = turf.point([28.965797, 41.010086], { "marker-color": "#0F0" });
     const points = turf.featureCollection([
