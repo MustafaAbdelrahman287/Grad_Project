@@ -33,20 +33,21 @@ export class MapComponent implements OnInit {
                private _itemService: ItemService, private _surveyService: SurveyService, private _orderService: OrderService, private _isochronesService: IsochronesService) {
 
     /************************************ target segment districts ************************************/
+    let districts;
+    let poly1,poly5,poly4,poly3,poly2,poly6,poly7,poly8;
+    let poly_props = [];
+    let index;
+   
     this.http.get('../../../../assets/districts.geojson').subscribe(response => {
-      let districts=  this.geojsonLayer = response.json();
-      console.log(this.geojsonLayer)
-      let poly1,poly5,poly4,poly3,poly2,poly6,poly7,poly8;
-      let poly_props = [];
-      let index;
-      //destructuring the features into objects
-     let poly_array= [poly1,poly2,poly3,poly4,poly5,poly6,poly7,poly8]=districts.features; 
-      //pushing all polygons props into an array
-      for (let i = 0; i < districts.features.length; i++) {
-        poly_props.push(districts.features[i].properties); 
-      } 
+       districts=  this.geojsonLayer = response.json(); });   
+        //destructuring the features into objects
+   let poly_array= [poly1,poly2,poly3,poly4,poly5,poly6,poly7,poly8]=districts.features; 
+   //pushing all polygons props into an array
+   for (let i = 0; i < districts.features.length; i++) {
+     poly_props.push(districts.features[i].properties); 
+   } 
 ///-----------------------Max ClassA ---------------------////
-      let findMaxClassA = function(){ // function Start
+  let findMaxClassA = function(){ // function Start
       let property=[];
       //looping on properties to get only the specified property
       for (let i = 0; i < poly_props.length; i++) { 
@@ -64,9 +65,6 @@ export class MapComponent implements OnInit {
   return poly_array[index]; //return of GeoJSON object 
 
     }
-    
-    L.geoJSON(findMaxClassA()).addTo(this.mymap)
-    
   //---------------ClassB------------------//
   let findMaxClassB = function(){ // function Start
     let property=[];
@@ -106,7 +104,7 @@ return poly_array[index]; //return of GeoJSON object
 
   }
     //---------------ClassD------------------//
-    let findMaxClassD = function(){ // function Start
+  let findMaxClassD = function(){ // function Start
       let property=[];
       //looping on properties to get only the specified property
       for (let i = 0; i < poly_props.length; i++) { 
@@ -124,7 +122,7 @@ return poly_array[index]; //return of GeoJSON object
   return poly_array[index]; //return of GeoJSON object 
   
     }  //---------------age from 18-30 ------------------//
-    let findMaxAge30 = function(){ // function Start
+  let findMaxAge30 = function(){ // function Start
       let property=[];
       //looping on properties to get only the specified property
       for (let i = 0; i < poly_props.length; i++) { 
@@ -142,7 +140,7 @@ return poly_array[index]; //return of GeoJSON object
   return poly_array[index]; //return of GeoJSON object 
   
     }  //---------------age 30 - 45 ------------------//
-    let findMaxAge45 = function(){ // function Start
+  let findMaxAge45 = function(){ // function Start
       let property=[];
       //looping on properties to get only the specified property
       for (let i = 0; i < poly_props.length; i++) { 
@@ -180,7 +178,7 @@ return poly_array[index]; //return of GeoJSON object
 
   }
     //---------------high education ------------------//
-    let findMaxHighEdu = function(){ // function Start
+  let findMaxHighEdu = function(){ // function Start
       let property=[];
       //looping on properties to get only the specified property
       for (let i = 0; i < poly_props.length; i++) { 
@@ -199,7 +197,7 @@ return poly_array[index]; //return of GeoJSON object
   
     } 
     //---------------Mid education ------------------//
-    let findMaxMidEdu = function(){ // function Start
+  let findMaxMidEdu = function(){ // function Start
       let property=[];
       //looping on properties to get only the specified property
       for (let i = 0; i < poly_props.length; i++) { 
@@ -218,7 +216,7 @@ return poly_array[index]; //return of GeoJSON object
   
     }  
      //---------------low education ------------------//
-    let findMaxLowEdu = function(){ // function Start
+  let findMaxLowEdu = function(){ // function Start
       let property=[];
       //looping on properties to get only the specified property
       for (let i = 0; i < poly_props.length; i++) { 
@@ -236,11 +234,8 @@ return poly_array[index]; //return of GeoJSON object
   return poly_array[index]; //return of GeoJSON object 
   
     }
-    
     //------------------- ClassA + ClassB---------------//
-
-    
-    let findMaxClassAAndB = function(){ // function Start
+  let findMaxClassAAndB = function(){ // function Start
     let property1=[];
     let property2=[];
     let propertySum=[];
@@ -265,7 +260,7 @@ return poly_array[index]; //return of GeoJSON object
    //------------------- ClassA + ClassB + ClassC---------------//
 
     
-   let findMaxClassAAndBAndC = function(){ // function Start
+  let findMaxClassAAndBAndC = function(){ // function Start
     let property1=[];
     let property2=[];
     let property3=[];
@@ -319,11 +314,12 @@ return poly_array[index]; //return of GeoJSON object
 
  }
   
+
   
   
-  });
-    
-    
+  L.geoJSON(findMaxClassA()).addTo(this.mymap)
+
+
      
 /************************************************************************/
 
