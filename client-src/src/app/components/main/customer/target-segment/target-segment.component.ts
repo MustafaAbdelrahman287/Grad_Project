@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 
 export class TargetSegmentComponent implements OnInit {
   constructor() { }
-  eduLevels = [{id:'1', name:'Illiterate'}, {id:'2', name:'Primary School'}, {id:'3', name:'Prep School'}, {id:'4', name:'High School'}, {id:'5', name:'University'}, {id:'6', name:'Post Graduatation Degree'}];
+  eduLevels = [{id:'1', name:'Low'}, {id:'2', name:'Medium'}, {id:'3', name:'High'}];
   incomeLevels = [{id:'1', name:'A'}, {id:'2', name:'B'}, {id:'3', name:'C'}, {id:'4', name:'D'}];
   ngOnInit() {
   }
