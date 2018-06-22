@@ -11,6 +11,7 @@ import { SurveyService } from '../../../services/survey/survey.service';
 import { Http } from '@angular/http';
 import { latLngBounds } from 'leaflet';
 import { OrderService } from '../../../services/order/order.service';
+import { MAX_LENGTH_VALIDATOR } from '@angular/forms/src/directives/validators';
 
 @Component({
   selector: 'app-map',
@@ -19,8 +20,8 @@ import { OrderService } from '../../../services/order/order.service';
 })
 export class MapComponent implements OnInit {
 
-  mymap: any;
-  geojsonLayer: any;
+  public mymap: any;
+  public geojsonLayer: any;
   geojson: any;
   public branches = [];
   public competitor = [];
@@ -31,14 +32,42 @@ export class MapComponent implements OnInit {
   constructor(private http: Http, private _customerService: CustomerService, private _branchService: BranchService, private _competitorService: CompetitorService,
                private _itemService: ItemService, private _surveyService: SurveyService, private _orderService: OrderService, private _isochronesService: IsochronesService) {
 
-
     /************************************ target segment districts ************************************/
-    let districts = this.http.get('../../../../assets/districts.geojson').subscribe(response => {
-      this.geojsonLayer = response.json();
+    this.http.get('../../../../assets/districts.geojson').subscribe(response => {
+      let districts=  this.geojsonLayer = response.json();
       console.log(this.geojsonLayer)
-      L.geoJSON(this.geojsonLayer, myLayerOptions).addTo(this.mymap);
+      let poly1,poly5,poly4,poly3,poly2,poly6,poly7,poly8;
+      let poly_props = [];
+      let index;
+      //destructuring the features into objects
+     let poly_array= [poly1,poly2,poly3,poly4,poly5,poly6,poly7,poly8]=districts.features; 
+      //pushing all polygons props into an array
+      for (let i = 0; i < districts.features.length; i++) {
+        poly_props.push(districts.features[i].properties); 
+      } 
+
+      let findMaxClassA = function(){ //Max Class A function Start
+      let property=[];
+      //looping on properties to get only the specified property
+      for (let i = 0; i < poly_props.length; i++) { 
+          property.push(poly_props[i].classA);      
+      }
+
+      var max = 0; //getting max value
+      for (let i=0; i<property.length; i++) {
+        index = i;
+      if (property[i]>max) {
+          max = property[i];
+      }
+
+  } 
+  return poly_array[index]; //return of GeoJSON object 
+
+    }
+    let result=  findMaxClassA();
+    L.geoJSON(result).addTo(this.mymap)
     });
-    console.log(districts);
+     
 /************************************************************************/
 
     //#region GeoJson Marker Icon
@@ -93,11 +122,10 @@ export class MapComponent implements OnInit {
   
 
    
-    this.mymap = L.map('mapid').setView([30.091041, 31.19618], 12);
+   this.mymap = L.map('mapid').setView([30.091041, 31.19618], 12);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?', {
       maxZoom: 18,
     }).addTo(this.mymap);
-
 
 
     /*
