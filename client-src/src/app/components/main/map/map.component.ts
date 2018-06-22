@@ -10,6 +10,7 @@ import { ItemService } from '../../../services/item/item.service';
 import { SurveyService } from '../../../services/survey/survey.service';
 import { Http } from '@angular/http';
 import { OrderService } from '../../../services/order/order.service';
+import { MAX_LENGTH_VALIDATOR } from '@angular/forms/src/directives/validators';
 
 @Component({
   selector: 'app-map',
@@ -18,8 +19,8 @@ import { OrderService } from '../../../services/order/order.service';
 })
 export class MapComponent implements OnInit {
 
-  mymap: any;
-  geojsonLayer: any;
+  public mymap: any;
+  public geojsonLayer: any;
   geojson: any;
   public branches = [];
   public competitor = [];
@@ -32,7 +33,6 @@ export class MapComponent implements OnInit {
 
     /************************************ leaflet draw ************************************/
 
-
     /************************************ target segment districts ************************************/
     /*     this.http.get('../../../../assets/districts.geojson').subscribe(response => {
           this.geojsonLayer = response.json();
@@ -41,6 +41,295 @@ export class MapComponent implements OnInit {
         }); */
 
     /************************************************************************/
+    let districts;
+    let poly1,poly5,poly4,poly3,poly2,poly6,poly7,poly8;
+    let poly_props = [];
+    let index;
+   
+    this.http.get('../../../../assets/districts.geojson').subscribe(response => {
+       districts=  this.geojsonLayer = response.json(); });   
+        //destructuring the features into objects
+   let poly_array= [poly1,poly2,poly3,poly4,poly5,poly6,poly7,poly8]=districts.features; 
+   //pushing all polygons props into an array
+   for (let i = 0; i < districts.features.length; i++) {
+     poly_props.push(districts.features[i].properties); 
+   } 
+///-----------------------Max ClassA ---------------------////
+  let findMaxClassA = function(){ // function Start
+      let property=[];
+      //looping on properties to get only the specified property
+      for (let i = 0; i < poly_props.length; i++) { 
+          property.push(poly_props[i].classA);      
+      }
+
+      var max = 0; //getting max value
+      for (let i=0; i<property.length; i++) {
+        index = i;
+      if (property[i]>max) {
+          max = property[i];
+      }
+
+  } 
+  return poly_array[index]; //return of GeoJSON object 
+
+    }
+  //---------------ClassB------------------//
+  let findMaxClassB = function(){ // function Start
+    let property=[];
+    //looping on properties to get only the specified property
+    for (let i = 0; i < poly_props.length; i++) { 
+        property.push(poly_props[i].classB);      
+    }
+
+    var max = 0; //getting max value
+    for (let i=0; i<property.length; i++) {
+      index = i;
+    if (property[i]>max) {
+        max = property[i];
+    }
+
+} 
+return poly_array[index]; //return of GeoJSON object 
+
+  }
+  //---------------ClassC------------------//
+  let findMaxClassC = function(){ // function Start
+    let property=[];
+    //looping on properties to get only the specified property
+    for (let i = 0; i < poly_props.length; i++) { 
+        property.push(poly_props[i].classC);      
+    }
+
+    var max = 0; //getting max value
+    for (let i=0; i<property.length; i++) {
+      index = i;
+    if (property[i]>max) {
+        max = property[i];
+    }
+
+} 
+return poly_array[index]; //return of GeoJSON object 
+
+  }
+    //---------------ClassD------------------//
+  let findMaxClassD = function(){ // function Start
+      let property=[];
+      //looping on properties to get only the specified property
+      for (let i = 0; i < poly_props.length; i++) { 
+          property.push(poly_props[i].classD);      
+      }
+  
+      var max = 0; //getting max value
+      for (let i=0; i<property.length; i++) {
+        index = i;
+      if (property[i]>max) {
+          max = property[i];
+      }
+  
+  } 
+  return poly_array[index]; //return of GeoJSON object 
+  
+    }  //---------------age from 18-30 ------------------//
+  let findMaxAge30 = function(){ // function Start
+      let property=[];
+      //looping on properties to get only the specified property
+      for (let i = 0; i < poly_props.length; i++) { 
+          property.push(poly_props[i].age30);      
+      }
+  
+      var max = 0; //getting max value
+      for (let i=0; i<property.length; i++) {
+        index = i;
+      if (property[i]>max) {
+          max = property[i];
+      }
+  
+  } 
+  return poly_array[index]; //return of GeoJSON object 
+  
+    }  //---------------age 30 - 45 ------------------//
+  let findMaxAge45 = function(){ // function Start
+      let property=[];
+      //looping on properties to get only the specified property
+      for (let i = 0; i < poly_props.length; i++) { 
+          property.push(poly_props[i].age45);      
+      }
+  
+      var max = 0; //getting max value
+      for (let i=0; i<property.length; i++) {
+        index = i;
+      if (property[i]>max) {
+          max = property[i];
+      }
+  
+  } 
+  return poly_array[index]; //return of GeoJSON object 
+  
+    }
+      //---------------Age 45 - 55 ------------------//
+  let findMaxAge55 = function(){ // function Start
+    let property=[];
+    //looping on properties to get only the specified property
+    for (let i = 0; i < poly_props.length; i++) { 
+        property.push(poly_props[i].age55);      
+    }
+
+    var max = 0; //getting max value
+    for (let i=0; i<property.length; i++) {
+      index = i;
+    if (property[i]>max) {
+        max = property[i];
+    }
+
+} 
+return poly_array[index]; //return of GeoJSON object 
+
+  }
+    //---------------high education ------------------//
+  let findMaxHighEdu = function(){ // function Start
+      let property=[];
+      //looping on properties to get only the specified property
+      for (let i = 0; i < poly_props.length; i++) { 
+          property.push(poly_props[i].edu_high);      
+      }
+  
+      var max = 0; //getting max value
+      for (let i=0; i<property.length; i++) {
+        index = i;
+      if (property[i]>max) {
+          max = property[i];
+      }
+  
+  } 
+  return poly_array[index]; //return of GeoJSON object 
+  
+    } 
+    //---------------Mid education ------------------//
+  let findMaxMidEdu = function(){ // function Start
+      let property=[];
+      //looping on properties to get only the specified property
+      for (let i = 0; i < poly_props.length; i++) { 
+          property.push(poly_props[i].edu_mid);      
+      }
+  
+      var max = 0; //getting max value
+      for (let i=0; i<property.length; i++) {
+        index = i;
+      if (property[i]>max) {
+          max = property[i];
+      }
+  
+  } 
+  return poly_array[index]; //return of GeoJSON object 
+  
+    }  
+     //---------------low education ------------------//
+  let findMaxLowEdu = function(){ // function Start
+      let property=[];
+      //looping on properties to get only the specified property
+      for (let i = 0; i < poly_props.length; i++) { 
+          property.push(poly_props[i].edu_low);      
+      }
+  
+      var max = 0; //getting max value
+      for (let i=0; i<property.length; i++) {
+        index = i;
+      if (property[i]>max) {
+          max = property[i];
+      }
+  
+  } 
+  return poly_array[index]; //return of GeoJSON object 
+  
+    }
+    //------------------- ClassA + ClassB---------------//
+  let findMaxClassAAndB = function(){ // function Start
+    let property1=[];
+    let property2=[];
+    let propertySum=[];
+    //looping on properties to get only the specified property
+    for (let i = 0; i < poly_props.length; i++) { 
+        property1.push(poly_props[i].classA); 
+        property2.push(poly_props[i].classB);   
+        propertySum.push(property1[i]+property2[i]);
+    }
+
+    var max = 0; //getting max value
+    for (let i=0; i<propertySum.length; i++) {
+      index = i;
+    if (propertySum[i]>max) {
+        max = propertySum[i];
+    }
+
+} 
+return poly_array[index]; //return of GeoJSON object 
+
+  }
+   //------------------- ClassA + ClassB + ClassC---------------//
+
+    
+  let findMaxClassAAndBAndC = function(){ // function Start
+    let property1=[];
+    let property2=[];
+    let property3=[];
+    let propertySum=[];
+    //looping on properties to get only the specified property
+    for (let i = 0; i < poly_props.length; i++) { 
+        property1.push(poly_props[i].classA); 
+        property2.push(poly_props[i].classB);
+        property3.push(poly_props[i].classC);
+        propertySum.push(property1[i]+property2[i]+property3[i]);
+    }
+
+    var max = 0; //getting max value
+    for (let i=0; i<propertySum.length; i++) {
+      index = i;
+    if (propertySum[i]>max) {
+        max = propertySum[i];
+    }
+
+} 
+return poly_array[index]; //return of GeoJSON object 
+
+  } 
+  //------------------- ClassA + ClassB + ClassC + Age 18-30---------------//
+
+    
+  let findMaxClassAAndBAndCAndAge = function(){ // function Start
+   let property1=[];
+   let property2=[];
+   let property3=[];
+   let property4=[];
+   let propertySum=[];
+   //looping on properties to get only the specified property
+   for (let i = 0; i < poly_props.length; i++) { 
+       property1.push(poly_props[i].classA); 
+       property2.push(poly_props[i].classB);
+       property3.push(poly_props[i].classC);
+       property4.push(poly_props[i].age30)
+       propertySum.push(property1[i]+property2[i]+property3[i]+property4[i]);
+   }
+
+   var max = 0; //getting max value
+   for (let i=0; i<propertySum.length; i++) {
+     index = i;
+   if (propertySum[i]>max) {
+       max = propertySum[i];
+   }
+
+} 
+return poly_array[index]; //return of GeoJSON object 
+
+ }
+  
+
+  
+  
+  L.geoJSON(findMaxClassA()).addTo(this.mymap)
+
+
+     
+/************************************************************************/
 
     //#region GeoJson Marker Icon
     function createCustomIcon(feature, latlng) {
@@ -57,12 +346,12 @@ export class MapComponent implements OnInit {
       pointToLayer: createCustomIcon
     }
     //#endregion
-    L.Marker.prototype.options.icon = this.myIcon;
+   /* L.Marker.prototype.options.icon = this.myIcon;
     this.http.get('../../../../assets/FIRE_STATION.geojson').subscribe(response => {
       this.geojsonLayer = response.json();
       console.log(this.geojsonLayer)
       L.geoJSON(this.geojsonLayer, myLayerOptions).addTo(this.mymap);
-    });
+    });*/
   }
 
   myIcon = L.icon({
@@ -92,72 +381,12 @@ export class MapComponent implements OnInit {
 
   ngOnInit() {
 
+   
+   this.mymap = L.map('mapid').setView([30.091041, 31.19618], 12);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?', {
+      maxZoom: 18,
+    }).addTo(this.mymap);
 
-
-    let cloudmade = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?', {
-      maxZoom: 18
-    });
-    this.mymap = L.map('mapid', { drawControl:true, layers: [cloudmade], center: new L.LatLng(-37.7772, 175.2756), zoom: 15 });
-
-    let editableLayers = new L.FeatureGroup();
-    this.mymap.addLayer(editableLayers);
-
-    let MyCustomMarker = L.Icon.extend({
-      options: {
-        shadowUrl: null,
-        iconAnchor: new L.Point(12, 12),
-        iconSize: new L.Point(24, 24),
-        iconUrl: '../../assets/customer.png'
-      }
-    });
-
-    let options:any = {
-      position: 'topright',
-      draw: {
-        polyline: {
-          shapeOptions: {
-            color: '#f357a1',
-            weight: 10
-          }
-        },
-        polygon: {
-          allowIntersection: false, // Restricts shapes to simple polygons
-          drawError: {
-            color: '#e1e100', // Color the shape will turn when intersects
-            message: '<strong>Oh snap!<strong> you can\'t draw that!' // Message that will show when intersect
-          },
-          shapeOptions: {
-            color: '#bada55'
-          }
-        },
-        circle: false, // Turns off this drawing tool
-        rectangle: {
-          shapeOptions: {
-            clickable: false
-          }
-        },
-        marker: {
-          icon: new MyCustomMarker()
-        }
-      },
-      edit: {
-        featureGroup: editableLayers, //REQUIRED!!
-        remove: false
-      }
-    };
-
-    let drawControl = L.Control.Draw;
-    this.mymap.addControl(drawControl);
-    this.mymap.on(L.Draw.Event.CREATED, function (e) {
-      let type = e.layerType,
-          layer = e.layer;
-  
-      if (type === 'marker') {
-          layer.bindPopup('A popup!');
-      }
-  
-      editableLayers.addLayer(layer);
-  });
 
     /*
     this._customerService.getCustomers().subscribe(
@@ -226,7 +455,7 @@ export class MapComponent implements OnInit {
     const intersection = turf.intersect(poly1, poly2);
     const intersectionCoords = turf.getCoords(intersection);
     //const polygonOfIntersection = L.polygon(intersectionCoords, { color: 'red' }).addTo(this.mymap);
-    /************************************ turf nearst point ************************************/
+    /************************************ turf nearst point ************************************
     const targetPoint = turf.point([28.965797, 41.010086], { "marker-color": "#0F0" });
     const points = turf.featureCollection([
       turf.point([28.973865, 41.011122]),
@@ -245,68 +474,87 @@ export class MapComponent implements OnInit {
 }
 
 
+    /************************************ Potential Customers Marker************************************/
+    /*
+     this._customerService.getCustomers().subscribe(
+       data => {
+         this.customers = data;
+         for (let i = 0; i < data.length; i++) {
+           if (!data[i].order_code || data[i].order_code.length === 0) {
+             L.marker([data[i].cst_location.lat, data[i].cst_location.lng], { icon: customerIcon, draggable: true }).addTo(this.mymap);
+           }
+         }
+       },
+       err => console.log(err)
+     );
+ */
 
-
-/************************************ Potential Customers Marker************************************/
-/*
- this._customerService.getCustomers().subscribe(
-   data => {
-     this.customers = data;
-     for (let i = 0; i < data.length; i++) {
-       if (!data[i].order_code || data[i].order_code.length === 0) {
-         L.marker([data[i].cst_location.lat, data[i].cst_location.lng], { icon: customerIcon, draggable: true }).addTo(this.mymap);
-       }
-     }
-   },
-   err => console.log(err)
- );
-*/
-
-/************************************ Loyal Customers Marker************************************/
-let duration;
-let numberOfOrders;
-/********************Orders********************/
-/* if (numberOfOrders !== null && duration === undefined) {
-  this._customerService.getCustomers().subscribe(
-    data => {
-      this.customers = data;
-      for (let i = 0; i < data.length; i++) {
-        if (data[i].order_code.length >= numberOfOrders) {
-          console.log("target customer from number of orders is: ", data[i]);
-          L.marker([data[i].cst_location.lat, data[i].cst_location.lng], { icon: this.customerIcon, draggable: true }).addTo(this.mymap);
-        }
-      }
-    },
-    err => console.log(err)
-  );
-} */
-/********************Duration********************/
-/* if (duration !== null && numberOfOrders === undefined) {
-  let today = new Date();
-  let yearOfOrder;
-  let currentYear = today.getFullYear();
-  let customersOfMatchesOrdersCode = [];
-  this._orderService.getOrders().subscribe(
-    data => {
-      this.order = data;
-      for (let o = 0; o < data.length; o++) {
-        yearOfOrder = data[o].date.toString().substring(0, 4);
-        if (currentYear - yearOfOrder >= duration) {
-          customersOfMatchesOrdersCode.push(data[o].customer_id_fk);
-        }
-      }
-      console.log("customersOfMatchesOrdersCode: ", customersOfMatchesOrdersCode);
-    },
-    err => console.log(err)
-  );
-  this._customerService.getCustomers().subscribe(
-    data => {
-      this.customers = data;
-      for (let i = 0; i < data.length; i++) {
-        for (let j = 0; j < customersOfMatchesOrdersCode.length; j++) {
-          if (customersOfMatchesOrdersCode[j] == data[i].customer_Code) {
-            console.log("target customer from duration is: ", data[i]);
-            L.marker([data[i].cst_location.lat, data[i].cst_location.lng], { icon: this.customerIcon, draggable: true }).addTo(this.mymap);
+    /************************************ Loyal Customers Marker************************************/
+    let duration;
+    let numberOfOrders;
+    /********************Orders********************
+    if (numberOfOrders !== null && duration === undefined) {
+      this._customerService.getCustomers().subscribe(
+        data => {
+          this.customers = data;
+          for (let i = 0; i < data.length; i++) {
+            if (data[i].order_code.length >= numberOfOrders) {
+              console.log("target customer from number of orders is: ", data[i]);
+              L.marker([data[i].cst_location.lat, data[i].cst_location.lng], { icon: this.customerIcon, draggable: true }).addTo(this.mymap);
+            }
+          }
+        },
+        err => console.log(err)
+      );
+    }
+    /********************Duration********************
+    if (duration !== null && numberOfOrders === undefined) {
+      let today = new Date();
+      let yearOfOrder;
+      let currentYear = today.getFullYear();
+      let customersOfMatchesOrdersCode = [];
+      this._orderService.getOrders().subscribe(
+        data => {
+          this.order = data;
+          for (let o = 0; o < data.length; o++) {
+            yearOfOrder = data[o].date.toString().substring(0, 4);
+            if (currentYear - yearOfOrder >= duration) {
+              customersOfMatchesOrdersCode.push(data[o].customer_id_fk);
+            }
+          }
+          console.log("customersOfMatchesOrdersCode: ", customersOfMatchesOrdersCode);
+        },
+        err => console.log(err)
+      );
+      this._customerService.getCustomers().subscribe(
+        data => {
+          this.customers = data;
+          for (let i = 0; i < data.length; i++) {
+            for (let j = 0; j < customersOfMatchesOrdersCode.length; j++) {
+              if (customersOfMatchesOrdersCode[j] == data[i].customer_Code) {
+                console.log("target customer from duration is: ", data[i]);
+                L.marker([data[i].cst_location.lat, data[i].cst_location.lng], { icon: this.customerIcon, draggable: true }).addTo(this.mymap);
+              }
+            }
+          }
+        },
+        err => console.log(err)
+      );
+    }
+    /********************Orders and Duration********************
+    if (duration !== null && numberOfOrders !== null) {
+      let today = new Date();
+      let yearOfOrder;
+      let currentYear = today.getFullYear();
+      let customersOfMatchesOrdersCode = [];
+      this._orderService.getOrders().subscribe(
+        data => {
+          this.order = data;
+          for (let o = 0; o < data.length; o++) {
+            yearOfOrder = data[o].date.toString().substring(0, 4);
+            if (currentYear - yearOfOrder >= duration) {
+              customersOfMatchesOrdersCode.push(data[o].customer_id_fk);
+            }
           }
         }
       }
