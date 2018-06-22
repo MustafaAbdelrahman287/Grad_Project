@@ -33,13 +33,12 @@ export class MapComponent implements OnInit {
                private _itemService: ItemService, private _surveyService: SurveyService, private _orderService: OrderService, private _isochronesService: IsochronesService) {
 
     /************************************ target segment districts ************************************/
-    let districts;
     let poly1,poly5,poly4,poly3,poly2,poly6,poly7,poly8;
     let poly_props = [];
     let index;
    
     this.http.get('../../../../assets/districts.geojson').subscribe(response => {
-       districts=  this.geojsonLayer = response.json();  
+      const  districts=  this.geojsonLayer = response.json();  
         //destructuring the features into objects
    let poly_array= [poly1,poly2,poly3,poly4,poly5,poly6,poly7,poly8]=districts.features; 
    //pushing all polygons props into an array
@@ -320,7 +319,7 @@ return poly_array[index]; //return of GeoJSON object
   L.geoJSON(findMaxClassA()).addTo(this.mymap)
  console.log(districts);
 
-}); 
+});   
 /************************************************************************/
 
     //#region GeoJson Marker Icon
