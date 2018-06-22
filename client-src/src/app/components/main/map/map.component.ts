@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import * as turf from '@turf/turf';
-
+import * as Draw from 'leaflet-draw';
 import { BranchService } from '../../../services/branch/branch.service';
 import { IsochronesService } from '../../../services/isochrones/isochrones.service';
 import { CompetitorService } from '../../../services/competitor/competitor.service';
@@ -9,7 +9,6 @@ import { CustomerService } from '../../../services/customers/customers.service';
 import { ItemService } from '../../../services/item/item.service';
 import { SurveyService } from '../../../services/survey/survey.service';
 import { Http } from '@angular/http';
-import { latLngBounds } from 'leaflet';
 import { OrderService } from '../../../services/order/order.service';
 import { MAX_LENGTH_VALIDATOR } from '@angular/forms/src/directives/validators';
 
@@ -30,9 +29,18 @@ export class MapComponent implements OnInit {
   public item = [];
   public order = [];
   constructor(private http: Http, private _customerService: CustomerService, private _branchService: BranchService, private _competitorService: CompetitorService,
-               private _itemService: ItemService, private _surveyService: SurveyService, private _orderService: OrderService, private _isochronesService: IsochronesService) {
+    private _itemService: ItemService, private _surveyService: SurveyService, private _orderService: OrderService, private _isochronesService: IsochronesService) {
+
+    /************************************ leaflet draw ************************************/
 
     /************************************ target segment districts ************************************/
+    /*     this.http.get('../../../../assets/districts.geojson').subscribe(response => {
+          this.geojsonLayer = response.json();
+          console.log(this.geojsonLayer)
+          L.geoJSON(this.geojsonLayer, myLayerOptions).addTo(this.mymap);
+        }); */
+
+    /************************************************************************/
     let districts;
     let poly1,poly5,poly4,poly3,poly2,poly6,poly7,poly8;
     let poly_props = [];
@@ -372,7 +380,6 @@ return poly_array[index]; //return of GeoJSON object
   }
 
   ngOnInit() {
-  
 
    
    this.mymap = L.map('mapid').setView([30.091041, 31.19618], 12);
@@ -455,19 +462,17 @@ return poly_array[index]; //return of GeoJSON object
       turf.point([28.948459, 41.024204]),
       turf.point([28.938674, 41.013324])
 
-  ]);
-  
-  const nearest = turf.nearestPoint(targetPoint, points);
-  console.log(nearest);
+    ]);
+
+    const nearest = turf.nearestPoint(targetPoint, points);
+    console.log(nearest);
 
 
- const nearstp= L.geoJSON(nearest).addTo(this.mymap);
- /************************************ Draw rectangular ************************************/
+    const nearstp = L.geoJSON(nearest).addTo(this.mymap);
+    /************************************ Draw rectangular ************************************/
   }
 }
 
-    
-    
 
     /************************************ Potential Customers Marker************************************/
     /*
@@ -551,27 +556,48 @@ return poly_array[index]; //return of GeoJSON object
               customersOfMatchesOrdersCode.push(data[o].customer_id_fk);
             }
           }
-          console.log("customersOfMatchesOrdersCode: ", customersOfMatchesOrdersCode);
-        },
-        err => console.log(err)
-      );
-      this._customerService.getCustomers().subscribe(
-        data => {
-          this.customers = data;
-          for (let i = 0; i < data.length; i++) {
-            if (data[i].order_code.length >= numberOfOrders) {
-              for (let j = 0; j < customersOfMatchesOrdersCode.length; j++) {
-                if (customersOfMatchesOrdersCode[j] == data[i].customer_Code) {
-                  console.log("target customer from number of orders and duration is: ", data[i]);
-                  L.marker([data[i].cst_location.lat, data[i].cst_location.lng], { icon: this.customerIcon, draggable: true }).addTo(this.mymap);
-                }
-              }
+        }
+      }
+    },
+    err => console.log(err)
+  );
+} */
+/********************Orders and Duration********************/
+/* if (duration !== null && numberOfOrders !== null) {
+  let today = new Date();
+  let yearOfOrder;
+  let currentYear = today.getFullYear();
+  let customersOfMatchesOrdersCode = [];
+  this._orderService.getOrders().subscribe(
+    data => {
+      this.order = data;
+      for (let o = 0; o < data.length; o++) {
+        yearOfOrder = data[o].date.toString().substring(0, 4);
+        if (currentYear - yearOfOrder >= duration) {
+          customersOfMatchesOrdersCode.push(data[o].customer_id_fk);
+        }
+      }
+      console.log("customersOfMatchesOrdersCode: ", customersOfMatchesOrdersCode);
+    },
+    err => console.log(err)
+  );
+  this._customerService.getCustomers().subscribe(
+    data => {
+      this.customers = data;
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].order_code.length >= numberOfOrders) {
+          for (let j = 0; j < customersOfMatchesOrdersCode.length; j++) {
+            if (customersOfMatchesOrdersCode[j] == data[i].customer_Code) {
+              console.log("target customer from number of orders and duration is: ", data[i]);
+              L.marker([data[i].cst_location.lat, data[i].cst_location.lng], { icon: this.customerIcon, draggable: true }).addTo(this.mymap);
             }
           }
-        },
-        err => console.log(err)
-      );
-    }
+        }
+      }
+    },
+    err => console.log(err)
+  );
+} */
     /***********************************************************************************************/
 
 
