@@ -6,7 +6,7 @@
 </li>
 <div id="target" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
   <div class="card-body">
-    <form>
+    <form (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="age">Age</label>
         <input type="text" class="form-control" id="age" placeholder="19:30">
