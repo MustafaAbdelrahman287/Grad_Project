@@ -151,29 +151,25 @@ export class CustomerComponent implements OnInit {
         this.geojsonLayer = response;
         if (targetClasses.length !== 0) {
           income = this.getSortedArrForSelectedParams(targetClasses, income);
-          console.log(income);
         }
         if (targetELevels.length !== 0) {
           console.log('targetELevels')
           edu = this.getSortedArrForSelectedParams(targetELevels, edu);
-          console.log(edu);
         }
         if (targetGender.length !== 0) {
           console.log('targetGender')
           gender = this.getSortedArrForSelectedParams(targetGender, gender);
-          console.log(gender);
         }
         if (targetAges.length !== 0) {
           console.log('targetAges')
           age = this.getSortedArrForSelectedParams(targetAges, age);
-          console.log(age);
         }
         let indicator:Array<number> = [];
         for (let i = 0; i < this.geojsonLayer.features.length; i++) {
           indicator.push(this.findIndexByIndexProperty(income, i) + this.findIndexByIndexProperty(age, i) + this.findIndexByIndexProperty(gender, i) + this.findIndexByIndexProperty(edu, i));
-          console.log('indicator');
-          console.log(indicator);
         };
+        this.targetPolygon = L.geoJSON(this.geojsonLayer.features[indicator.indexOf(Math.max(...indicator))]);
+        this.targetPolygon.addTo(this.mymap);
       }, err => { return err });
     }
   }
@@ -201,10 +197,10 @@ export class CustomerComponent implements OnInit {
 
   ngOnInit() {
     //L.Marker.prototype.options.icon = this.myIcon;
-    let mymap = L.map('mapid').setView([30.09219, 31.32297], 12);
+    this.mymap = L.map('mapid').setView([30.09219, 31.32297], 12);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?', {
       maxZoom: 18,
-    }).addTo(mymap);
+    }).addTo(this.mymap);
   }
 
 }
