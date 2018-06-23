@@ -8,28 +8,31 @@
     <nav class="col-md-3 d-none d-md-block bg-light sidebar">
       <div class="sidebar-sticky">
         <ul class="nav flex-column">
-          <li class="nav-item">
+          <li class="list-group-item">
             <a class="nav-link" href="#">
               <img id="adidasicon" src="../../../assets/adidas-icon.png"> Adidas
 
             </a>
           </li>
+          <li id="accordion">
               
-         <app-add></app-add>
-                
-         <app-remove  ></app-remove>
-           
+         <app-add class="list-group-item"></app-add>
+        </li>  
+        <li id="accordion2">   
+         <app-remove class="list-group-item" ></app-remove>
+        </li>
           
          
        
         
-          <li class="nav-item">
+          <li class="list-group-item">
             <a class="nav-link" href="#">
               <i class="fa fa-user-secret" aria-hidden="true"></i>
               Competitor Branches
             </a>
           </li>
-          <li class="nav-item">
+          <div id=#accordion3>
+          <li class="list-group-item">
             <a class="nav-link" data-toggle="collapse" data-target="#target" aria-expanded="false" aria-controls="collapseOne">
               <i class="fa fa-bullseye" aria-hidden="true"></i>
               Overlap Areas
@@ -57,10 +60,11 @@
               </div>
             </div>
           </div>
+          </div>
 
 
-          <div class="accordion" id="accordionExample">
-            <li class="nav-item">
+          <div class="accordion" id="accordion4">
+            <li class="list-group-item">
               <a class="nav-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                 <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                 Weak Point Analysis
@@ -108,7 +112,7 @@
               </div>
             </div>
           </div>
-          <li class="nav-item">
+          <li class="list-group-item">
             <a class="nav-link" href="#">
               <i class="fa fa-bar-chart" aria-hidden="true"></i>
               Dashboard

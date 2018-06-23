@@ -24,6 +24,12 @@ import { RegisterComponent } from './components/register/register.component';
 import { AddcustomerComponent } from './components/main/customer/addcustomer/addcustomer.component';
 import { RemovecustomerComponent } from './components/main/customer/removecustomer/removecustomer.component';
 
+import { IndexComponent } from './components/branduser/index/index.component';
+import { UsernavbarComponent } from './components/branduser/usernavbar/usernavbar.component';
+import { MenComponent } from './components/branduser/men/men.component';
+import { WomenComponent } from './components/branduser/women/women.component';
+import { KidsComponent } from './components/branduser/kids/kids.component';
+
 
 
 const appRoutes: Routes = [
@@ -38,6 +44,7 @@ const appRoutes: Routes = [
   { path: 'main/branches/remove', component: RemoveComponent },
   { path: 'main/customer/addcustomer', component: AddcustomerComponent },
   { path: 'main/customer/removecustomer', component: RemovecustomerComponent },
+  { path: 'branduser/index', component: IndexComponent },
  
 ];
 
@@ -60,6 +67,16 @@ const appRoutes: Routes = [
     RegisterComponent,
     AddcustomerComponent,
     RemovecustomerComponent,
+   
+    IndexComponent,
+   
+    UsernavbarComponent,
+   
+    MenComponent,
+   
+    WomenComponent,
+   
+    KidsComponent,
     
 
   ],
