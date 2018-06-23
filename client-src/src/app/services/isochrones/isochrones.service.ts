@@ -22,5 +22,4 @@ headers = new HttpHeaders({'Accept':'application/json; charset=utf-8'})
   errorHandler(error: any){
     return throwError(error.message);
   }
-
 }

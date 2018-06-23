@@ -13,6 +13,7 @@ import { IsochronesService } from '../../../services/isochrones/isochrones.servi
 })
 export class ExpansionComponent implements OnInit {
   onClick : any;
+  mymap:any;
   expansionTypes = [
     { id: '1', class: 'building-o', name: 'Branch' },
     { id: '2', class: 'industry', name: 'Factory' },
@@ -74,9 +75,6 @@ export class ExpansionComponent implements OnInit {
     this._branchService.getBranches().subscribe(
       data => {
         this.branches = data;
-        for (let i = 0; i < data.length; i++) {
-          L.marker([data[i].branch_location.lat, data[i].branch_location.lng]).addTo(map);
-        }
         if (this.branches.length !== 0) {
           for (let i = 0; i < this.branches.length; i++) {
             location[i] = this.branches[i].branch_location.lat + '%2C' + this.branches[i].branch_location.lng;
@@ -86,8 +84,7 @@ export class ExpansionComponent implements OnInit {
           this._isochronesService.getIsochrones(location.join('%7C').toString(), 'foot-walking').subscribe(
             data => {
               this.isochrones = data;
-              console.log(data);
-              this.isochrones = L.geoJSON(data).addTo(map);
+                L.geoJSON(this.isochrones).addTo(map);
             },
             err => console.log(err)
           )
@@ -105,19 +102,19 @@ export class ExpansionComponent implements OnInit {
   ngOnInit() {
     L.Marker.prototype.options.icon = this.myIcon;
     let location;
-    let mymap = L.map('mapid').setView([30.09219, 31.32297], 12);
+    this.mymap = L.map('mapid').setView([30.09219, 31.32297], 12);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?', {
       maxZoom: 18,
-    }).addTo(mymap);
-    this.showB(mymap);
-    this.showSA(mymap);
+    }).addTo(this.mymap);
+    this.showB(this.mymap);
+    this.showSA(this.mymap);
     function onMapClick(e) {
       location = [e.latlng.lat, e.latlng.lng];
       console.log(location);
-      L.marker(location).addTo(mymap);
+      L.marker(location).addTo(this.mymap);
     }
     this.onClick = () => {
-      mymap.on('click', onMapClick);
+      this.mymap.on('click', onMapClick);
     }
 
   }

@@ -13,11 +13,21 @@
               Advertisment
             </a>
           </li>
-          <li class="list-group-item">
-            <a class="nav-link" (click)="onClick()">
+          <li id="accordion" class="list-group-item">
+            <a class="nav-link" data-toggle="collapse" data-target="#addLocation" aria-expanded="false" aria-controls="collapseOne">
               <i class="fa fa-map-marker" aria-hidden="true"></i>
-              Pin Point
+              Add Locations
             </a>
+            <div id="addLocation" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+              <div class="card-body">
+                <a class="nav-link" (click)="onStart()">
+                  Start
+                </a>
+                <a class="nav-link" (click)="onStop()">
+                  Stop
+                </a>
+              </div>
+            </div>
           </li>
           <li class="list-group-item">
             <a class="nav-link" href="#">
