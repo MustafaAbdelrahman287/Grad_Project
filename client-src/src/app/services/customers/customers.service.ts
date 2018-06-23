@@ -14,10 +14,7 @@ export class CustomerService {
   getCustomers(): Observable<ICustomer[]> {
     return this.http.get<ICustomer[]>(this._url).pipe(catchError(error => this.errorHandler(error)));
   }
-  postBranches() {
-
-  }
-
+ 
   errorHandler(error: any) {
     console.log(error.message);
     return throwError(error.message);

@@ -3,6 +3,7 @@ import * as L from 'leaflet';
 import * as turf from '@turf/turf';
 import { Http } from '@angular/http';
 import { BranchService } from '../../../services/branch/branch.service';
+import { CompetitorService } from 'src/app/services/competitor/competitor.service';
 
 @Component({
   selector: 'app-branches',
@@ -13,8 +14,10 @@ export class BranchesComponent implements OnInit {
   mymap: any;
   geojsonLayer: any;
   geojson: any;
+  
   public branches=[];
-  constructor(private http:Http, private _branchService: BranchService) { 
+  public competitor=[];
+  constructor(private http:Http, private _branchService: BranchService,private _competitorService:CompetitorService) { 
     function createCustomIcon(latlng) {
       let myIcon = L.icon({
         iconUrl: '../../assets/adidas_PNG22.png',
@@ -26,21 +29,50 @@ export class BranchesComponent implements OnInit {
     }
   }
 overlapareas= [{id:'1', name:'Adidas'}, {id:'2', name:'Competitor Branches'}];
-myIcon = L.icon({
-  iconUrl: '../../assets/adidas_PNG22.png',
-  iconRetinaUrl: '../../assets/adidas_PNG22.png',
+myIcon(url){return L.icon({
+  iconUrl: url,
+  iconRetinaUrl: url,
   iconSize: [50, 50],
   iconAnchor: [24, 24],
   popupAnchor: [0, 0]
-});
+})};
  onMapClick(event) {
   let l = event.latlng;
   console.log(l);
-  L.marker(l, { icon: this.myIcon, draggable: true }).addTo(this.mymap);
+  L.marker(l, { icon: this.myIcon('../../assets/adidas_PNG22.png'), draggable: true }).addTo(this.mymap);
   return l;
 }
 onClick(event) {
-  console.log(event);
+  this._branchService.getBranches().subscribe(
+    data => {
+      this.branches = data;
+      console.log(data);
+      for (let i = 0; i < data.length; i++) {
+        L.marker([this.branches[i].branch_location.lat, this.branches[i].branch_location.lng], { icon: this.myIcon('../../assets/adidas_PNG22.png'), draggable: true }).addTo(this.mymap).bindPopup(`Name : ${this.branches[i].name}`).addEventListener('click', this.onClick);
+      }
+    },
+      err => console.log(err)
+    )
+  
+}
+onClick1(event){
+ 
+
+  this._competitorService.getCompetitors().subscribe(
+    data => {
+      this.competitor = data;
+      console.log(data);
+      for (let i = 0; i < data.length; i++) {
+        for (let j = 0; j <this.competitor[i].competitor_location.length; j++){ 
+           L.marker([this.competitor[i].competitor_location[j].lat, this.competitor[i].competitor_location[j].lng], { icon: this.myIcon('../../assets/clogo.png'), draggable: true }).addTo(this.mymap).bindPopup(`Name : ${this.competitor[i].name}`).addEventListener('click', this.onClick1);
+          }
+        console.log(this.competitor[i].competitor_location)
+       
+      }
+    },
+      err => console.log(err)
+    )
+  
 }
 
   ngOnInit() {
@@ -49,16 +81,7 @@ onClick(event) {
       maxZoom: 18,
     }).addTo(this.mymap);
 
-    this._branchService.getBranches().subscribe(
-      data => {
-        this.branches = data;
-        console.log(data);
-        for (let i = 0; i < data.length; i++) {
-          L.marker([this.branches[i].branch_location.lat, this.branches[i].branch_location.lng], { icon: this.myIcon, draggable: true }).addTo(this.mymap).bindPopup(`Name : ${this.branches[i].name}`).addEventListener('click', this.onClick);
-        }
-      },
-        err => console.log(err)
-      )
+   
   }
 
 }
