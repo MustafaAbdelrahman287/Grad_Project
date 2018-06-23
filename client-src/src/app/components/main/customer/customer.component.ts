@@ -3,6 +3,7 @@ import * as L from 'leaflet';
 import { DistrictsService } from '../../../services/districts/districts.service';
 import * as turf from '@turf/turf';
 import {CustomerService} from'../../../services/customers/customers.service';
+import{ICustomer} from'../../../interfaces/customer';
 
 @Component({
   selector: 'app-customer',
@@ -181,6 +182,7 @@ export class CustomerComponent implements OnInit {
     L.marker(l, { icon: this.myIcon('../../assets/adidas_PNG22.png'), draggable: true }).addTo(this.mymap);
     return l;
   }
+  //*****************************************CurrentCustomer********************************** */
   onClick1(event){
    
     this._customerService.getCustomers().subscribe(
@@ -201,12 +203,13 @@ export class CustomerComponent implements OnInit {
 
 
   }
- 
+ //*****************************************PotentialCustomer********************************** */
   onClick(event){
     this._customerService.getCustomers().subscribe(
       data => {
         this.customers = data;
         for (let i = 0; i < data.length; i++) {
+          console.log(data[i]);
           if (!data[i].orders_code || data[i].orders_code.length === 0) {
             L.marker([data[i].cst_location.lat, data[i].cst_location.lng], { icon: this.customerIcon, draggable: true }).addTo(this.mymap);
           }
@@ -215,7 +218,28 @@ export class CustomerComponent implements OnInit {
       err => console.log(err)
     );
   }
+  //*****************************************LoyalCustomer********************************** */
+  onSubmitt({value}){
+    console.log(value)
+  
+    if (value.orders && value.duration) {
+      console.log(value.orders)
+      
+      this._customerService.getCustomers().subscribe(
+        data => {
+          this.customers = data;
+          for (let i = 0; i < data.length; i++) {
+            if (data[i].orders_code.length >= value.orders) {
+              console.log("target customer from number of orders is: ", data[i]);
+              L.marker([data[i].cst_location.lat, data[i].cst_location.lng], { icon: this.customerIcon, draggable: true }).addTo(this.mymap);
+            }
+          }
+        },
+        err => console.log(err)
+      );
 
+  }
+}
 
   ngOnInit() {
     //L.Marker.prototype.options.icon = this.myIcon;
