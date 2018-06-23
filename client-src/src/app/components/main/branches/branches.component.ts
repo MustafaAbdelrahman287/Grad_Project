@@ -44,14 +44,16 @@ myIcon(url){return L.icon({
 onClick(event) {
   this._branchService.getBranches().subscribe(
     data => {
+      this.branches = data;
       console.log(data);
       for (let i = 0; i < data.length; i++) {
         L.marker([this.branches[i].branch_location.lat, this.branches[i].branch_location.lng], { icon: this.myIcon('../../assets/adidas_PNG22.png'), draggable: true }).addTo(this.mymap).bindPopup(`Name : ${this.branches[i].name}`).addEventListener('click', this.onClick);
       }
     },
-      err => console.log(err)
-    ) 
+    err => console.log(err)
+  )
 }
+
 onClick1(event){
   this._competitorService.getCompetitors().subscribe(
     data => {
