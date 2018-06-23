@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import * as turf from '@turf/turf';
 import { BranchService } from '../../../services/branch/branch.service';
-import { CompetitorService } from 'src/app/services/competitor/competitor.service';
+import { CompetitorService } from '../../../services/competitor/competitor.service';
+import {IBranch} from '../../../interfaces/branch';
+import {ICompetitor} from '../../../interfaces/competitor';
 
 @Component({
   selector: 'app-branches',
@@ -11,12 +13,10 @@ import { CompetitorService } from 'src/app/services/competitor/competitor.servic
 })
 export class BranchesComponent implements OnInit {
   mymap: any;
-  geojsonLayer: any;
-  geojson: any;
   
   public branches=[];
   public competitor=[];
-  constructor(private _branchService: BranchService,private _competitorService:CompetitorService) { 
+  constructor( private _branchService: BranchService,private _competitorService:CompetitorService) { 
     function createCustomIcon(latlng) {
       let myIcon = L.icon({
         iconUrl: '../../assets/adidas_PNG22.png',
@@ -75,7 +75,9 @@ onClick1(event){
 }
 
   ngOnInit() {
-    this.mymap = L.map('bmap').setView([30.09219, 31.32297], 12);
+    
+    this.mymap = L.map('mapid').setView([30.09219, 31.32297], 12);
+    console.log(this.mymap)
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?', {
       maxZoom: 18,
     }).addTo(this.mymap);

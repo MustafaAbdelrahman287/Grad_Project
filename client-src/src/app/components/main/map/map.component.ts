@@ -26,10 +26,10 @@ export class MapComponent implements OnInit {
   public item = [];
   public order = [];
   constructor(private _customerService: CustomerService, private _branchService: BranchService, private _competitorService: CompetitorService,
-               private _itemService: ItemService, private _surveyService: SurveyService, private _orderService: OrderService, private _isochronesService: IsochronesService) {
+    private _itemService: ItemService, private _surveyService: SurveyService, private _orderService: OrderService, private _isochronesService: IsochronesService) {
 
 
-/************************************************************************/
+    /************************************************************************/
 
     //#region GeoJson Marker Icon
     function createCustomIcon(feature, latlng) {
@@ -46,12 +46,12 @@ export class MapComponent implements OnInit {
       pointToLayer: createCustomIcon
     }
     //#endregion
-   /* L.Marker.prototype.options.icon = this.myIcon;
-    this.http.get('../../../../assets/FIRE_STATION.geojson').subscribe(response => {
-      this.geojsonLayer = response.json();
-      console.log(this.geojsonLayer)
-      L.geoJSON(this.geojsonLayer, myLayerOptions).addTo(this.mymap);
-    });*/
+    /* L.Marker.prototype.options.icon = this.myIcon;
+     this.http.get('../../../../assets/FIRE_STATION.geojson').subscribe(response => {
+       this.geojsonLayer = response.json();
+       console.log(this.geojsonLayer)
+       L.geoJSON(this.geojsonLayer, myLayerOptions).addTo(this.mymap);
+     });*/
   }
 
   myIcon = L.icon({
@@ -80,10 +80,10 @@ export class MapComponent implements OnInit {
   }
 
   ngOnInit() {
-  
 
-   
-   this.mymap = L.map('mapid').setView([30.091041, 31.19618], 12);
+
+
+    this.mymap = L.map('mapid').setView([30.091041, 31.19618], 12);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?', {
       maxZoom: 18,
     }).addTo(this.mymap);
@@ -171,11 +171,10 @@ export class MapComponent implements OnInit {
 
  const nearstp= L.geoJSON(nearest).addTo(this.mymap);
  /************************************ Draw rectangular ************************************/
-  }
-}
 
-    
-    
+
+
+
 
     /************************************ Potential Customers Marker************************************/
     /*
@@ -281,8 +280,29 @@ export class MapComponent implements OnInit {
       );
     }
     /***********************************************************************************************/
+    /************************************ Weak Point Analysis************************************/
+   /* let point;
+    let searchWithin;
+    let ptsWithin;
+    //get point from user
+    this.mymap.on('click', function (e) {
+      point = [e.latlng.lat, e.latlng.lng];
+      console.log("You clicked the map at latitude and longitude: " + point);
+    });
 
-
+    // search within polygons
+    this.http.get('../../../../assets/districts.geojson').subscribe(response => {
+      const districts = this.geojsonLayer = response.json();
+      for (let i = 0; i < districts.features.length; i++) {
+        searchWithin = districts.features[i];
+        console.log("ptsWithin: ", searchWithin)
+        ptsWithin = turf.pointsWithinPolygon(point, searchWithin);
+      }
+    });
+    */
+    /***********************************************************************************************/
+  }
+}
 
 
 

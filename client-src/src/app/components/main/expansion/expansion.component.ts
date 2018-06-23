@@ -12,16 +12,13 @@ import { IsochronesService } from '../../../services/isochrones/isochrones.servi
   styleUrls: ['../main.component.css', './expansion.component.css']
 })
 export class ExpansionComponent implements OnInit {
+  onClick : any;
   expansionTypes = [
     { id: '1', class: 'building-o', name: 'Branch' },
     { id: '2', class: 'industry', name: 'Factory' },
     { id: '3', class: 'home', name: 'Warehouse' }
   ];
-  selectionTypes = [
-    { id: '1', class: 'square-o', name: 'Rectangle' },
-    { id: '2', class: 'bookmark-o fa-rotate-180', name: 'Polygon' },
-    { id: '3', class: 'map-marker', name: 'Pinpoint' }
-  ];
+ 
   addexpansions = [
     { id: '1', class: 'industry', name: 'Factory' },
     { id: '2', class: 'home', name: 'Warehouse' }
@@ -73,7 +70,7 @@ export class ExpansionComponent implements OnInit {
     );
   }
   showSA = function (map) {
-    let location = [];
+    let location:string[] = [];
     this._branchService.getBranches().subscribe(
       data => {
         this.branches = data;
@@ -90,7 +87,7 @@ export class ExpansionComponent implements OnInit {
             data => {
               this.isochrones = data;
               console.log(data);
-              L.geoJSON(data).addTo(map);
+              this.isochrones = L.geoJSON(data).addTo(map);
             },
             err => console.log(err)
           )
@@ -107,12 +104,22 @@ export class ExpansionComponent implements OnInit {
 
   ngOnInit() {
     L.Marker.prototype.options.icon = this.myIcon;
+    let location;
     let mymap = L.map('mapid').setView([30.09219, 31.32297], 12);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?', {
       maxZoom: 18,
     }).addTo(mymap);
     this.showB(mymap);
     this.showSA(mymap);
+    function onMapClick(e) {
+      location = [e.latlng.lat, e.latlng.lng];
+      console.log(location);
+      L.marker(location).addTo(mymap);
+    }
+    this.onClick = () => {
+      mymap.on('click', onMapClick);
+    }
+
   }
 
 }
