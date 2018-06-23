@@ -9,14 +9,13 @@
       <div class="sidebar-sticky">
         <ul class="nav flex-column">
           <li class="list-group-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" (click)="onClick()">
               <img id="adidasicon" src="../../../assets/adidas-icon.png"> Adidas
 
             </a>
           </li>
           <li id="accordion">
               
-<<<<<<< HEAD
          <app-add class="list-group-item"></app-add>
         </li>  
         <li id="accordion2">   
@@ -25,15 +24,11 @@
           
          
        
-=======
-         <app-add></app-add>
-                
-         <app-remove  ></app-remove>
+         
            
->>>>>>> 3f744c7422a3f1b1ca147292e840dcd02feea438
         
           <li class="list-group-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" (click)="onClick1()">
               <i class="fa fa-user-secret" aria-hidden="true"></i>
               Competitor Branches
             </a>
@@ -49,7 +44,7 @@
             <div class="card-body">
 
               <div class="form-group">
-                <label for="overlapAreas">Overlap Areas</label>
+                
                 <div id="overlapareas" class="form-check">
                   <div *ngFor="let overlaparea of overlapareas">
 
