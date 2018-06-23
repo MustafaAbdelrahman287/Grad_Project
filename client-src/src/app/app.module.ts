@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -11,15 +10,12 @@ import { CustomerComponent } from './components/main/customer/customer.component
 import { ExpansionComponent } from './components/main/expansion/expansion.component';
 import { BranchesComponent } from './components/main/branches/branches.component';
 import { AdvertismentComponent } from './components/main/advertisment/advertisment.component';
-import { TargetSegmentComponent } from './components/main/customer/target-segment/target-segment.component';
 import { LoyalCustomersComponent } from './components/main/customer/loyal-customers/loyal-customers.component';
 import { MapComponent } from './components/main/map/map.component';
 import { AddComponent } from 'src/app/components/main/branches/add/add.component';
 import { RemoveComponent } from './components/main/branches/remove/remove.component';
 import { AuthService } from './services/auth/auth.service';
 import {HttpClientModule} from '@angular/common/http';
-import{HttpModule} from '@angular/http';
-
 import { RegisterComponent } from './components/register/register.component';
 import { AddcustomerComponent } from './components/main/customer/addcustomer/addcustomer.component';
 import { RemovecustomerComponent } from './components/main/customer/removecustomer/removecustomer.component';
@@ -29,7 +25,6 @@ import { UsernavbarComponent } from './components/branduser/usernavbar/usernavba
 import { MenComponent } from './components/branduser/men/men.component';
 import { WomenComponent } from './components/branduser/women/women.component';
 import { KidsComponent } from './components/branduser/kids/kids.component';
-
 
 
 const appRoutes: Routes = [
@@ -58,7 +53,6 @@ const appRoutes: Routes = [
     ExpansionComponent,
     BranchesComponent,
     AdvertismentComponent,
-    TargetSegmentComponent,
     LoyalCustomersComponent,
     MapComponent,
     AddComponent,
@@ -83,7 +77,6 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     HttpClientModule,
-    HttpModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(
