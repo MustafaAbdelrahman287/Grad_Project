@@ -168,8 +168,10 @@ export class CustomerComponent implements OnInit {
         for (let i = 0; i < this.geojsonLayer.features.length; i++) {
           indicator.push(this.findIndexByIndexProperty(income, i) + this.findIndexByIndexProperty(age, i) + this.findIndexByIndexProperty(gender, i) + this.findIndexByIndexProperty(edu, i));
         };
+        if (this.targetPolygon) {
+          this.targetPolygon.clearLayers();
+        }
         this.targetPolygon = L.geoJSON(this.geojsonLayer.features[indicator.indexOf(Math.max(...indicator))]);
-        this.mymap.geoJSON.remove();
         this.targetPolygon.addTo(this.mymap);
       }, err => { return err });
     }
