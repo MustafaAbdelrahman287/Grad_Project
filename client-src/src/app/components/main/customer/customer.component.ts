@@ -169,6 +169,7 @@ export class CustomerComponent implements OnInit {
           indicator.push(this.findIndexByIndexProperty(income, i) + this.findIndexByIndexProperty(age, i) + this.findIndexByIndexProperty(gender, i) + this.findIndexByIndexProperty(edu, i));
         };
         this.targetPolygon = L.geoJSON(this.geojsonLayer.features[indicator.indexOf(Math.max(...indicator))]);
+        this.mymap.geoJSON.remove();
         this.targetPolygon.addTo(this.mymap);
       }, err => { return err });
     }

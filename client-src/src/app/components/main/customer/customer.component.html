@@ -8,7 +8,7 @@
       <div class="sidebar-sticky">
         <ul class="nav flex-column">
           <li class="list-group-item">
-            <a class="nav-link" >
+            <a class="nav-link">
               <i class="fa fa-users" aria-hidden="true"></i>
               Current Customers
             </a>
@@ -20,10 +20,10 @@
             </a>
           </li>
           <li id="accordion" class="list-group-item">
-              <a class="nav-link" data-toggle="collapse" data-target="#target" aria-expanded="false" aria-controls="collapseOne">
-                <i class="fa fa-bullseye" aria-hidden="true"></i>
-                Target Segment
-              </a>
+            <a class="nav-link" data-toggle="collapse" data-target="#target" aria-expanded="false" aria-controls="collapseOne">
+              <i class="fa fa-bullseye" aria-hidden="true"></i>
+              Target Segment
+            </a>
             <div id="target" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
               <div class="card-body">
                 <form (ngSubmit)="onSubmit()">
@@ -71,8 +71,26 @@
               </div>
             </div>
           </li>
-          <li id="accordion2">
-            <app-loyal-customers class="list-group-item"></app-loyal-customers>
+          <li id="accordion2" class="list-group-item">
+            <a class="nav-link" data-toggle="collapse" data-target="#loyal" aria-expanded="false" aria-controls="collapseOne">
+              <i class="fa fa-heart" aria-hidden="true"></i>
+              Loyal Customers
+            </a>
+            <div id="loyal" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+              <div class="card-body">
+                <form>
+                  <div class="form-group">
+                    <label for="#duration">Duration</label>
+                    <input id="duration" type="text" class="form-control" placeholder="Specify minimum number of years">
+                  </div>
+                  <div class="form-group">
+                    <label for="#orders">Orders</label>
+                    <input id="orders" type="text" class="form-control" placeholder="Specify minimum number of orders">
+                  </div>
+                  <button type="submit" class="btn btn-primary">Show</button>
+                </form>
+              </div>
+            </div>
           </li>
           <div id="accordion3">
             <li class="list-group-item">
