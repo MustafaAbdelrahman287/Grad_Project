@@ -24,20 +24,10 @@
             </form>
           </li>
           <li class="list-group-item">
-            <a class="nav-link" data-toggle="collapse" data-target="#selectMethod" aria-expanded="true" aria-controls="collapseOne">
-              <i class="fa fa-bullseye" aria-hidden="true"></i>
-              Selection methods:-
+            <a class="nav-link" (click)="onClick()">
+              <i class="fa fa-map-marker" aria-hidden="true"></i>
+              Pin Point
             </a>
-            <form>
-              <div class="form-group">
-                <div class="btn-group-toggle" data-toggle="buttons">
-                  <label title="{{selectionType.name}}" *ngFor='let selectionType of selectionTypes' class="circle btn btn-secondary btn-outline-primary">
-                    <input [value]="selectionType.id" type="radio" autocomplete="off">
-                    <i class="fa fa-{{selectionType.class}}" aria-hidden="true"></i>
-                  </label>
-                </div>
-              </div>
-            </form>
           </li>
           <li class="list-group-item">
             <a class="nav-link">
