@@ -34,9 +34,9 @@ export class ExpansionComponent implements OnInit {
     popupAnchor: [0, 0]
   });
 
-  public warehouse=[];
-  public factory=[];
-  public branches=[];
+  public warehouse = [];
+  public factory = [];
+  public branches = [];
   public isochrones;
 
   showWH = function (map) {
@@ -61,10 +61,10 @@ export class ExpansionComponent implements OnInit {
       err => console.log(err)
     );
   }
-  showB =  function (map) {
+  showB = function (map) {
     this._branchService.getBranches().subscribe(
       data => {
-        this.branch = data;
+        this.branches = data;
         for (let i = 0; i < data.length; i++) {
           L.marker([data[i].branch_location.lat, data[i].branch_location.lng]).addTo(map);
         }
@@ -73,22 +73,31 @@ export class ExpansionComponent implements OnInit {
     );
   }
   showSA = function (map) {
-    let location=[];
-    if (this.branches.length !== 0) {
-      for (let i = 0; i < this.branches.length; i++) {
-        location[i] = this.branches[i].branch_location.lat + '%2C' + this.branches[i].branch_location.lng;
-      }
-    }
-    if (location.length !== 0) {
-      this._isochronesService.getIsochrones(location.join('%7C').toString(),'foot-walking').subscribe(
-        data => {
-          this.isochrones = data;
-          console.log(data);
-          L.geoJSON(data).addTo(map);
-        },
-        err => console.log(err)
-      )
-    }
+    let location = [];
+    this._branchService.getBranches().subscribe(
+      data => {
+        this.branches = data;
+        for (let i = 0; i < data.length; i++) {
+          L.marker([data[i].branch_location.lat, data[i].branch_location.lng]).addTo(map);
+        }
+        if (this.branches.length !== 0) {
+          for (let i = 0; i < this.branches.length; i++) {
+            location[i] = this.branches[i].branch_location.lat + '%2C' + this.branches[i].branch_location.lng;
+          }
+        }
+        if (location.length !== 0) {
+          this._isochronesService.getIsochrones(location.join('%7C').toString(), 'foot-walking').subscribe(
+            data => {
+              this.isochrones = data;
+              console.log(data);
+              L.geoJSON(data).addTo(map);
+            },
+            err => console.log(err)
+          )
+        }
+      },
+      err => console.log(err)
+    );
   }
 
   constructor(private _warehouseService: WarehouseService,
@@ -102,7 +111,8 @@ export class ExpansionComponent implements OnInit {
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?', {
       maxZoom: 18,
     }).addTo(mymap);
-
+    this.showB(mymap);
+    this.showSA(mymap);
   }
 
 }

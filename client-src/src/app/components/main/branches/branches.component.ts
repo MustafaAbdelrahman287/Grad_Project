@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import * as turf from '@turf/turf';
-import { Http } from '@angular/http';
 import { BranchService } from '../../../services/branch/branch.service';
 import { CompetitorService } from 'src/app/services/competitor/competitor.service';
 
@@ -17,7 +16,7 @@ export class BranchesComponent implements OnInit {
   
   public branches=[];
   public competitor=[];
-  constructor(private http:Http, private _branchService: BranchService,private _competitorService:CompetitorService) { 
+  constructor(private _branchService: BranchService,private _competitorService:CompetitorService) { 
     function createCustomIcon(latlng) {
       let myIcon = L.icon({
         iconUrl: '../../assets/adidas_PNG22.png',
