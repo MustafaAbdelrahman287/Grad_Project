@@ -9,7 +9,9 @@ import { AdvertismentService } from '../../../services/advertisement/advertismen
   styleUrls: ['../main.component.css', './advertisment.component.css']
 })
 export class AdvertismentComponent implements OnInit {
-  onClick : any;
+  onStart : any;
+  onStop : any;
+  Ads:L.Marker;
   public advertisment = [];
   myIcon = L.icon({
     iconUrl: '../../assets/adidas_PNG22.png',
@@ -31,11 +33,17 @@ export class AdvertismentComponent implements OnInit {
     function onMapClick(e) {
       location = [e.latlng.lat, e.latlng.lng];
       console.log(location);
-      L.marker(location).addTo(mymap);
+      this.Ads = L.marker(location).on('click', onMarkerClick);
+      this.Ads.addTo(mymap)
     }
-    this.onClick = () => {
-      console.log('fire')
+    function onMarkerClick(e) {
+      e.latlng
+    }
+    this.onStart = () => {
       mymap.on('click', onMapClick);
+    }
+    this.onStop = () => {
+      mymap.off('click');
     }
   }
 }
