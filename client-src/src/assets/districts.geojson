@@ -14,7 +14,9 @@
         "age55": 9476,
         "edu_low": 2676,
         "edu_mid": 18986,
-        "edu_high": 76123
+        "edu_high": 76123,
+        "male":47123,
+        "female":76123
       },
       "geometry": {
         "type": "Polygon",
@@ -65,7 +67,9 @@
         "age55": 9376,
         "edu_low": 2576,
         "edu_mid": 17986,
-        "edu_high": 69123
+        "edu_high": 69123,
+        "male":69123,
+        "female":11021
       },
       "geometry": {
         "type": "Polygon",
@@ -132,7 +136,9 @@
         "age55": 9776,
         "edu_low": 2876,
         "edu_mid": 19986,
-        "edu_high": 73123
+        "edu_high": 73123,
+        "male":22017,
+        "female":19986
       },
       "geometry": {
         "type": "Polygon",
@@ -179,7 +185,9 @@
         "age55": 9976,
         "edu_low": 2776,
         "edu_mid": 24986,
-        "edu_high": 62123
+        "edu_high": 62123,
+        "male":2776,
+        "female":46123
       },
       "geometry": {
         "type": "Polygon",
@@ -226,7 +234,9 @@
         "age55": 9476,
         "edu_low": 2376,
         "edu_mid": 12986,
-        "edu_high": 61123
+        "edu_high": 61123,
+        "male":11276,
+        "female":2376
       },
       "geometry": {
         "type": "Polygon",
@@ -269,7 +279,9 @@
         "age55": 9276,
         "edu_low": 2176,
         "edu_mid": 26986,
-        "edu_high": 67123
+        "edu_high": 67123,
+        "male":67123,
+        "female":2176
       },
       "geometry": {
         "type": "Polygon",
@@ -348,7 +360,9 @@
         "age55": 9376,
         "edu_low": 2776,
         "edu_mid": 12986,
-        "edu_high": 69123
+        "edu_high": 69123,
+        "male":12986,
+        "female":18276
       },
       "geometry": {
         "type": "Polygon",
@@ -399,7 +413,9 @@
         "age55": 9076,
         "edu_low": 2076,
         "edu_mid": 10986,
-        "edu_high": 60123
+        "edu_high": 60123,
+        "male":10986,
+        "female":60123
       },
       "geometry": {
         "type": "Polygon",

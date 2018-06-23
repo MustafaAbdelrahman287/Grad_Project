@@ -3,7 +3,6 @@ import * as L from 'leaflet';
 import * as turf from '@turf/turf';
 import { Http } from '@angular/http';
 import { BranchService } from '../../../services/branch/branch.service';
-import { latLng } from 'leaflet';
 
 @Component({
   selector: 'app-branches',

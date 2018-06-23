@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
+import { DistrictsService } from '../../../services/districts/districts.service';
 import * as turf from '@turf/turf';
 
 @Component({
@@ -8,6 +9,9 @@ import * as turf from '@turf/turf';
   styleUrls: ['../main.component.css', './customer.component.css']
 })
 export class CustomerComponent implements OnInit {
+  geojsonLayer: any;
+  selectedValue = [];
+  targetPolygon:any;
 
   myIcon = L.icon({
     iconUrl: '../../assets/adidas_PNG22.png',
@@ -17,7 +21,153 @@ export class CustomerComponent implements OnInit {
     popupAnchor: [0, 0]
   });
 
-  constructor() { }
+  constructor(private _districtsService: DistrictsService) { }
+
+  //#region targetSegment
+  findIndexByIndexProperty(array, value) {
+    for (let i = 0; i < array.length; i++) {
+      if (array[i].index === value) {
+        return array.indexOf(array[i]);
+      }
+    }
+    return null;
+  }
+  getSortedArrForSelectedParams(Arr, outArr):Object[] {
+    outArr = [];
+    if (Arr.length !== 0) {
+      for (let i = 0; i < this.geojsonLayer.features.length; i++) {
+        outArr[i] = { calssesNo: 0, index: i };
+        for (let j = 0; j < Arr.length; j++) {
+          switch (Arr[j]) {
+            case '1':
+              outArr[i].calssesNo += this.geojsonLayer.features[i].properties.male;
+              break;
+            case '2':
+              outArr[i].calssesNo += this.geojsonLayer.features[i].properties.female;
+              break;
+            case '3':
+              outArr[i].calssesNo += this.geojsonLayer.features[i].properties.edu_low;
+              break;
+            case '4':
+              outArr[i].calssesNo += this.geojsonLayer.features[i].properties.edu_mid;
+              break;
+            case '5':
+              outArr[i].calssesNo += this.geojsonLayer.features[i].properties.edu_high;
+              break;
+            case '6':
+              outArr[i].calssesNo += this.geojsonLayer.features[i].properties.classA;
+              break;
+            case '7':
+              outArr[i].calssesNo += this.geojsonLayer.features[i].properties.classB;
+              break;
+            case '8':
+              outArr[i].calssesNo += this.geojsonLayer.features[i].properties.classC;
+              break;
+            case '9':
+              outArr[i].calssesNo += this.geojsonLayer.features[i].properties.classD;
+              break;
+            case '11':
+              outArr[i].calssesNo += this.geojsonLayer.features[i].properties.age30;
+              break;
+            case '12':
+              outArr[i].calssesNo += this.geojsonLayer.features[i].properties.age45;
+              break;
+            case '13':
+              outArr[i].calssesNo += this.geojsonLayer.features[i].properties.age55;
+              break;
+            default:
+              break;
+          }
+        }
+      }
+      outArr.sort(function (a, b) { return (a.calssesNo > b.calssesNo) ? 1 : ((b.calssesNo > a.calssesNo) ? -1 : 0); });
+      //var max = this.geojsonLayer.features[outArr[outArr.length - 1].index];
+    }
+    return outArr;
+  }
+
+  genderTypes = [{ id: '1', class: 'male', name: 'Male', checked: false }, { id: '2', class: 'female', name: 'Female', checked: false },];
+  eduLevels = [{ id: '3', name: 'Low', checked: false }, { id: '4', name: 'Medium', checked: false }, { id: '5', name: 'High', checked: false }];
+  incomeLevels = [{ id: '6', name: 'A', checked: false }, { id: '7', name: 'B', checked: false }, { id: '8', name: 'C', checked: false }, { id: '9', name: 'D', checked: false }];
+  ageRanges = [{ id: '10', name: '18:30', checked: false }, { id: '11', name: '30:45', checked: false }, { id: '12', name: '45:55', checked: false }];
+
+  change(x) {
+    x.checked = !x.checked
+    console.log(x);
+    if (x.checked) {
+      this.selectedValue.push(x);
+    }
+    else {
+      let updateItem = this.selectedValue.find(this.findIndexToUpdate, x.id);
+      let index = this.selectedValue.indexOf(updateItem);
+      this.selectedValue.splice(index, 1);
+    }
+    console.log(this.selectedValue);
+  }
+  findIndexToUpdate(x) {
+    return x.id === this;
+  }
+  onSubmit() {
+    let targetClasses = [], targetELevels = [], targetGender = [], targetAges = [],
+      income = [], edu = [], gender = [], age = [];
+    if (this.selectedValue.length !== 0) {
+      for (let i = 0; i < this.selectedValue.length; i++) {
+        switch (this.selectedValue[i].id) {
+          case '1':
+          case '2':
+            targetGender.push(this.selectedValue[i].id);
+            break;
+          case '3':
+          case '4':
+          case '5':
+            targetELevels.push(this.selectedValue[i].id);
+            break;
+          case '6':
+          case '7':
+          case '8':
+          case '9':
+            targetClasses.push(this.selectedValue[i].id);
+            break;
+          case '10':
+          case '11':
+          case '12':
+            targetAges.push(this.selectedValue[i].id);
+            break;
+          default:
+            break;
+        }
+      }
+      this._districtsService.getDistricts().subscribe(response => {
+        this.geojsonLayer = response;
+        if (targetClasses.length !== 0) {
+          income = this.getSortedArrForSelectedParams(targetClasses, income);
+          console.log(income);
+        }
+        if (targetELevels.length !== 0) {
+          console.log('targetELevels')
+          edu = this.getSortedArrForSelectedParams(targetELevels, edu);
+          console.log(edu);
+        }
+        if (targetGender.length !== 0) {
+          console.log('targetGender')
+          gender = this.getSortedArrForSelectedParams(targetGender, gender);
+          console.log(gender);
+        }
+        if (targetAges.length !== 0) {
+          console.log('targetAges')
+          age = this.getSortedArrForSelectedParams(targetAges, age);
+          console.log(age);
+        }
+        let indicator:Array<number> = [];
+        for (let i = 0; i < this.geojsonLayer.features.length; i++) {
+          indicator.push(this.findIndexByIndexProperty(income, i) + this.findIndexByIndexProperty(age, i) + this.findIndexByIndexProperty(gender, i) + this.findIndexByIndexProperty(edu, i));
+          console.log('indicator');
+          console.log(indicator);
+        };
+      }, err => { return err });
+    }
+  }
+  //#endregion
 
   ngOnInit() {
     L.Marker.prototype.options.icon = this.myIcon;
