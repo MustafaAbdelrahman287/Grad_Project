@@ -6,14 +6,14 @@
 </li>
 <div id="loyal" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
   <div class="card-body">
-    <form>
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
       <div class="form-group">
         <label for="#duration">Duration</label>
-        <input id="duration" type="text" class="form-control" placeholder="Specify minimum number of years">
+        <input name="duration" id="duration" type="text" class="form-control" placeholder="Specify minimum number of years" [ngModel]="form?.duration" #duration="ngModel">
       </div>
       <div class="form-group">
         <label for="#orders">Orders</label>
-        <input id="orders" type="text" class="form-control" placeholder="Specify minimum number of orders">
+        <input name="orders"  id="orders" type="text" class="form-control" placeholder="Specify minimum number of orders" [ngModel]="form?.orders" #orders="ngModel">
       </div>
       <button type="submit" class="btn btn-primary">Show</button>
     </form>

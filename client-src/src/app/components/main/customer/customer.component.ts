@@ -35,13 +35,33 @@ export class CustomerComponent implements OnInit {
     L.marker(l, { icon: this.myIcon('../../assets/adidas_PNG22.png'), draggable: true }).addTo(this.mymap);
     return l;
   }
+  onClick1(event){
+   
+    this._customerService.getCustomers().subscribe(
+      data => {
+        this.customers = data;
+        console.log(data);
+        for (let i = 0; i < data.length; i++) {
+          console.log(data[i]);
+          if ( data[i].orders_code.length !== 0) {
+
+            L.marker([data[i].cst_location.lat, data[i].cst_location.lng], { icon: this.customerIcon, draggable: true }).addTo(this.mymap);
+          }
+         
+        }
+      },
+      err => console.log(err)
+    );
+
+
+  }
  
   onClick(event){
     this._customerService.getCustomers().subscribe(
       data => {
         this.customers = data;
         for (let i = 0; i < data.length; i++) {
-          if (!data[i].order_code || data[i].order_code.length === 0) {
+          if (!data[i].orders_code || data[i].orders_code.length === 0) {
             L.marker([data[i].cst_location.lat, data[i].cst_location.lng], { icon: this.customerIcon, draggable: true }).addTo(this.mymap);
           }
         }
@@ -51,12 +71,13 @@ export class CustomerComponent implements OnInit {
 
   }
 
+
   ngOnInit() {
     //L.Marker.prototype.options.icon = this.myIcon;
-    let mymap = L.map('mapid').setView([30.09219, 31.32297], 12);
+    this.mymap = L.map('mapid').setView([30.09219, 31.32297], 12);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?', {
       maxZoom: 18,
-    }).addTo(mymap);
+    }).addTo(this.mymap);
   }
 
 }
