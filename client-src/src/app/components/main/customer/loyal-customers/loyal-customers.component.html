@@ -1,0 +1,21 @@
+<li class="nav-item">
+  <a class="nav-link" data-toggle="collapse" data-target="#loyal" aria-expanded="false" aria-controls="collapseOne">
+    <i class="fa fa-heart" aria-hidden="true"></i>
+    Loyal Customers
+  </a>
+</li>
+<div id="loyal" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+  <div class="card-body">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+      <div class="form-group">
+        <label for="#duration">Duration</label>
+        <input name="duration" id="duration" type="text" class="form-control" placeholder="Specify minimum number of years" [ngModel]="form?.duration" #duration="ngModel">
+      </div>
+      <div class="form-group">
+        <label for="#orders">Orders</label>
+        <input name="orders"  id="orders" type="text" class="form-control" placeholder="Specify minimum number of orders" [ngModel]="form?.orders" #orders="ngModel">
+      </div>
+      <button type="submit" class="btn btn-primary">Show</button>
+    </form>
+  </div>
+</div>
