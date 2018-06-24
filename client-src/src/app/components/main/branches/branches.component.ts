@@ -180,6 +180,9 @@ export class BranchesComponent implements OnInit {
     let arrayOfPolygonsCompetitors = [];
     let targetParcel;
     let getIntersectionWithBranches;
+    let isThereIntersectionWithBranches = false;
+    let getIntersectionWithCompetitorBranches;
+    let isThereIntersectionWithCompetitorBranches = false;
     let map = this.mymap;
     //get point of a branch from user
     this.mymap.on('click', function (e) {
@@ -189,7 +192,7 @@ export class BranchesComponent implements OnInit {
       //show the buffer of a specific branch
       let pt = turf.point(point);
       let poly;
-      let isWithin
+      let isWithin;
       for (let i = 0; i < arrayOfPolygonsBranches.length; i++) {
         buffered_coords = turf.getCoords(arrayOfPolygonsBranches[i]);
         poly = turf.polygon(buffered_coords);
@@ -199,6 +202,16 @@ export class BranchesComponent implements OnInit {
           L.polygon(buffered_coords, { color: 'gold' }).addTo(map);
           targetParcel = arrayOfPolygonsBranches[i];
           getIntersectionWithBranches();
+          getIntersectionWithCompetitorBranches();
+          if (isThereIntersectionWithBranches == true && isThereIntersectionWithCompetitorBranches == false) {
+            alert("There is overlap with other branches");
+          }
+          if (isThereIntersectionWithCompetitorBranches == true && isThereIntersectionWithBranches == false) {
+            alert("There is overlap with other competitor branches");
+          }
+          if (isThereIntersectionWithCompetitorBranches == true && isThereIntersectionWithBranches == true) {
+            alert("There is overlap with other branches and competitor branches");
+          }
         }
       }
     });
@@ -216,18 +229,19 @@ export class BranchesComponent implements OnInit {
           L.marker([this.branches[i].branch_location.lat, this.branches[i].branch_location.lng], { icon: this.myIcon('../../assets/adidas_PNG22.png'), draggable: true }).addTo(this.mymap).bindPopup(`Name : ${this.branches[i].name}`).addEventListener('click', this.onClick);
         }
         //getIntersectionWithBranches
-        getIntersectionWithBranches = function (){
+        getIntersectionWithBranches = function () {
           let parcel;
           let conflict;
           let conflictlist = [];
           let intersectionCoords;
           let polygonOfIntersection;
           for (let i = 0; i < arrayOfPolygonsBranches.length; i++) {
-              parcel = arrayOfPolygonsBranches[i];
-              conflict = turf.intersect(targetParcel, parcel);
-              if (conflict !== null && turf.getCoords(targetParcel) !== turf.getCoords(parcel)) {
-                conflictlist.push(conflict);
-                buffered_polygon = L.polygon(turf.getCoords(parcel), { color: 'gold' }).addTo(map);
+            parcel = arrayOfPolygonsBranches[i];
+            conflict = turf.intersect(targetParcel, parcel);
+            if (conflict !== null && turf.getCoords(targetParcel) !== turf.getCoords(parcel)) {
+              conflictlist.push(conflict);
+              buffered_polygon = L.polygon(turf.getCoords(parcel), { color: 'gold' }).addTo(map);
+              isThereIntersectionWithBranches = true;
             }
           }
           for (let i = 0; i < conflictlist.length; i++) {
@@ -239,9 +253,51 @@ export class BranchesComponent implements OnInit {
       },
       err => console.log(err)
     )
+
+    /******************************************* Competitor Branches*******************************************/
+    this._competitorService.getCompetitors().subscribe(
+      data => {
+        this.competitor = data;
+        console.log(data);
+        for (let i = 0; i < data.length; i++) {
+          for (let j = 0; j < this.competitor[i].competitor_location.length; j++) {
+            point = turf.point([data[i].competitor_location[j].lat, data[i].competitor_location[j].lng]);
+            buffered = turf.buffer(point, 1, { units: 'miles' });
+            arrayOfPolygonsCompetitors.push(buffered);
+            buffered_coords = turf.getCoords(buffered);
+            //buffered_polygon = L.polygon(buffered_coords, { color: 'violet ' }).addTo(this.mymap);
+            L.marker([this.competitor[i].competitor_location[j].lat, this.competitor[i].competitor_location[j].lng], { icon: this.myIcon('../../assets/clogo.png'), draggable: true }).addTo(this.mymap).bindPopup(`Name : ${this.competitor[i].name}`).addEventListener('click', this.onClick1);
+          }
+        }
+        //getIntersectionWithCompetitorBranche
+        getIntersectionWithCompetitorBranches = function () {
+          let parcel;
+          let conflict;
+          let conflictlist = [];
+          let intersectionCoords;
+          let polygonOfIntersection;
+          for (let i = 0; i < arrayOfPolygonsCompetitors.length; i++) {
+            parcel = arrayOfPolygonsCompetitors[i];
+            conflict = turf.intersect(targetParcel, parcel);
+            if (conflict !== null) {
+              conflictlist.push(conflict);
+              buffered_polygon = L.polygon(turf.getCoords(parcel), { color: 'violet' }).addTo(map);
+              isThereIntersectionWithCompetitorBranches = true;
+            }
+          }
+          for (let i = 0; i < conflictlist.length; i++) {
+            console.log("conflictlist: ", conflictlist);
+            intersectionCoords = turf.getCoords(conflictlist[i]);
+            polygonOfIntersection = L.polygon(intersectionCoords, { color: 'blue' }).addTo(map);
+          }
+        }
+      },
+      err => console.log(err)
+    )
   }
 
-
+  /******************************************* target segment*******************************************/
+  
   /*****************************************************************************************************/
   ngOnInit() {
     this.mymap = L.map('mapid').setView([30.09219, 31.32297], 12);
