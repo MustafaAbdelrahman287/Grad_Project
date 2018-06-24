@@ -36,6 +36,7 @@ export class ExpansionComponent implements OnInit {
   public factory = [];
   public branches = [];
   public isochrones;
+  public isoline = [];
 
   showWH = function (map) {
     this._warehouseService.getWarehouse().subscribe(
@@ -77,17 +78,27 @@ export class ExpansionComponent implements OnInit {
         this.branches = data;
         if (this.branches.length !== 0) {
           for (let i = 0; i < this.branches.length; i++) {
-            location[i] = this.branches[i].branch_location.lat + '%2C' + this.branches[i].branch_location.lng;
+            location[i] = this.branches[i].branch_location.lat + ',' + this.branches[i].branch_location.lng;
+            if (location.length !== 0) {
+              this._isochronesService.getIsochrones(location[i]).subscribe(
+                data => {
+                  this.isochrones = data.response.isoline[0].component[0].shape;
+                  let arr = [];
+                  for (let i = 0; i < this.isochrones.length; i++) {
+                    let b = this.isochrones[i].split(',').map(function(item) {
+                      return parseFloat(item);
+                    });
+                      arr.push(b);
+                  }
+                  L.polygon(arr).addTo(map);
+                    this.isoline.push(turf.polygon([arr]));
+                    console.log(this.isoline);
+                },
+                err => console.log(err)
+              )
+            }
           }
-        }
-        if (location.length !== 0) {
-          this._isochronesService.getIsochrones(location.join('%7C').toString(), 'foot-walking').subscribe(
-            data => {
-              this.isochrones = data;
-                L.geoJSON(this.isochrones).addTo(map);
-            },
-            err => console.log(err)
-          )
+          
         }
       },
       err => console.log(err)
@@ -110,7 +121,6 @@ export class ExpansionComponent implements OnInit {
     this.showSA(this.mymap);
     function onMapClick(e) {
       location = [e.latlng.lat, e.latlng.lng];
-      console.log(location);
       L.marker(location).addTo(this.mymap);
     }
     this.onClick = () => {

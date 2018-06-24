@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError} from 'rxjs/operators';
 
@@ -7,16 +7,12 @@ import { catchError} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class IsochronesService {
-_url = 'https://api.openrouteservice.org/isochrones?';
-token = '58d904a497c67e00015b45fce44bb689a2de48219930cf1e2c911224';
-range_type = 'distance';
-location_type = 'start';
-units = 'm';
-interval = 3000;
-headers = new HttpHeaders({'Accept':'application/json; charset=utf-8'})
+_url = 'https://isoline.route.cit.api.here.com/routing/7.2/calculateisoline.json?';
+app_id = '0MpxHZLlXNolFqbgkXJ0';
+app_code = 'KlPu68OWLGrJVWfo6UGRBw'
   constructor(private http:HttpClient) { }
-  getIsochrones(locations:string, profile:string):Observable<any>{
-    return this.http.get(this._url + 'api_key='+ this.token +'&locations='+ locations +'&profile='+ profile +'&range_type='+ this.range_type +'&range=100&interval='+ this.interval +'&units=m&location_type='+ this.location_type +'&attributes=reachfactor&intersections=true', {headers:this.headers})
+  getIsochrones(locations:string):Observable<any>{
+    return this.http.get(this._url + '?app_id='+ this.app_id +'&app_code='+ this.app_code +'&mode=shortest;car;traffic:disabled&start=geo!'+ locations +'&range=4000&rangetype=distance')
     .pipe(catchError(error => this.errorHandler(error)));
   }
   errorHandler(error: any){

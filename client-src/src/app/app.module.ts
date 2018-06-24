@@ -12,7 +12,6 @@ import { BranchesComponent } from './components/main/branches/branches.component
 import { AdvertismentComponent } from './components/main/advertisment/advertisment.component';
 import { LoyalCustomersComponent } from './components/main/customer/loyal-customers/loyal-customers.component';
 import { MapComponent } from './components/main/map/map.component';
-import { AddComponent } from 'src/app/components/main/branches/add/add.component';
 import { RemoveComponent } from './components/main/branches/remove/remove.component';
 import { AuthService } from './services/auth/auth.service';
 import {HttpClientModule} from '@angular/common/http';
@@ -35,7 +34,6 @@ const appRoutes: Routes = [
   { path: 'main/expansion', component: ExpansionComponent },
   { path: 'main/branches', component: BranchesComponent },
   { path: 'main/ads', component: AdvertismentComponent },
-  { path: 'main/branches/add', component: AddComponent },
   { path: 'main/branches/remove', component: RemoveComponent },
   { path: 'main/customer/addcustomer', component: AddcustomerComponent },
   { path: 'main/customer/removecustomer', component: RemovecustomerComponent },
@@ -55,9 +53,7 @@ const appRoutes: Routes = [
     AdvertismentComponent,
     LoyalCustomersComponent,
     MapComponent,
-    AddComponent,
     RemoveComponent,
-    
     RegisterComponent,
     AddcustomerComponent,
     RemovecustomerComponent,

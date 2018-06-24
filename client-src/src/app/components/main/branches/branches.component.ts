@@ -13,23 +13,7 @@ import { MapComponent } from '../map/map.component';
   styleUrls: ['../main.component.css', './branches.component.css']
 })
 export class BranchesComponent implements OnInit {
-  mymap: any;
-
-  public branches = [];
-  public competitor = [];
-  constructor(private _branchService: BranchService, private _competitorService: CompetitorService) {
-    function createCustomIcon(latlng) {
-      let myIcon = L.icon({
-        iconUrl: '../../assets/adidas_PNG22.png',
-        iconSize: [50, 50],
-        iconAnchor: [24, 24],
-        popupAnchor: [0, 0]
-      })
-      return L.marker(latlng, { icon: myIcon, draggable: true })
-    }
-  }
-  overlapareas = [{ id: '1', name: 'Adidas' }, { id: '2', name: 'Competitor Branches' }];
-  myIcon(url) {
+  myIcon = (url) => {
     return L.icon({
       iconUrl: url,
       iconRetinaUrl: url,
@@ -38,12 +22,79 @@ export class BranchesComponent implements OnInit {
       popupAnchor: [0, 0]
     })
   };
+  mymap: any;
+  clickedCoords:any;
+  targetMarker: any;
   onMapClick(event) {
-    let l = event.latlng;
-    console.log(l);
-    L.marker(l, { icon: this.myIcon('../../assets/adidas_PNG22.png'), draggable: true }).addTo(this.mymap);
-    return l;
+    this.clickedCoords = [event.latlng.lat, event.latlng.lng];
+    this.targetMarker =L.marker([event.latlng.lat, event.latlng.lng]);
+    console.log(this.targetMarker)
+    this.targetMarker.addTo(this.mymap)
+    console.log(this.clickedCoords)
   }
+  onLocClick(){
+    this.mymap.on('click', this.onMapClick);
+    console.log(this.targetMarker)
+    if (this.targetMarker) {
+      this.targetMarker.clearLayers();
+      this.mymap.off('click')
+      this.targetMarker.addTo(this.mymap);
+    }
+  }
+  onAddSubmit({value}) {
+    console.log(value);
+    if (this.clickedCoords){
+      value.branch_location = this.clickedCoords;
+      let branch:IBranch;
+      branch.name = value.name;
+      branch.branch_code = value.branch_code;
+      branch.branch_location = this.clickedCoords;
+      this.mymap.off('click')
+      this._branchService.createBranch(branch).subscribe(response => console.log(response),
+      err => console.log(err));
+    }
+  }
+  public branches = [];
+  public competitor = [];
+  getIntersection = function (isoline:Array<any>){
+
+  }
+  showSA = function (map) {
+    let location:string[] = [];
+    this._branchService.getBranches().subscribe(
+      data => {
+        this.branches = data;
+        if (this.branches.length !== 0) {
+          for (let i = 0; i < this.branches.length; i++) {
+            location[i] = this.branches[i].branch_location.lat + ',' + this.branches[i].branch_location.lng;
+            if (location.length !== 0) {
+              this._isochronesService.getIsochrones(location[i]).subscribe(
+                data => {
+                  this.isochrones = data.response.isoline[0].component[0].shape;
+                  let arr = [];
+                  for (let i = 0; i < this.isochrones.length; i++) {
+                    let b = this.isochrones[i].split(',').map(function(item) {
+                      return parseFloat(item);
+                    });
+                      arr.push(b);
+                  }
+                  L.polygon(arr).addTo(map);
+                    this.isoline.push(turf.polygon([arr]));
+                    return arr;
+                },
+                err => console.log(err)
+              )
+            }
+          }
+        }
+      },
+      err => console.log(err)
+    );
+  }
+  constructor(private _branchService: BranchService, private _competitorService: CompetitorService) {
+  }
+  
+  overlapareas = [{ id: '1', name: 'Adidas' }, { id: '2', name: 'Competitor Branches' }];
   onClick(event) {
     this._branchService.getBranches().subscribe(
       data => {
@@ -81,18 +132,17 @@ export class BranchesComponent implements OnInit {
     this._branchService.getBranches().subscribe(
       data => {
         let point;
-        let buffered;
         let buffered_coords;
         let buffered_polygon;
         this.branches = data;
         console.log(data);
+        this.showSA(this.mymap);
+        
         for (let i = 0; i < data.length; i++) {
           point = turf.point([data[i].branch_location.lat, data[i].branch_location.lng]);
-          buffered = turf.buffer(point, 1, { units: 'miles' });
-          arrayOfPolygonsBranches.push(buffered);
-          buffered_coords = turf.getCoords(buffered);
-          buffered_polygon = L.polygon(buffered_coords, { color: 'gold' }).addTo(this.mymap);
-          L.marker([this.branches[i].branch_location.lat, this.branches[i].branch_location.lng], { icon: this.myIcon('../../assets/adidas_PNG22.png'), draggable: true }).addTo(this.mymap).bindPopup(`Name : ${this.branches[i].name}`).addEventListener('click', this.onClick);
+          //service area
+          /* arrayOfPolygonsBranches.push(//one service area);
+          buffered_coords = turf.getCoords(//one service area); */
         }
         //intersection
         console.log('arrayOfPolygonsBranches:', arrayOfPolygonsBranches);
@@ -299,7 +349,9 @@ export class BranchesComponent implements OnInit {
   /******************************************* target segment*******************************************/
   
   /*****************************************************************************************************/
+  
   ngOnInit() {
+    L.Marker.prototype.options.icon = this.myIcon('../../assets/adidas_PNG22.png');
     this.mymap = L.map('mapid').setView([30.09219, 31.32297], 12);
     console.log(this.mymap)
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?', {

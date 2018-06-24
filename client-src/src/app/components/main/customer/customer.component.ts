@@ -13,6 +13,7 @@ import{ICustomer} from'../../../interfaces/customer';
 export class CustomerComponent implements OnInit {
   geojsonLayer: any;
   selectedValue = [];
+  targetGeojson:any;
   targetPolygon:any;
   mymap: any;
   public customers=[];
@@ -169,11 +170,12 @@ export class CustomerComponent implements OnInit {
         for (let i = 0; i < this.geojsonLayer.features.length; i++) {
           indicator.push(this.findIndexByIndexProperty(income, i) + this.findIndexByIndexProperty(age, i) + this.findIndexByIndexProperty(gender, i) + this.findIndexByIndexProperty(edu, i));
         };
-        if (this.targetPolygon) {
-          this.targetPolygon.clearLayers();
+        if (this.targetGeojson) {
+          this.targetGeojson.clearLayers();
         }
-        this.targetPolygon = L.geoJSON(this.geojsonLayer.features[indicator.indexOf(Math.max(...indicator))]);
-        this.targetPolygon.addTo(this.mymap);
+        this.targetPolygon =this.geojsonLayer.features[indicator.indexOf(Math.max(...indicator))]
+        this.targetGeojson = L.geoJSON(this.targetPolygon)
+        this.targetGeojson.addTo(this.mymap);
       }, err => { return err });
     }
   }
