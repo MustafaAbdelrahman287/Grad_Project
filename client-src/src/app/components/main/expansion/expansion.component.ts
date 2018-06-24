@@ -98,7 +98,6 @@ export class ExpansionComponent implements OnInit {
               )
             }
           }
-          
         }
       },
       err => console.log(err)
