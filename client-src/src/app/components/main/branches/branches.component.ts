@@ -218,14 +218,26 @@ export class BranchesComponent implements OnInit {
           BranchWithin_TargetSegmentPolygon();
           getIntersectionWithBranches();
           getIntersectionWithCompetitorBranches();
-          if (isThereIntersectionWithBranches == true && isThereIntersectionWithCompetitorBranches == false) {
+          if (isThereIntersectionWithBranches == true && isThereIntersectionWithCompetitorBranches == false && isBranchWithin_TargetSegmentPolygon == true ) {
             let popup = L.popup().setLatLng(point).setContent("There is overlap with other branches").openOn(map);
           }
-          if (isThereIntersectionWithCompetitorBranches == true && isThereIntersectionWithBranches == false) {
+          if (isThereIntersectionWithCompetitorBranches == true && isThereIntersectionWithBranches == false && isBranchWithin_TargetSegmentPolygon == true) {
             let popup = L.popup().setLatLng(point).setContent("There is overlap with other competitor branches").openOn(map);
           }
-          if (isThereIntersectionWithCompetitorBranches == true && isThereIntersectionWithBranches == true) {
+          if (isThereIntersectionWithCompetitorBranches == true && isThereIntersectionWithBranches == true && isBranchWithin_TargetSegmentPolygon == true) {
             let popup = L.popup().setLatLng(point).setContent("There is overlap with other branches and competitor branches").openOn(map);
+          }
+          if (isThereIntersectionWithCompetitorBranches == false && isThereIntersectionWithBranches == false && isBranchWithin_TargetSegmentPolygon == false) {
+            let popup = L.popup().setLatLng(point).setContent("this branch without your target segment polygon").openOn(map);
+          }
+          if (isThereIntersectionWithCompetitorBranches == true && isThereIntersectionWithBranches == true && isBranchWithin_TargetSegmentPolygon == false) {
+            let popup = L.popup().setLatLng(point).setContent("There is overlap with other branches, competitor branches and this branch without your target segment polygon ").openOn(map);
+          }
+          if (isThereIntersectionWithCompetitorBranches == false && isThereIntersectionWithBranches == true && isBranchWithin_TargetSegmentPolygon == false) {
+            let popup = L.popup().setLatLng(point).setContent("There is overlap with other branches and this branch without your target segment polygon ").openOn(map);
+          }
+          if (isThereIntersectionWithCompetitorBranches == true && isThereIntersectionWithBranches == false && isBranchWithin_TargetSegmentPolygon == false) {
+            let popup = L.popup().setLatLng(point).setContent("There is overlap with other competitor branches and this branch without your target segment polygon ").openOn(map);
           }
         }
       }
@@ -309,15 +321,11 @@ export class BranchesComponent implements OnInit {
       err => console.log(err)
     )
     /******************************************* target segment *******************************************/
-    //proplem polygon
     BranchWithin_TargetSegmentPolygon = function () {
       let pt = turf.point(point);
-      console.log("pt",pt);
       let poly = BranchesComponent.prototype.targetSegmentPolygon;
-      //proplem polygon
-      console.log("targetSegmentPolygon", poly);
       let isWithin = turf.booleanPointInPolygon(pt, poly);
-      console.log("isWithin: ", isWithin);
+      isBranchWithin_TargetSegmentPolygon = isWithin;
     }
   }
   /****************************************************************************************************/
@@ -456,7 +464,7 @@ export class BranchesComponent implements OnInit {
           this.targetPolygon.clearLayers();
         }
         this.targetPolygon = L.geoJSON(this.geojsonLayer.features[indicator.indexOf(Math.max(...indicator))]);
-        BranchesComponent.prototype.targetSegmentPolygon = this.targetPolygon;
+        BranchesComponent.prototype.targetSegmentPolygon = this.geojsonLayer.features[indicator.indexOf(Math.max(...indicator))];
         this.targetPolygon.addTo(this.mymap);
       }, err => { return err });
     }
