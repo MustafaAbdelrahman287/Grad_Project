@@ -15,14 +15,14 @@
             </a>
           </li>
           <li id="accordion">
-              
-         <app-add class="list-group-item"></app-add>
-        </li>  
-        <li id="accordion2">   
-         <app-remove class="list-group-item" ></app-remove>
-        </li>
-          
-        
+
+            <app-add class="list-group-item"></app-add>
+          </li>
+          <li id="accordion2">
+            <app-remove class="list-group-item"></app-remove>
+          </li>
+
+
           <li class="list-group-item">
             <a class="nav-link" (click)="onClick1()">
               <i class="fa fa-user-secret" aria-hidden="true"></i>
@@ -30,97 +30,116 @@
             </a>
           </li>
           <div id=#accordion3>
-          <li class="list-group-item">
-            <a class="nav-link" data-toggle="collapse" data-target="#target" aria-expanded="false" aria-controls="collapseOne" (click)="onClick2()">
-              <i class="fa fa-bullseye" aria-hidden="true"></i>
-              Overlap Areas
-            </a>
-          </li>
-          <div id="target" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-            <div class="card-body">
+            <li class="list-group-item">
+              <a class="nav-link" data-toggle="collapse" data-target="#overlap" aria-expanded="false" aria-controls="collapseOne" (click)="onClick2()">
+                <i class="fa fa-bullseye" aria-hidden="true"></i>
+                Overlap Areas
+              </a>
+            </li>
+            <div id="overlap" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+              <div class="card-body">
 
-              <div class="form-group">
-                
-                <div id="overlapareas" class="form-check">
-                  <div *ngFor="let overlaparea of overlapareas">
+                <div class="form-group">
 
-                    <label class="form-check-label">
-                      <input class="form-check-input" [value]="overlaparea.id" type="checkbox">
-                      <img id="adidasicon" src="../../../assets/adidas-icon.png"> {{ overlaparea.name }}
-                    </label>
-                    <!--   <label class="form-check-label">
-                  
-                <input class="form-check-input"  type="checkbox" >
-                <i class="fa fa-user-secret" aria-hidden="true"></i>Competitor Branches
-              </label> -->
+                  <div id="overlapareas" class="form-check">
+                    <div *ngFor="let overlaparea of overlapareas">
+
+                      <label class="form-check-label">
+                        <input class="form-check-input" [value]="overlaparea.id" type="checkbox">
+                        <img id="adidasicon" src="../../../assets/adidas-icon.png"> {{ overlaparea.name }}
+                      </label>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          </div>
-
-
           <div class="accordion" id="accordion4">
             <li class="list-group-item">
-<a class="nav-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" (click)="onClick3()">
+              <a class="nav-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" (click)="onClick3()">
                 <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                 Weakness Point Analysis
               </a>
             </li>
-
             <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
               <div class="card-body">
                 <div class="btn-group-toggle" data-toggle="buttons">
-
-
                   <label class="circle btn btn-secondary btn-outline-primary">
                     <input type="checkbox" checked autocomplete="off">
                     <i class="fa fa-object-group" aria-hidden="true"></i>
-
                   </label>
-
-
                   <label class="circle btn btn-secondary btn-outline-primary">
                     <input type="checkbox" checked autocomplete="off">
                     <i class="fa fa-object-ungroup" aria-hidden="true"></i>
-
                   </label>
-
-
                   <label class="circle btn btn-secondary btn-outline-primary">
                     <input type="checkbox" checked autocomplete="off">
                     <i class="fa fa-shopping-bag" aria-hidden="true"></i>
-
                   </label>
-
                   <label class="circle btn btn-secondary btn-outline-primary">
-
                     <input type="checkbox" checked autocomplete="off">
                     <i class="fa fa-users" aria-hidden="true"></i>
-
                   </label>
-
                   <label class="circle btn btn-secondary btn-outline-primary">
                     <input type="checkbox" checked autocomplete="off">
                     <i class="fa fa-star-o" aria-hidden="true"></i>
-
                   </label>
                 </div>
+                <li class="list-group-item">
+                  <a class="nav-link" data-toggle="collapse" data-target="#target" aria-expanded="false" aria-controls="collapseOne">
+                    <i class="fa fa-bullseye" aria-hidden="true"></i>
+                    Target Segment
+                  </a>
+                  <div class="card-body">
+                    <form (ngSubmit)="onSubmit()">
+                      <div class="form-group">
+                        <label for="age">Age</label>
+                        <div id="age" class="form-check">
+                          <div *ngFor="let ageRange of ageRanges">
+                            <label class="form-check-label">
+                              <input class="form-check-input" (change)="change(ageRange)" [value]="ageRange.id" type="checkbox" autocomplete="off"> {{ ageRange.name }}
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <div id="gender" class="btn-group-toggle" data-toggle="buttons">
+                          <label *ngFor="let gender of genderTypes" (click)="change(gender)" class="circle btn btn-secondary btn-outline-primary">
+                            <input class="form-check-input" [value]="gender.id" type="checkbox" autocomplete="off">
+                            <i class="fa fa-{{gender.class}}" aria-hidden="true"></i>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="educationLevel">Education Level</label>
+                        <div id="educationLevel" class="form-check">
+                          <div *ngFor="let eduLevel of eduLevels">
+                            <label class="form-check-label">
+                              <input class="form-check-input" (change)="change(eduLevel)" [value]="eduLevel.id" type="checkbox" autocomplete="off"> {{ eduLevel.name }}
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="incomeLevel">Income Level</label>
+                        <div id="incomeLevel" class="form-check">
+                          <div *ngFor="let incomeLevel of incomeLevels">
+                            <label class="form-check-label">
+                              <input class="form-check-input" (change)="change(incomeLevel)" [value]="incomeLevel.id" type="checkbox" autocomplete="off"> {{ incomeLevel.name }}
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                  </div>
+    
+                </li>
               </div>
             </div>
           </div>
-          <li class="list-group-item">
-            <a class="nav-link" href="#">
-              <i class="fa fa-bar-chart" aria-hidden="true"></i>
-              Dashboard
-            </a>
-          </li>
-
-
         </ul>
-
-
       </div>
     </nav>
 

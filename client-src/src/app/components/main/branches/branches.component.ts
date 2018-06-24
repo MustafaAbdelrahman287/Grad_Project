@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import * as turf from '@turf/turf';
 import { BranchService } from '../../../services/branch/branch.service';
+import { DistrictsService } from '../../../services/districts/districts.service';
 import { CompetitorService } from '../../../services/competitor/competitor.service';
 import { IBranch } from '../../../interfaces/branch';
 import { ICompetitor } from '../../../interfaces/competitor';
@@ -14,10 +15,18 @@ import { MapComponent } from '../map/map.component';
 })
 export class BranchesComponent implements OnInit {
   mymap: any;
-
+  genderTypes = [{ id: '1', class: 'male', name: 'Male', checked: false }, { id: '2', class: 'female', name: 'Female', checked: false },];
+  eduLevels = [{ id: '3', name: 'Low', checked: false }, { id: '4', name: 'Medium', checked: false }, { id: '5', name: 'High', checked: false }];
+  incomeLevels = [{ id: '6', name: 'A', checked: false }, { id: '7', name: 'B', checked: false }, { id: '8', name: 'C', checked: false }, { id: '9', name: 'D', checked: false }];
+  ageRanges = [{ id: '10', name: '18:30', checked: false }, { id: '11', name: '30:45', checked: false }, { id: '12', name: '45:55', checked: false }];
+  geojsonLayer: any;
+  selectedValue = [];
+  targetPolygon: any;
+  public targetSegmentPolygon;
+  public customers = [];
   public branches = [];
   public competitor = [];
-  constructor(private _branchService: BranchService, private _competitorService: CompetitorService) {
+  constructor(private _districtsService: DistrictsService, private _branchService: BranchService, private _competitorService: CompetitorService) {
     function createCustomIcon(latlng) {
       let myIcon = L.icon({
         iconUrl: '../../assets/adidas_PNG22.png',
@@ -28,6 +37,9 @@ export class BranchesComponent implements OnInit {
       return L.marker(latlng, { icon: myIcon, draggable: true })
     }
   }
+
+  /********************************************************************************************************/
+
   overlapareas = [{ id: '1', name: 'Adidas' }, { id: '2', name: 'Competitor Branches' }];
   myIcon(url) {
     return L.icon({
@@ -183,6 +195,8 @@ export class BranchesComponent implements OnInit {
     let isThereIntersectionWithBranches = false;
     let getIntersectionWithCompetitorBranches;
     let isThereIntersectionWithCompetitorBranches = false;
+    let BranchWithin_TargetSegmentPolygon;
+    let isBranchWithin_TargetSegmentPolygon = false;
     let map = this.mymap;
     //get point of a branch from user
     this.mymap.on('click', function (e) {
@@ -201,16 +215,17 @@ export class BranchesComponent implements OnInit {
         if (isWithin === true) {
           L.polygon(buffered_coords, { color: 'gold' }).addTo(map);
           targetParcel = arrayOfPolygonsBranches[i];
+          BranchWithin_TargetSegmentPolygon();
           getIntersectionWithBranches();
           getIntersectionWithCompetitorBranches();
           if (isThereIntersectionWithBranches == true && isThereIntersectionWithCompetitorBranches == false) {
-            alert("There is overlap with other branches");
+            let popup = L.popup().setLatLng(point).setContent("There is overlap with other branches").openOn(map);
           }
           if (isThereIntersectionWithCompetitorBranches == true && isThereIntersectionWithBranches == false) {
-            alert("There is overlap with other competitor branches");
+            let popup = L.popup().setLatLng(point).setContent("There is overlap with other competitor branches").openOn(map);
           }
           if (isThereIntersectionWithCompetitorBranches == true && isThereIntersectionWithBranches == true) {
-            alert("There is overlap with other branches and competitor branches");
+            let popup = L.popup().setLatLng(point).setContent("There is overlap with other branches and competitor branches").openOn(map);
           }
         }
       }
@@ -226,7 +241,7 @@ export class BranchesComponent implements OnInit {
           buffered = turf.buffer(point, 1, { units: 'miles' });
           arrayOfPolygonsBranches.push(buffered);
           buffered_coords = turf.getCoords(buffered);
-          L.marker([this.branches[i].branch_location.lat, this.branches[i].branch_location.lng], { icon: this.myIcon('../../assets/adidas_PNG22.png'), draggable: true }).addTo(this.mymap).bindPopup(`Name : ${this.branches[i].name}`).addEventListener('click', this.onClick);
+          L.marker([this.branches[i].branch_location.lat, this.branches[i].branch_location.lng], { icon: this.myIcon('../../assets/adidas_PNG22.png'), draggable: true }).addTo(this.mymap);
         }
         //getIntersectionWithBranches
         getIntersectionWithBranches = function () {
@@ -265,8 +280,7 @@ export class BranchesComponent implements OnInit {
             buffered = turf.buffer(point, 1, { units: 'miles' });
             arrayOfPolygonsCompetitors.push(buffered);
             buffered_coords = turf.getCoords(buffered);
-            //buffered_polygon = L.polygon(buffered_coords, { color: 'violet ' }).addTo(this.mymap);
-            L.marker([this.competitor[i].competitor_location[j].lat, this.competitor[i].competitor_location[j].lng], { icon: this.myIcon('../../assets/clogo.png'), draggable: true }).addTo(this.mymap).bindPopup(`Name : ${this.competitor[i].name}`).addEventListener('click', this.onClick1);
+            L.marker([this.competitor[i].competitor_location[j].lat, this.competitor[i].competitor_location[j].lng], { icon: this.myIcon('../../assets/clogo.png'), draggable: true }).addTo(this.mymap).addEventListener('click', this.onClick1);
           }
         }
         //getIntersectionWithCompetitorBranche
@@ -294,10 +308,162 @@ export class BranchesComponent implements OnInit {
       },
       err => console.log(err)
     )
+    /******************************************* target segment *******************************************/
+    //proplem polygon
+    BranchWithin_TargetSegmentPolygon = function () {
+      let pt = turf.point(point);
+      console.log("pt",pt);
+      let poly = BranchesComponent.prototype.targetSegmentPolygon;
+      //proplem polygon
+      console.log("targetSegmentPolygon", poly);
+      let isWithin = turf.booleanPointInPolygon(pt, poly);
+      console.log("isWithin: ", isWithin);
+    }
+  }
+  /****************************************************************************************************/
+
+  /******************************************* target segment *******************************************/
+  findIndexByIndexProperty(array, value) {
+    for (let i = 0; i < array.length; i++) {
+      if (array[i].index === value) {
+        return array.indexOf(array[i]);
+      }
+    }
+    return null;
+  }
+  getSortedArrForSelectedParams(Arr, outArr): Object[] {
+    outArr = [];
+    if (Arr.length !== 0) {
+      for (let i = 0; i < this.geojsonLayer.features.length; i++) {
+        outArr[i] = { calssesNo: 0, index: i };
+        for (let j = 0; j < Arr.length; j++) {
+          switch (Arr[j]) {
+            case '1':
+              outArr[i].calssesNo += this.geojsonLayer.features[i].properties.male;
+              break;
+            case '2':
+              outArr[i].calssesNo += this.geojsonLayer.features[i].properties.female;
+              break;
+            case '3':
+              outArr[i].calssesNo += this.geojsonLayer.features[i].properties.edu_low;
+              break;
+            case '4':
+              outArr[i].calssesNo += this.geojsonLayer.features[i].properties.edu_mid;
+              break;
+            case '5':
+              outArr[i].calssesNo += this.geojsonLayer.features[i].properties.edu_high;
+              break;
+            case '6':
+              outArr[i].calssesNo += this.geojsonLayer.features[i].properties.classA;
+              break;
+            case '7':
+              outArr[i].calssesNo += this.geojsonLayer.features[i].properties.classB;
+              break;
+            case '8':
+              outArr[i].calssesNo += this.geojsonLayer.features[i].properties.classC;
+              break;
+            case '9':
+              outArr[i].calssesNo += this.geojsonLayer.features[i].properties.classD;
+              break;
+            case '11':
+              outArr[i].calssesNo += this.geojsonLayer.features[i].properties.age30;
+              break;
+            case '12':
+              outArr[i].calssesNo += this.geojsonLayer.features[i].properties.age45;
+              break;
+            case '13':
+              outArr[i].calssesNo += this.geojsonLayer.features[i].properties.age55;
+              break;
+            default:
+              break;
+          }
+        }
+      }
+      outArr.sort(function (a, b) { return (a.calssesNo > b.calssesNo) ? 1 : ((b.calssesNo > a.calssesNo) ? -1 : 0); });
+      //var max = this.geojsonLayer.features[outArr[outArr.length - 1].index];
+    }
+    return outArr;
   }
 
-  /******************************************* target segment*******************************************/
-  
+  change(x) {
+    x.checked = !x.checked
+    console.log(x);
+    if (x.checked) {
+      this.selectedValue.push(x);
+    }
+    else {
+      let updateItem = this.selectedValue.find(this.findIndexToUpdate, x.id);
+      let index = this.selectedValue.indexOf(updateItem);
+      this.selectedValue.splice(index, 1);
+    }
+    console.log(this.selectedValue);
+  }
+  findIndexToUpdate(x) {
+    return x.id === this;
+  }
+  onSubmit() {
+    let targetClasses = [], targetELevels = [], targetGender = [], targetAges = [],
+      income = [], edu = [], gender = [], age = [];
+    if (this.selectedValue.length !== 0) {
+      for (let i = 0; i < this.selectedValue.length; i++) {
+        switch (this.selectedValue[i].id) {
+          case '1':
+          case '2':
+            targetGender.push(this.selectedValue[i].id);
+            break;
+          case '3':
+          case '4':
+          case '5':
+            targetELevels.push(this.selectedValue[i].id);
+            break;
+          case '6':
+          case '7':
+          case '8':
+          case '9':
+            targetClasses.push(this.selectedValue[i].id);
+            break;
+          case '10':
+          case '11':
+          case '12':
+            targetAges.push(this.selectedValue[i].id);
+            break;
+          default:
+            break;
+        }
+      }
+      this._districtsService.getDistricts().subscribe(response => {
+        this.geojsonLayer = response;
+        if (targetClasses.length !== 0) {
+          income = this.getSortedArrForSelectedParams(targetClasses, income);
+        }
+        if (targetELevels.length !== 0) {
+          console.log('targetELevels')
+          edu = this.getSortedArrForSelectedParams(targetELevels, edu);
+        }
+        if (targetGender.length !== 0) {
+          console.log('targetGender')
+          gender = this.getSortedArrForSelectedParams(targetGender, gender);
+        }
+        if (targetAges.length !== 0) {
+          console.log('targetAges')
+          age = this.getSortedArrForSelectedParams(targetAges, age);
+        }
+        let indicator: Array<number> = [];
+        for (let i = 0; i < this.geojsonLayer.features.length; i++) {
+          indicator.push(this.findIndexByIndexProperty(income, i) + this.findIndexByIndexProperty(age, i) + this.findIndexByIndexProperty(gender, i) + this.findIndexByIndexProperty(edu, i));
+        };
+        if (this.targetPolygon) {
+          this.targetPolygon.clearLayers();
+        }
+        this.targetPolygon = L.geoJSON(this.geojsonLayer.features[indicator.indexOf(Math.max(...indicator))]);
+        BranchesComponent.prototype.targetSegmentPolygon = this.targetPolygon;
+        this.targetPolygon.addTo(this.mymap);
+      }, err => { return err });
+    }
+  }
+  //#endregion
+
+
   /*****************************************************************************************************/
   ngOnInit() {
     this.mymap = L.map('mapid').setView([30.09219, 31.32297], 12);
