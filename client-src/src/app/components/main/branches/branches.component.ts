@@ -100,8 +100,34 @@ export class BranchesComponent implements OnInit {
   }
   //#endregion
 
-
+  /******************************************* Overlap Areas*******************************************/
   getIntersection = function (isoline: Array<any>) {
+    let buffered_coords;
+    for (let i = 0; i < isoline.length; i++) {
+      buffered_coords = turf.getCoords(isoline[i]);
+    }
+    let parcel;
+    let parce2;
+    let conflict;
+    let conflictlist = [];
+    let intersectionCoords;
+    let polygonOfIntersection;
+    for (let i = 0; i < isoline.length; i++) {
+      parcel = isoline[i];
+      for (let j = 0; j < isoline.length; j++) {
+        parce2 = isoline[j];
+        console.log("processing: ", i, " , ", j);
+        conflict = turf.intersect(parcel, parce2);
+        if (conflict !== null && i !== j) {
+          conflictlist.push(conflict);
+        }
+      }
+    }
+    for (let i = 0; i < conflictlist.length; i++) {
+      console.log("conflictlist: ", conflictlist);
+      intersectionCoords = turf.getCoords(conflictlist[i]);
+      polygonOfIntersection = L.polygon(intersectionCoords, { color: 'red' }).addTo(this.mymap);
+    }
 
   }
 
@@ -125,47 +151,16 @@ export class BranchesComponent implements OnInit {
     let arrayOfPolygonsBranches = [];
     let arrayOfPolygonsCompetitors = [];
     /******************************************* Branches*******************************************/
-    this._branchService.getBranches().subscribe(
+    /* this._branchService.getBranches().subscribe(
       data => {
         let point;
         let buffered_coords;
         let buffered_polygon;
-        this.branches = data;
-        console.log(data);
 
-        for (let i = 0; i < data.length; i++) {
-          point = turf.point([data[i].branch_location.lat, data[i].branch_location.lng]);
-          //service area
-          arrayOfPolygonsBranches.push();
-          buffered_coords = turf.getCoords();
-        }
+        
         //intersection
-        console.log('arrayOfPolygonsBranches:', arrayOfPolygonsBranches);
-        let parcel;
-        let parce2;
-        let conflict;
-        let conflictlist = [];
-        let intersectionCoords;
-        let polygonOfIntersection;
-        for (let i = 0; i < arrayOfPolygonsBranches.length; i++) {
-          parcel = arrayOfPolygonsBranches[i];
-          for (let j = 0; j < arrayOfPolygonsBranches.length; j++) {
-            parce2 = arrayOfPolygonsBranches[j];
-            console.log("processing: ", i, " , ", j);
-            conflict = turf.intersect(parcel, parce2);
-            if (conflict !== null && i !== j) {
-              conflictlist.push(conflict);
-            }
-          }
-        }
-        for (let i = 0; i < conflictlist.length; i++) {
-          console.log("conflictlist: ", conflictlist);
-          intersectionCoords = turf.getCoords(conflictlist[i]);
-          polygonOfIntersection = L.polygon(intersectionCoords, { color: 'red' }).addTo(this.mymap);
-        }
-      },
-      err => console.log(err)
-    )
+        console.log('arrayOfPolygonsBranches:', arrayOfPolygonsBranches); */
+     
     /******************************************* Competitor Branches*******************************************/
     this._competitorService.getCompetitors().subscribe(
       data => {
