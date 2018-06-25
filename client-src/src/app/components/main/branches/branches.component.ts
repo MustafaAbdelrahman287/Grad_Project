@@ -32,39 +32,10 @@ export class BranchesComponent implements OnInit {
   onMapClick:any
   onLocClick:any;
   onAddSubmit:any; 
-  showSA = function (map) {
-    let location: string[] = [];
-    this._branchService.getBranches().subscribe(
-      data => {
-        this.branches = data;
-        if (this.branches.length !== 0) {
-          for (let i = 0; i < this.branches.length; i++) {
-            location[i] = this.branches[i].branch_location.lat + ',' + this.branches[i].branch_location.lng;
-            if (location.length !== 0) {
-              console.log(this._i)
-              this._isochronesService.getIsochrones(location[i]).subscribe(
-                data => {
-                  this.isochrones = data.response.isoline[0].component[0].shape;
-                  let arr = [];
-                  for (let i = 0; i < this.isochrones.length; i++) {
-                    let b = this.isochrones[i].split(',').map(function (item) {
-                      return parseFloat(item);
-                    });
-                    arr.push(b);
-                  }
-                  L.polygon(arr).addTo(map);
-                  this.isoline.push(turf.polygon([arr]));
-                },
-                err => console.log(err)
-              )
-            }
-          }
-        }
-      },
-      err => console.log(err)
-    );
-  }
-
+  showSA: any; 
+  showSACompetitorBranches: any;
+  getIntersectionOfCustomersoverlap: any;
+  getIntersectionOfCompetitorCustomersoverlap: any;
   constructor(private _districtsService: DistrictsService, private _competitorService: CompetitorService,
     private _branchService: BranchService,
     private _isochronesService: IsochronesService) {
@@ -98,39 +69,6 @@ export class BranchesComponent implements OnInit {
       err => console.log(err)
     )
   }
-  //#endregion
-
-  /******************************************* Overlap Areas*******************************************/
-  getIntersection = function (isoline: Array<any>) {
-    let buffered_coords;
-    for (let i = 0; i < isoline.length; i++) {
-      buffered_coords = turf.getCoords(isoline[i]);
-    }
-    let parcel;
-    let parce2;
-    let conflict;
-    let conflictlist = [];
-    let intersectionCoords;
-    let polygonOfIntersection;
-    for (let i = 0; i < isoline.length; i++) {
-      parcel = isoline[i];
-      for (let j = 0; j < isoline.length; j++) {
-        parce2 = isoline[j];
-        console.log("processing: ", i, " , ", j);
-        conflict = turf.intersect(parcel, parce2);
-        if (conflict !== null && i !== j) {
-          conflictlist.push(conflict);
-        }
-      }
-    }
-    for (let i = 0; i < conflictlist.length; i++) {
-      console.log("conflictlist: ", conflictlist);
-      intersectionCoords = turf.getCoords(conflictlist[i]);
-      polygonOfIntersection = L.polygon(intersectionCoords, { color: 'red' }).addTo(this.mymap);
-    }
-
-  }
-
   onClick1(event) {
     this._competitorService.getCompetitors().subscribe(
       data => {
@@ -145,24 +83,20 @@ export class BranchesComponent implements OnInit {
       err => console.log(err)
     )
   }
+  //#endregion
 
   /******************************************* Overlap Areas*******************************************/
   onClick2(event) {
     let arrayOfPolygonsBranches = [];
     let arrayOfPolygonsCompetitors = [];
     /******************************************* Branches*******************************************/
-    /* this._branchService.getBranches().subscribe(
-      data => {
-        let point;
-        let buffered_coords;
-        let buffered_polygon;
-
-        
-        //intersection
-        console.log('arrayOfPolygonsBranches:', arrayOfPolygonsBranches); */
-     
+      this.showSA(this.mymap);
+      console.log(this.isoline)
+      this.getIntersectionOfCustomersoverlap(this.isoline);
     /******************************************* Competitor Branches*******************************************/
-    this._competitorService.getCompetitors().subscribe(
+    // this.showSACompetitorBranches(this.mymap);
+    // this.getIntersectionOfCompetitorCustomersoverlap(this.isoline);
+    /*this._competitorService.getCompetitors().subscribe(
       data => {
         let point;
         let buffered;
@@ -206,7 +140,7 @@ export class BranchesComponent implements OnInit {
         }
       },
       err => console.log(err)
-    )
+    )*/
   }
   /*****************************************************************************************************/
 
@@ -506,7 +440,74 @@ export class BranchesComponent implements OnInit {
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?', {
       maxZoom: 18,
     }).addTo(this.mymap);
-    this.showSA(this.mymap);
+    this.showSA = (map) => {
+      let location: string[] = [];
+      this._branchService.getBranches().subscribe(
+        data => {
+          this.branches = data;
+          if (this.branches.length !== 0) {
+            for (let i = 0; i < this.branches.length; i++) {
+              location[i] = this.branches[i].branch_location.lat + ',' + this.branches[i].branch_location.lng;
+              if (location.length !== 0) {
+                this._isochronesService.getIsochrones(location[i]).subscribe(
+                  data => {
+                    this.isochrones = data.response.isoline[0].component[0].shape;
+                    let arr = [];
+                    for (let i = 0; i < this.isochrones.length; i++) {
+                      let b = this.isochrones[i].split(',').map(function (item) {
+                        return parseFloat(item);
+                      });
+                      arr.push(b);
+                    }
+                    L.polygon(arr).addTo(map);
+                    this.isoline.push(turf.polygon([arr]));
+                  },
+                  err => console.log(err)
+                )
+              }
+              L.marker([this.branches[i].branch_location.lat, this.branches[i].branch_location.lng], { icon: this.myIcon('../../assets/adidas_PNG22.png'), draggable: true }).addTo(this.mymap);
+
+            }
+          }
+        },
+        err => console.log(err)
+      );
+    };
+    this.showSACompetitorBranches = (map) => {
+      let location: string[] = [];
+      this._competitorService.getCompetitors().subscribe(
+        data => {
+          this.branches = data;
+          if (this.branches.length !== 0) {
+            for (let i = 0; i < data.length; i++) {
+              for (let j = 0; j < this.competitor[i].competitor_location.length; j++) {
+                location[i] = data[i].competitor_location[j].lat + ',' + data[i].competitor_location[j].lng;
+                if (location.length !== 0) {
+                  this._isochronesService.getIsochrones(location[i]).subscribe(
+                    data => {
+                      this.isochrones = data.response.isoline[0].component[0].shape;
+                      let arr = [];
+                      for (let i = 0; i < this.isochrones.length; i++) {
+                        let b = this.isochrones[i].split(',').map(function (item) {
+                          return parseFloat(item);
+                        });
+                        arr.push(b);
+                      }
+                      L.polygon(arr).addTo(map);
+                      this.isoline.push(turf.polygon([arr]));
+                    },
+                    err => console.log(err)
+                  )
+                }
+                L.marker([this.competitor[i].competitor_location[j].lat, this.competitor[i].competitor_location[j].lng], { icon: this.myIcon('../../assets/clogo.png'), draggable: true }).addTo(this.mymap).bindPopup(`Name : ${this.competitor[i].name}`).addEventListener('click', this.onClick1);
+              }
+            }
+          }
+        },
+        err => console.log(err)
+      );
+    };
+    
     //#region Add Branch
     this.onMapClick =(event) => {
       this.clickedCoords = [event.latlng.lat, event.latlng.lng];
@@ -535,6 +536,71 @@ export class BranchesComponent implements OnInit {
       }
     }
     //#endregion
-
+    this.getIntersectionOfCustomersoverlap = (isoline) => {
+      let buffered_coords;
+      for (let i = 0; i < isoline.length; i++) {
+        buffered_coords = turf.getCoords(isoline[i]);
+        console.log(buffered_coords);
+      }
+      let parcel;
+      let parce2;
+      let conflict;
+      let conflictlist = [];
+      let intersectionCoords;
+      let polygonOfIntersection;
+      for (let i = 0; i < isoline.length; i++) {
+        parcel = isoline[i];
+        console.log("parcel", parcel)
+        for (let j = 0; j < isoline.length; j++) {
+          parce2 = isoline[j];
+          console.log("parcel2", parce2)
+          console.log("processing: ", i, " , ", j);
+          conflict = turf.intersect(parcel, parce2);
+          if (conflict !== null && i !== j) {
+            conflictlist.push(conflict.geometry.geometries[1]);
+            console.log("conflict", conflict);
+          }
+        }
+      }
+      for (let i = 0; i < conflictlist.length; i++) {
+        console.log("conflictlist: ", conflictlist[i]);
+        intersectionCoords = turf.getCoords(conflictlist[i]);
+        console.log(intersectionCoords);
+        polygonOfIntersection =  L.polygon(intersectionCoords, { color: 'red' }).addTo(this.mymap);
+      }
+    } 
+    this.getIntersectionOfCompetitorCustomersoverlap = (isoline) => {
+      let buffered_coords;
+      for (let i = 0; i < isoline.length; i++) {
+        buffered_coords = turf.getCoords(isoline[i]);
+        console.log(buffered_coords);
+      }
+      let parcel;
+      let parce2;
+      let conflict;
+      let conflictlist = [];
+      let intersectionCoords;
+      let polygonOfIntersection;
+      for (let i = 0; i < isoline.length; i++) {
+        parcel = isoline[i];
+        console.log("parcel", parcel)
+        for (let j = 0; j < isoline.length; j++) {
+          parce2 = isoline[j];
+          console.log("parcel2", parce2)
+          console.log("processing: ", i, " , ", j);
+          conflict = turf.intersect(parcel, parce2);
+          if (conflict !== null && i !== j) {
+            conflictlist.push(conflict.geometry.geometries[1]);
+            console.log("conflict", conflict);
+          }
+        }
+      }
+      for (let i = 0; i < conflictlist.length; i++) {
+        console.log("conflictlist: ", conflictlist[i]);
+        intersectionCoords = turf.getCoords(conflictlist[i]);
+        console.log(intersectionCoords);
+        polygonOfIntersection = L.polygon(intersectionCoords, { color: 'red' }).addTo(this.mymap);
+      }
+    } 
   }
 }

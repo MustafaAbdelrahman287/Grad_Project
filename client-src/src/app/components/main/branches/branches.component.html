@@ -49,18 +49,7 @@
               <i class="fa fa-bullseye" aria-hidden="true"></i>
               Overlap Areas
             </a>
-            <div id="overlap" class="collapse" aria-labelledby="headingOne" data-parent="#accordion3">
-              <div class="form-group card-body">
-                <div id="overlapareas" class="form-check">
-                  <div *ngFor="let overlaparea of overlapareas">
-                    <label class="form-check-label">
-                      <input class="form-check-input" [value]="overlaparea.id" type="checkbox">
-                      <img id="adidasicon" src="../../../assets/adidas-icon.png"> {{ overlaparea.name }}
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
+
           </li>
           <li id="accordion4" class="list-group-item">
             <a class="nav-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" (click)="onClick3()">
