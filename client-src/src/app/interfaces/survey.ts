@@ -8,5 +8,4 @@ export interface ISurvey{
       {}
     ],
     id: string
-
 }

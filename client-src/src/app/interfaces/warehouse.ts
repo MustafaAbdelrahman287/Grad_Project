@@ -5,6 +5,4 @@ export interface IWarehouse{
       lng: number
     },
     "id"?: string
-
-    
 }
