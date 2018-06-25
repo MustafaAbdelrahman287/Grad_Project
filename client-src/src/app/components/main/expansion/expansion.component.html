@@ -15,10 +15,16 @@
             <form>
               <div class="form-group">
                 <div class="btn-group-toggle" data-toggle="buttons">
-                  <label title="{{expansionType.name}}" *ngFor='let expansionType of expansionTypes' class="circle btn btn-secondary btn-outline-primary">
+                  <label (click) = "onExClick(expansionType.id)" title="{{expansionType.name}}" *ngFor='let expansionType of expansionTypes' class="circle btn btn-secondary btn-outline-primary">
                     <input [value]="expansionType.id" type="radio" autocomplete="off">
                     <i class="fa fa-{{expansionType.class}}" aria-hidden="true"></i>
                   </label>
+                  <br/>
+                  <label (click) = "onBuClick(button.id)" title="{{button.name}}" *ngFor='let button of buttons' class="btn btn-secondary btn-outline-primary">
+                    <input [value]="button.id" type="radio" autocomplete="off">
+                    {{button.name}}
+                  </label>
+                  <br/>
                 </div>
               </div>
             </form>
