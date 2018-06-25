@@ -19,6 +19,13 @@ export class ExpansionComponent implements OnInit {
     { id: '2', class: 'industry', name: 'Factory' },
     { id: '3', class: 'home', name: 'Warehouse' }
   ];
+  buttons = [
+    { id: '1', name: 'Nearest Main Roads' },
+    { id: '2', name: 'Near Roads & Away from Competitors' },
+    { id: '3', name: 'Nearest to Competitors' },
+    { id: '1', name: 'Nearest to All Stores' },
+    { id: '2', name: 'Nearest to a Store and Factory' }
+  ]
  
   addexpansions = [
     { id: '1', class: 'industry', name: 'Factory' },
@@ -37,6 +44,8 @@ export class ExpansionComponent implements OnInit {
   public branches = [];
   public isochrones;
   public isoline = [];
+  onMapClick:any;
+  onWHClick: any;
 
   showWH = function (map) {
     this._warehouseService.getWarehouse().subscribe(
@@ -97,6 +106,8 @@ export class ExpansionComponent implements OnInit {
       }
     }, err => console.log(err));
   };
+  onExClick:any;
+  onBuClick:any;
 
   constructor(private _warehouseService: WarehouseService,
     private _factoryService: FactoryService,
@@ -112,12 +123,40 @@ export class ExpansionComponent implements OnInit {
     }).addTo(this.mymap);
     this.showB(this.mymap);
     this.showSA(this.mymap);
-    function onMapClick(e) {
+    this.onMapClick = (e) => {
       location = [e.latlng.lat, e.latlng.lng];
       L.marker(location).addTo(this.mymap);
     }
     this.onClick = () => {
-      this.mymap.on('click', onMapClick);
+      this.mymap.on('click', this.onMapClick);
+    }
+    this.onExClick = (id) => {
+      if(id === '1'){
+        console.log(id)
+      }
+      if(id === '2'){
+        console.log(id)
+      }
+      if(id === '3'){
+        console.log(id)
+      }
+    }
+    this.onBuClick = (id) => {
+      if(id === '1'){
+        console.log(id)
+      }
+      if(id === '2'){
+        console.log(id)
+      }
+      if(id === '3'){
+        console.log(id)
+      }
+      if(id === '4'){
+        console.log(id)
+      }
+      if(id === '5'){
+        console.log(id)
+      }
     }
 
   }
