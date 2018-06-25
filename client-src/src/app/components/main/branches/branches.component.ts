@@ -1,12 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import * as L from 'leaflet';
 import * as turf from '@turf/turf';
 import { BranchService } from '../../../services/branch/branch.service';
 import { DistrictsService } from '../../../services/districts/districts.service';
 import { CompetitorService } from '../../../services/competitor/competitor.service';
-import { IBranch } from '../../../interfaces/branch';
-import { ICompetitor } from '../../../interfaces/competitor';
-import { MapComponent } from '../map/map.component';
 import { IsochronesService } from '../../../services/isochrones/isochrones.service';
 
 @Component({
@@ -24,41 +21,53 @@ export class BranchesComponent implements OnInit {
   geojsonLayer: any;
   selectedValue = [];
   targetPolygon: any;
-  clickedCoords:any;
-  targetMarker: any;
+  public clickedCoords: any;
+  public targetMarker: any;
   public targetSegmentPolygon;
   public customers = [];
   public branches = [];
   public competitor = [];
-  onMapClick(event) {
-    this.clickedCoords = [event.latlng.lat, event.latlng.lng];
-    if (this.mymap !== undefined) {
-      this.targetMarker =L.marker([event.latlng.lat, event.latlng.lng], {icon:this.icon, draggable: true }).addTo(this.mymap);
-    }
-    console.log(this.targetMarker)
-    console.log(this.clickedCoords)
+  public isochrones;
+  public isoline = [];
+  onMapClick:any
+  onLocClick:any;
+  onAddSubmit:any; 
+  showSA = function (map) {
+    let location: string[] = [];
+    this._branchService.getBranches().subscribe(
+      data => {
+        this.branches = data;
+        if (this.branches.length !== 0) {
+          for (let i = 0; i < this.branches.length; i++) {
+            location[i] = this.branches[i].branch_location.lat + ',' + this.branches[i].branch_location.lng;
+            if (location.length !== 0) {
+              console.log(this._i)
+              this._isochronesService.getIsochrones(location[i]).subscribe(
+                data => {
+                  this.isochrones = data.response.isoline[0].component[0].shape;
+                  let arr = [];
+                  for (let i = 0; i < this.isochrones.length; i++) {
+                    let b = this.isochrones[i].split(',').map(function (item) {
+                      return parseFloat(item);
+                    });
+                    arr.push(b);
+                  }
+                  L.polygon(arr).addTo(map);
+                  this.isoline.push(turf.polygon([arr]));
+                },
+                err => console.log(err)
+              )
+            }
+          }
+        }
+      },
+      err => console.log(err)
+    );
   }
-  onLocClick(){
-    this.mymap.on('click', this.onMapClick);
-    if (this.targetMarker) {
-      this.targetMarker.clearLayers();
-      this.mymap.off('click')
-    }
-  }
-  onAddSubmit({value}) {
-    console.log(value);
-    if (this.clickedCoords){
-      value.branch_location = this.clickedCoords;
-      let branch:IBranch;
-      branch.name = value.name;
-      branch.branch_code = value.branch_code;
-      branch.branch_location = this.clickedCoords;
-      this.mymap.off('click')
-      this._branchService.createBranch(branch).subscribe(response => console.log(response),
-      err => console.log(err));
-    }
-  }
-  constructor(private _districtsService: DistrictsService, private _branchService: BranchService, private _competitorService: CompetitorService, _isochronesService:IsochronesService) {
+
+  constructor(private _districtsService: DistrictsService, private _competitorService: CompetitorService,
+    private _branchService: BranchService,
+    private _isochronesService: IsochronesService) {
   }
   /********************************************************************************************************/
   icon = L.icon({
@@ -92,41 +101,8 @@ export class BranchesComponent implements OnInit {
   //#endregion
 
 
- 
-  getIntersection = function (isoline:Array<any>){
+  getIntersection = function (isoline: Array<any>) {
 
-  }
-  showSA = function (map) {
-    let location:string[] = [];
-    this._branchService.getBranches().subscribe(
-      data => {
-        this.branches = data;
-        if (this.branches.length !== 0) {
-          for (let i = 0; i < this.branches.length; i++) {
-            location[i] = this.branches[i].branch_location.lat + ',' + this.branches[i].branch_location.lng;
-            if (location.length !== 0) {
-              this._isochronesService.getIsochrones(location[i]).subscribe(
-                data => {
-                  this.isochrones = data.response.isoline[0].component[0].shape;
-                  let arr = [];
-                  for (let i = 0; i < this.isochrones.length; i++) {
-                    let b = this.isochrones[i].split(',').map(function(item) {
-                      return parseFloat(item);
-                    });
-                      arr.push(b);
-                  }
-                  L.polygon(arr).addTo(map);
-                    this.isoline.push(turf.polygon([arr]));
-                    return arr;
-                },
-                err => console.log(err)
-              )
-            }
-          }
-        }
-      },
-      err => console.log(err)
-    );
   }
 
   onClick1(event) {
@@ -156,13 +132,12 @@ export class BranchesComponent implements OnInit {
         let buffered_polygon;
         this.branches = data;
         console.log(data);
-        this.showSA(this.mymap);
-        
+
         for (let i = 0; i < data.length; i++) {
           point = turf.point([data[i].branch_location.lat, data[i].branch_location.lng]);
           //service area
-          /* arrayOfPolygonsBranches.push(//one service area);
-          buffered_coords = turf.getCoords(//one service area); */
+          arrayOfPolygonsBranches.push();
+          buffered_coords = turf.getCoords();
         }
         //intersection
         console.log('arrayOfPolygonsBranches:', arrayOfPolygonsBranches);
@@ -276,7 +251,7 @@ export class BranchesComponent implements OnInit {
           BranchWithin_TargetSegmentPolygon();
           getIntersectionWithBranches();
           getIntersectionWithCompetitorBranches();
-          if (isThereIntersectionWithBranches == true && isThereIntersectionWithCompetitorBranches == false && isBranchWithin_TargetSegmentPolygon == true ) {
+          if (isThereIntersectionWithBranches == true && isThereIntersectionWithCompetitorBranches == false && isBranchWithin_TargetSegmentPolygon == true) {
             let popup = L.popup().setLatLng(point).setContent("There is overlap with other branches").openOn(map);
           }
           if (isThereIntersectionWithCompetitorBranches == true && isThereIntersectionWithBranches == false && isBranchWithin_TargetSegmentPolygon == true) {
@@ -389,6 +364,7 @@ export class BranchesComponent implements OnInit {
   /****************************************************************************************************/
 
   /******************************************* target segment *******************************************/
+  //#region Target Segment
   findIndexByIndexProperty(array, value) {
     for (let i = 0; i < array.length; i++) {
       if (array[i].index === value) {
@@ -446,14 +422,11 @@ export class BranchesComponent implements OnInit {
         }
       }
       outArr.sort(function (a, b) { return (a.calssesNo > b.calssesNo) ? 1 : ((b.calssesNo > a.calssesNo) ? -1 : 0); });
-      //var max = this.geojsonLayer.features[outArr[outArr.length - 1].index];
     }
     return outArr;
   }
-
   change(x) {
     x.checked = !x.checked
-    console.log(x);
     if (x.checked) {
       this.selectedValue.push(x);
     }
@@ -462,7 +435,6 @@ export class BranchesComponent implements OnInit {
       let index = this.selectedValue.indexOf(updateItem);
       this.selectedValue.splice(index, 1);
     }
-    console.log(this.selectedValue);
   }
   findIndexToUpdate(x) {
     return x.id === this;
@@ -531,7 +503,7 @@ export class BranchesComponent implements OnInit {
 
 
   /*****************************************************************************************************/
-  
+
   ngOnInit() {
     L.Marker.prototype.options.icon = this.myIcon('../../assets/adidas_PNG22.png');
     this.mymap = L.map('mapid').setView([30.09219, 31.32297], 12);
@@ -539,6 +511,35 @@ export class BranchesComponent implements OnInit {
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?', {
       maxZoom: 18,
     }).addTo(this.mymap);
+    this.showSA(this.mymap);
+    //#region Add Branch
+    this.onMapClick =(event) => {
+      this.clickedCoords = [event.latlng.lat, event.latlng.lng];
+      if (this.mymap !== undefined) {
+        this.targetMarker = L.marker([event.latlng.lat, event.latlng.lng], { icon: this.icon, draggable: true }).addTo(this.mymap);
+      }
+      console.log(this.targetMarker)
+      console.log(this.clickedCoords)
+    }
+    this.onLocClick = () => {
+      this.mymap.on('click', this.onMapClick);
+      if (this.targetMarker!==undefined) {
+        this.targetMarker.clearLayers();
+        this.mymap.off('click')
+      }
+    }
+    this.onAddSubmit = ({ value }) => {
+      console.log(value)
+      console.log(this.clickedCoords);
+      if (this.clickedCoords.length!==0) {
+        value.branch_location = this.clickedCoords;
+        console.log(this.clickedCoords)
+        this.mymap.off('click')
+        this._branchService.createBranch(value).subscribe(response => console.log(response),
+          err => console.log(err));
+      }
+    }
+    //#endregion
 
   }
 }

@@ -25,6 +25,8 @@ export class MapComponent implements OnInit {
   public survey = [];
   public item = [];
   public order = [];
+  public isochrones;
+  public isoline = [];
   constructor(private _customerService: CustomerService, private _branchService: BranchService, private _competitorService: CompetitorService,
     private _itemService: ItemService, private _surveyService: SurveyService, private _orderService: OrderService, private _isochronesService: IsochronesService) {
 

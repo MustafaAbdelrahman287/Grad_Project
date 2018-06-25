@@ -72,37 +72,31 @@ export class ExpansionComponent implements OnInit {
     );
   }
   showSA = function (map) {
-    let location:string[] = [];
-    this._branchService.getBranches().subscribe(
-      data => {
-        this.branches = data;
-        if (this.branches.length !== 0) {
-          for (let i = 0; i < this.branches.length; i++) {
-            location[i] = this.branches[i].branch_location.lat + ',' + this.branches[i].branch_location.lng;
-            if (location.length !== 0) {
-              this._isochronesService.getIsochrones(location[i]).subscribe(
-                data => {
-                  this.isochrones = data.response.isoline[0].component[0].shape;
-                  let arr = [];
-                  for (let i = 0; i < this.isochrones.length; i++) {
-                    let b = this.isochrones[i].split(',').map(function(item) {
-                      return parseFloat(item);
-                    });
-                      arr.push(b);
-                  }
-                  L.polygon(arr).addTo(map);
-                    this.isoline.push(turf.polygon([arr]));
-                    console.log(this.isoline);
-                },
-                err => console.log(err)
-              )
-            }
+    let location: string[] = [];
+    this._branchService.getBranches().subscribe(data => {
+      this.branches = data;
+      if (this.branches.length !== 0) {
+        for (let i = 0; i < this.branches.length; i++) {
+          location[i] = this.branches[i].branch_location.lat + ',' + this.branches[i].branch_location.lng;
+          if (location.length !== 0) {
+            this._isochronesService.getIsochrones(location[i]).subscribe(data => {
+              this.isochrones = data.response.isoline[0].component[0].shape;
+              let arr = [];
+              for (let i = 0; i < this.isochrones.length; i++) {
+                let b = this.isochrones[i].split(',').map(function (item) {
+                  return parseFloat(item);
+                });
+                arr.push(b);
+              }
+              L.polygon(arr).addTo(map);
+              this.isoline.push(turf.polygon([arr]));
+              console.log(this.isoline);
+            }, err => console.log(err));
           }
         }
-      },
-      err => console.log(err)
-    );
-  }
+      }
+    }, err => console.log(err));
+  };
 
   constructor(private _warehouseService: WarehouseService,
     private _factoryService: FactoryService,
